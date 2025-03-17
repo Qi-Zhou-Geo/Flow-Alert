@@ -25,7 +25,7 @@ Flow-Alert
 If you have any questions, plese read our paper first, <br>
 then feel free to email me, qi.zhou@gfz.de or qi.zhou.geo@gmail.com <br>
 or our [Hazards and Surface Processes Research Group and Digital Earth Lab](https://www.gfz.de/en/section/earth-surface-process-modelling/topics/hazards-and-surface-processes) 
-that lead by Dr. Hui Tang [Hazards and Surface Processes Research Group and Digital Earth Lab](https://www.gfz.de/en/staff/hui.tang/sec47). 
+that lead by Dr. Hui [Tang](https://www.gfz.de/en/staff/hui.tang/sec47). 
 
 
 ### 3, Zenodo Resources <br>
