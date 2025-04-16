@@ -19,3 +19,4 @@ trained_model/**/*.pt
 trained_model/*.pt
 trained_model/**/*.pkl
 trained_model/*.pkl
+
