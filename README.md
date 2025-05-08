@@ -1,5 +1,5 @@
 ## 📢 Welcome to **Flow-Alert**
-<img src="docs/image/logo.png" alt="Alt Text" width="100"/>
+<img src="docs/image/logo.png" alt="Alt Text" width="200"/>
 ---
 
 If you're interested in leveraging **machine learning** and **seismic signals** for **channelized flow early warning**, <br>
