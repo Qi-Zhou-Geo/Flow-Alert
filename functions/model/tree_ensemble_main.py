@@ -39,7 +39,8 @@ def prepare_dataloader(feature_type, params, repeate=1):
             with_label = False
 
         # load data_array as [time_stamps, features, target]
-        input_features_name, data_array = select_features(seismic_network,
+        input_features_name, data_array = select_features(catchment_name,
+                                                          seismic_network,
                                                           input_year,
                                                           input_station,
                                                           input_component,
