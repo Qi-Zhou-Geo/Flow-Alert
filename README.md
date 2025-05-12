@@ -17,6 +17,7 @@ Flow-Alert
 ├── docs                 # Documentation for users
 ├── functions            # Core functions and scripts
 ├── trained_model        # Pre-trained models
+    └── feature_imp      # Seismic geature weight
     └── v1_model         # Model version 1
 ```
 
