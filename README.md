@@ -51,6 +51,5 @@ Led by Dr. Jens [Turowski](https://www.gfz.de/en/staff/jens.turowski/sec46).
 **[Qi Zhou](https://github.com/Qi-Zhou-Geo)** <br>
 qi.zhou@gfz.de or qi.zhou.geo@gmail.com <br>
 
-
 **[Kshitij Kar](https://github.com/Kshitij301199)** <br>
 kshitij.kar@gfz-potsdam.de <br>
