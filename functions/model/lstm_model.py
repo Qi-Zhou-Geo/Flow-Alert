@@ -133,9 +133,9 @@ class Ensemble_Trained_LSTM_Classifier:
             model = LSTM_Classifier(feature_size=lstm_feature_size, device=self.device)
 
         if self.model_dir is None:
-            ref_model_dir = Path(f"../../trained_model/{self.model_version}").resolve()
+            ref_model_dir = f"{project_root}/trained_model/{self.model_version}"
         else:
-            ref_model_dir = Path(self.model_dir).resolve()
+            ref_model_dir = self.model_dir
 
         load_checkpoint = torch.load(f"{ref_model_dir}/{ref_model_name}", map_location=torch.device('cpu'))
         model.load_state_dict(load_checkpoint)
@@ -154,11 +154,14 @@ class Ensemble_Trained_LSTM_Classifier:
 
         return model
 
-    def ensemble_models(self, num_repeate=5, attention=False):
+    def ensemble_models(self, num_repeate=5, attention=False, print_model_summary=False):
 
         models = []
         for repeate in range(1, num_repeate+1):
-            model = self.load_trained_model(trained_model_name=self.trained_model_name, repeate=repeate, attention=attention)
+            model = self.load_trained_model(trained_model_name=self.trained_model_name,
+                                            repeate=repeate,
+                                            attention=attention,
+                                            print_model_summary=print_model_summary)
             models.append(model)
 
         return models
@@ -280,3 +283,134 @@ class Ensemble_Trained_LSTM_Classifier:
         predicted_pro = [float(f"{i:.3f}") for i in predicted_pro]
 
         return predicted_pro, pro_mean, ci_range
+
+class LSTM_Attention(nn.Module):
+    def __init__(self, feature_size, device,
+                 hidden_size=256, num_layers=4,
+                 dropout=0.25, bidirectional=False, output_dim=2):
+        super().__init__()
+
+        # Keep original structure
+        self.num_layers = num_layers
+        self.hidden_size = hidden_size
+        self.device = device
+
+        # same as "D = 2 if bidirectional=True otherwise 1" in Pytorch
+        if bidirectional is True:
+            self.D = 2
+        else:
+            self.D = 1
+
+        # lstm layer
+        self.lstm = nn.LSTM(
+            input_size=feature_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            bias=True,
+            batch_first=True,
+            dropout=dropout,
+            bidirectional=bidirectional)
+
+        for name, param in self.lstm.named_parameters():
+            if 'weight_ih' in name:
+                nn.init.xavier_uniform_(param.data)
+            elif 'weight_hh' in name:
+                nn.init.orthogonal_(param.data)
+            elif 'bias' in name:
+                param.data.fill_(0)
+                # set forget gate bias to 1 to help memory retention
+                n = param.size(0)
+                param.data[n // 4:n // 2].fill_(1.0)
+
+
+        # attention layer
+        self.attention = nn.MultiheadAttention(
+            embed_dim=hidden_size * self.D,
+            num_heads=min(8, num_layers),
+            dropout=dropout,
+            batch_first=True)
+
+        # layer normalization
+        self.layer_norm = nn.LayerNorm(hidden_size * self.D)
+
+        # learnable attention pooling parameters
+        self.attn_pool_weight = nn.Parameter(torch.Tensor(hidden_size * self.D, 1))
+        nn.init.xavier_uniform_(self.attn_pool_weight)
+
+        # output layer
+        self.fully_connect = nn.Sequential(
+            nn.Linear(hidden_size * self.D, hidden_size),
+            nn.LayerNorm(hidden_size),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_size, output_dim)
+        )
+        nn.init.xavier_uniform_(self.fully_connect[0].weight)
+        nn.init.xavier_uniform_(self.fully_connect[-1].weight)
+
+    def _normalize(self, x, epsilon=1e-6):
+        # shape of x is ([batch_size, sequence_length, num_stations * num_channels = feature size])
+
+        #seq_mean = x.mean(dim=1, keepdim=True)
+        #seq_std = x.std(dim=1, keepdim=True)
+        #x = (x - seq_mean) / (seq_std + epsilon)
+
+        median = x.median(dim=1, keepdim=True).values
+        q1 = x.quantile(0.25, dim=1, keepdim=True)
+        q3 = x.quantile(0.75, dim=1, keepdim=True)
+        x = (x - median) / (q3 - q1 + epsilon)
+
+        return x
+
+    def _pos_encoder(self, x):
+
+        sequence_length, feature_size = x.shape[1], x.shape[2]
+
+        position = np.arange(sequence_length)[:, np.newaxis]
+        div_term = np.exp(np.arange(0, feature_size, 2) * -(np.log(10000.0) / feature_size))
+        pe = np.zeros((sequence_length, feature_size))
+        pe[:, 0::2] = np.sin(position * div_term)
+        pe[:, 1::2] = np.cos(position * div_term[:(feature_size // 2)])
+
+        pe_matrix = torch.tensor(pe, dtype=x.dtype).to(self.device)
+        pe_std = x.std(dim=(0, 1), keepdim=True)  # Compute the standard deviation across batch & time
+        pe_matrix = pe_matrix * pe_std  # Scale positional encoding
+        # add positional encoding along the sequence_length dimension
+        x = x + pe_matrix
+
+        return x
+
+
+    def forward(self, x, t=None, hidden=None):
+        x = x.to(torch.float32)
+        #x = self._normalize(x)
+        #x = self._pos_encoder(x)
+
+        self.lstm.flatten_parameters()
+
+        # Initialize hidden states (keep your original logic)
+        if hidden is None:
+            h0 = torch.zeros(self.num_layers * self.D, x.size(0), self.hidden_size, dtype=x.dtype).to(self.device)
+            c0 = torch.zeros(self.num_layers * self.D, x.size(0), self.hidden_size, dtype=x.dtype).to(self.device)
+        else:
+            h0, c0 = hidden
+            h0, c0 = h0.to(self.device), c0.to(self.device)
+
+        # output.shape = ([batch_size, sequence_length, hidden_size])
+        output, (h_n, c_n) = self.lstm(x, (h0, c0))
+        # layer normalization
+        output = self.layer_norm(output)
+
+        # attention with residual connection
+        attn_output, _ = self.attention(output, output, output)
+        output = output + attn_output  # skip connection helps gradient flow
+
+        # pooling and output
+        #pooled_output = torch.mean(output, dim=1)
+        attn_scores = torch.matmul(output, self.attn_pool_weight)  # Shape: (batch, seq_len, 1)
+        attn_weights = torch.softmax(attn_scores, dim=1)  # normalize scores
+        pooled_output = torch.sum(output * attn_weights, dim=1)  # weighted sum across time steps
+
+        output = self.fully_connect(pooled_output)
+
+        return output

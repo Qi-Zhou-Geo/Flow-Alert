@@ -25,7 +25,6 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from config.config_dir import CONFIG_dir, data_length_mapping
 #from functions.public.archive_data_h5 import load_hdf5
 from functions.public.random_select_feature import generate_random_selected_feature_id
 
@@ -163,6 +162,7 @@ def select_features(catchment_name, seismic_network, input_year, input_station, 
         selected_column.extend([80, 81, 82])
         with_network = False
     elif feature_type.split("-")[0] == "X":  # selected based on feature IMP
+        from config.config_dir import CONFIG_dir
         # "X-16-model" means that the Top 16 features are selected
         num_selected = int(feature_type.split("-")[1])
         feature_weight = np.load(f"{CONFIG_dir['output_dir2']}/feature_C_weight/"
