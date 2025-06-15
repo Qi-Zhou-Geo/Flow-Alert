@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # __modification time__ = 2025-05-30
-# __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
+# __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
 
@@ -75,8 +75,8 @@ def fetch_data(client_name, start_time, end_time, time_buffer,
 
     return st
 
-client_name, start_time, end_time, time_buffer = "IRIS", "2025-05-28T12:30:00", "2025-05-28T14:30:00", 0
-network, station, location, channel = "CH", "FIESA", "", "HHZ"
+client_name, start_time, end_time, time_buffer = "ETH", "2025-05-28T12:30:00", "2025-05-28T14:30:00", 0
+network, station, location, channel ="CH",  "LAUCH", "", "HHZ" # "SGAK", "", "HGZ", #"FIESA", "", "HHZ"
 f_min, f_max = 1, 50
 
 st = fetch_data(client_name, start_time, end_time, time_buffer,
@@ -151,7 +151,6 @@ np.savetxt(f"{project_root}/docs/"
 
 
 # <editor-fold desc="visualizethe prediction">
-
 start_time, end_time = "2025-05-28T13:15:00", "2025-05-28T13:45:00"
 st = st.trim(starttime=UTCDateTime(start_time),
              endtime=UTCDateTime(end_time))

@@ -14,6 +14,7 @@ Flow-Alert
 ├── calculate_features   # Convert raw seismic data into features
 ├── config               # Configuration files
 ├── data                 # Seismic data and extracted features
+├── demo                 # Examples of running the case
 ├── docs                 # Documentation for users
 ├── functions            # Core functions and scripts
 ├── trained_model        # Pre-trained models
@@ -23,8 +24,8 @@ Flow-Alert
 
 ### 🚀 2. How to Use Our Pre-trained Models on Your Data? <br>
 To get started: <br>
-2.1, Check the [To-Do-List](docs/To-Do-List.md) for setup and prerequisites <br>
-2.2, Follow our tutorial notebook: [Inference Tutorial](docs/inference_tutorial.ipynb) <br>
+2.1, Check the [To-Do-List](demo/To-Do-List.md) for setup and prerequisites <br>
+2.2, Follow our tutorial notebook: [Inference Tutorial](demo/inference_tutorial.ipynb) <br>
 
 
 ### 🐛 3. Found a Bug? <br>

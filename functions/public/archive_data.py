@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 #__modification time__ = 2024-12-26
-#__author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
+#__author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 #__find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
 
