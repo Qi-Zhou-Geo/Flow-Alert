@@ -38,16 +38,19 @@ sys.path.append(str(project_root))
 # import the custom functions
 from calculate_features.define_path import check_folder
 
-def load_st_as_npy(input_year, station_list, input_component, julday, folder_path_npy):
+def load_st_as_npy(input_year, station_list, catchment_name, seismic_network, input_component, julday):
 
     julday = str(julday).zfill(3)
 
     temp = []
     for idx, input_station in enumerate(station_list):
 
+        folder_path_txt, folder_path_npy, folder_path_net = check_folder(catchment_name, seismic_network, input_year, input_station, input_component)
+
         loaded = np.load(f"{folder_path_npy}/{input_year}_{input_station}_{input_component}_{julday}.npz", allow_pickle=True)
-        sps = float(loaded['sampling_rate'])
-        data = loaded['data-60s']
+        sps = float(loaded['sampling_rate']) # HZ
+        data = loaded['data'] # default, meter per second
+        #input_window_size = loaded['window_size'] # same as input window size
         temp.append(data)
 
     temp = np.vstack(temp, dtype=float).T
@@ -136,8 +139,7 @@ def record_data_header(input_year, input_component, julday, folder_path_net):
     with open(f"{folder_path_net}/{input_year}_{input_component}_{julday}_net.txt", 'w') as file:
         np.savetxt(file, [feature_names], header='', delimiter=',', comments='', fmt='%s')
 
-
-def run_cal_loop(input_year, input_component, input_window_size, id1, id2, station_list, folder_path_net):
+def run_cal_loop(catchment_name, seismic_network, input_year, station_list, input_component, input_window_size, id1, id2, folder_path_net):
 
     for julday in range(id1, id2):  # 91 = 1st of May to 305=31 of Nov.
         d = UTCDateTime(year=input_year, julday=julday)  # the start day, e.g.2014-07-12 00:00:00
@@ -147,7 +149,7 @@ def run_cal_loop(input_year, input_component, input_window_size, id1, id2, stati
         record_data_header(input_year, input_component, julday, folder_path_net)
 
         # load data-60s as 2D array, each column represents one station
-        sps, waveform_array = load_st_as_npy(input_year, station_list, input_component, julday)
+        sps, waveform_array = load_st_as_npy(input_year, station_list, catchment_name, seismic_network, input_component, julday)
         arra_length = int(waveform_array.shape[0] / (sps * input_window_size)) # return as minutes
 
         for step in range(arra_length):
@@ -208,7 +210,7 @@ def main(catchment_name, seismic_network, input_year, station_list, input_compon
               f"Exception {e}")
 
     id1, id2 = id, id + 1
-    run_cal_loop(input_year, input_component, input_window_size, id1, id2, station_list, folder_path_net)
+    run_cal_loop(catchment_name, seismic_network, input_year, station_list, input_component, input_window_size, id1, id2, folder_path_net)
 
 
     print(f"End Job: {input_year}, {input_component}: ", datetime.now().strftime("%Y-%m-%dT%H:%M:%S") )

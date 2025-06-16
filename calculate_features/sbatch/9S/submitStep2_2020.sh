@@ -40,8 +40,8 @@ echo "Year: $current_parameters1, Component: $current_parameters2, Julday: $curr
 
 # Run your Python script using srun with the parameters
 srun python ../../2cal_TypeB_network.py \
-    --catchment_name "Illgraben"
-    --seismic_network "9S" 
+    --catchment_name "Illgraben" \
+    --seismic_network "9S" \
     --input_year "$current_parameters1" \
     --station_list "${parameters4[@]}" \
     --input_component "$current_parameters2" \

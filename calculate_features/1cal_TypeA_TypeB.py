@@ -134,7 +134,7 @@ def cal_loop(catchment_name, seismic_network, input_year, input_station, input_c
         # dump the seismic data-60s
         npy_dir = f"{folder_path_npy}/{input_year}_{input_station}_{input_component}_{julday}"
         num_data = int(24 * 3600 * st[0].stats.sampling_rate)
-        np.savez(npy_dir, sampling_rate=st[0].stats.sampling_rate, data=st[0].data[:num_data])
+        np.savez(npy_dir, sampling_rate=st[0].stats.sampling_rate, data=st[0].data[:num_data], window_size=input_window_size)
 
         # write the seismic features header
         record_data_header(input_year, input_station, input_component, julday, folder_path_txt)

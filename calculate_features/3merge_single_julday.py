@@ -77,8 +77,8 @@ def main(catchment_name, seismic_network, input_year, input_station, input_compo
 
     # Type B network
     if seismic_network in ["9S", "9J"] and input_station != "synthetic12":
-        input_file_dir = f"{folder_path_txt}/{input_year}/{input_component}_net"
-        output_file = f"{input_file_dir}/{input_year}_{input_component}_all_network.txt"
+        input_file_dir = folder_path_net
+        output_file = f"{folder_path_net}/{input_year}_{input_component}_all_network.txt"
         input_files = [f"{input_year}_{input_component}_{str(i).zfill(3)}_net.txt" for i in range(id1, id2 + 1)]
         merge_files(input_file_dir, input_files, output_file)
     else:
