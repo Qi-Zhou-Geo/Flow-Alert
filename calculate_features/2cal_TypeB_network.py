@@ -53,6 +53,9 @@ def load_st_as_npy(input_year, station_list, catchment_name, seismic_network, in
         #input_window_size = loaded['window_size'] # same as input window size
         temp.append(data)
 
+    min_len = min(arr.shape[0] for arr in temp)
+    temp = [arr[:min_len] for arr in temp] # trim all arrays to the same length
+
     temp = np.vstack(temp, dtype=float).T
 
     return sps, temp
