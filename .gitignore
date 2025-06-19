@@ -23,5 +23,11 @@ trained_model/*.pt
 trained_model/**/*.pkl
 trained_model/*.pkl
 
+# Temp ingore
 calculate_features/sbatch/9S-EHN
 calculate_features/sbatch/9S-EHE
+
+temp_test.py
+functions/seismic_data_processing_obspy/welch_spectrum.py
+functions/issue_network_warning/received_warning_time.py
+functions/issue_network_warning/calculate_inference_matrix.py

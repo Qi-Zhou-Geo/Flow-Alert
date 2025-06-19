@@ -13,18 +13,20 @@ from obspy.core import UTCDateTime # default is UTC+0 time zone
 
 
 def create_trace(data, start_time, data_sampling_rate, ref_st=False, return_Trace=False):
+
     '''
     Create Obspy Trace and Stream
-
     Args:
         data: numpy 1D data-60s array, unit by m/s or other
-        low_sampling_rate: int or float, unit by Hz
-        ref_st: obspy Trace or Stream object
+        start_time: str, format by "%Y-%m-%dT%H:%M:%S"
+        data_sampling_rate: int or float, unit by Hz
+        ref_st: bool, obspy Trace or Stream object
+        return_Trace: bool,
 
     Returns:
-        created Obspy st, as ref_st structure
 
     '''
+
     trace = Trace(data=data)
     trace.stats.sampling_rate = data_sampling_rate
     trace.stats.starttime = UTCDateTime(start_time)

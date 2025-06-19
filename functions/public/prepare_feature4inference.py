@@ -134,9 +134,8 @@ class Stream_to_feature:
     def prepare_feature(self, st, num_features=70, print_reminder=True, normalize_type="ref-training"):
 
         tr = self.trim_st(st)
-        tr.plot()
         if print_reminder is True:
-            print("This action (prepare_feature) will take a while, be patient.")
+            print("This action <prepare_feature> will take a while, be patient.")
 
         st_data = tr.data
         st_startime_array = tr.stats.starttime.timestamp

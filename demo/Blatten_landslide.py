@@ -37,10 +37,11 @@ sys.path.append(str(project_root))
 from functions.public.load_data import select_features
 from functions.public.dataset_to_dataloader import *
 from functions.public.prepare_feature4inference import Stream_to_feature
+from functions.public.prepare_SNR4inference import Stream_to_matrix
 from functions.model.lstm_model import Ensemble_Trained_LSTM_Classifier
 from functions.seismic_data_processing_obspy.generate_seismic_trace import create_trace
 from functions.seismic_data_processing_obspy.plot_obspy_st import time_series_plot
-
+from functions.issue_network_warning.calculate_inference_matrix import inference_matrix
 
 
 # <editor-fold desc="load the seismic data">
@@ -75,9 +76,14 @@ def fetch_data(client_name, start_time, end_time, time_buffer,
 
     return st
 
-client_name, start_time, end_time, time_buffer = "ETH", "2025-05-28T12:30:00", "2025-05-28T14:30:00", 0
-network, station, location, channel ="CH",  "LAUCH", "", "HHZ" # "SGAK", "", "HGZ", #"FIESA", "", "HHZ"
-f_min, f_max = 1, 50
+client_name = "ETH"
+start_time, end_time, time_buffer = "2025-05-28T12:00:00", "2025-05-28T15:00:00", 0
+#network, station, location, channel ="CH",  "LAUCH", "", "HHZ"
+#network, station, location, channel ="CH",  "MUGIO", "", "HHZ"
+#network, station, location, channel ="CH",  "BERNI", "", "HHZ"
+network, station, location, channel ="CH",  "FIESA", "", "HHZ"
+
+f_min, f_max = 1, 5
 
 st = fetch_data(client_name, start_time, end_time, time_buffer,
                network, station, location, channel,
@@ -93,7 +99,12 @@ normalize_type = "ref-itself"
 trained_model_name = "LSTM_E"
 seq_length = 32
 
+# seismic matrix
+stream_to_matrix = Stream_to_matrix(sub_window_size, window_overlap)
+output_matrix = stream_to_matrix.prepare_matrix(st=st, print_reminder=True)
 
+
+# seismic features
 stream_to_feature = Stream_to_feature(sub_window_size, window_overlap)
 output_feature = stream_to_feature.prepare_feature(st=st, normalize_type=normalize_type)
 t_str, t_float, feature_arr = output_feature[:, 0], output_feature[:, 1], output_feature[:, 2:]
@@ -144,20 +155,21 @@ for j in np.arange(num_repeate):
     header_pro.append(f"pro{j+1}")
 
 header = f"time_stamps,target,{','.join(header_pro)},pro_mean,pro_95ci_range"
-np.savetxt(f"{project_root}/docs/"
+np.savetxt(f"{current_dir}"
            f"Blatten_landslide_predicted_by_{sub_window_size}_{window_overlap}_{trained_model_name}.txt",
            to_be_saved, delimiter=",", fmt="%s", header=header, comments='')
 # </editor-fold>
 
 
 # <editor-fold desc="visualizethe prediction">
-start_time, end_time = "2025-05-28T13:15:00", "2025-05-28T13:45:00"
-st = st.trim(starttime=UTCDateTime(start_time),
-             endtime=UTCDateTime(end_time))
+# select the short duration for vasulaziton
+select_start_time, select_end_time = "2025-05-28T13:15:00", "2025-05-28T13:45:00"
+tr = st.trim(starttime=UTCDateTime(select_start_time),
+             endtime=UTCDateTime(select_end_time))
 
 date_all = to_be_saved[:, 0]
-id_s = np.where(date_all == UTCDateTime(start_time).timestamp)[0][0]
-id_e = np.where(date_all == UTCDateTime(end_time).timestamp)[0][0] + 1
+id_s = np.where(date_all == UTCDateTime(select_start_time).timestamp)[0][0]
+id_e = np.where(date_all == UTCDateTime(select_end_time).timestamp)[0][0] + 1
 
 pro_mean, pro_95ci_range = to_be_saved[id_s : id_e, -2], to_be_saved[id_s : id_e, -1]
 
@@ -198,14 +210,34 @@ def psd_plot(ax, ax_twin, st, data_start, data_end, pre_y_pro, ci_range, pre_y_p
 
 pre_y_pro_sps = 1 / (to_be_saved[1, 0] - to_be_saved[0, 0])
 
+
+pro_st_all = create_trace(to_be_saved[:, -2],
+                          UTCDateTime(to_be_saved[0, 0]).strftime("%Y-%m-%dT%H:%M:%S"),
+                          pre_y_pro_sps, ref_st=False, return_Trace=False)
+pro_st_event = pro_st_all.copy()
+pro_st_event.trim(starttime=UTCDateTime(select_start_time),
+                  endtime=UTCDateTime(select_end_time))
+# make sure the peak is the during the event
+benchmark_time = tr[0].stats.starttime + np.argmax(tr[0].data) / tr[0].stats.sampling_rate
+benchmark_time = benchmark_time.strftime("%Y-%m-%dT%H:%M:%S")
+phi, psi, delta_t, warning_time_float, warning_time_str = inference_matrix(benchmark_time,
+                                                                           pro_st_all,
+                                                                           pro_st_event,
+                                                                           pro_epsilon=0.9)
+
+
 fig = plt.figure(figsize=(5.5, 4))
-gs = gridspec.GridSpec(2, 1, height_ratios=[1, 0.05])
+gs = gridspec.GridSpec(3, 1, height_ratios=[1, 0.05, 1])
 
 ax = plt.subplot(gs[0])
 ax_twin = ax.twinx()
 cbar_ax = plt.subplot(gs[1])
-ax_twin.axvline(x=(UTCDateTime("2025-05-28T13:24:38")-UTCDateTime(start_time)),
+
+
+ax_twin.axvline(x=(UTCDateTime("2025-05-28T13:24:38")-UTCDateTime(select_start_time)),
                 color="green", lw=1, zorder=5)
+ax_twin.axvline(x=(UTCDateTime(warning_time_str)-UTCDateTime(select_start_time)),
+                color="red", lw=1, zorder=5)
 
 psd_plot(ax, ax_twin, st,
          to_be_saved[id_s, 0],
@@ -227,10 +259,20 @@ ax_twin.set_ylabel("Predicted Pro", weight='bold')
 cbar = fig.colorbar(ax.images[0], cax=cbar_ax, orientation="horizontal")
 cbar.set_label("Power Spectral Density (dB)")
 
+ax = plt.subplot(gs[2])
+ax_twin = ax.twinx()
+line1, = ax.plot(output_matrix[id_s:id_e, 2].astype(float), color="C0", label="SNR (max/mean)")
+line2, = ax_twin.plot(output_matrix[id_s:id_e, 3].astype(float), color="C1", label="Skewness of PSD")
+ax.set_xlim(0, id_e-id_s)
+lines = [line1, line2]
+labels = [line.get_label() for line in lines]
+ax.legend(lines, labels, loc="upper right", fontsize=6)
+ax.xaxis.set_major_locator(ticker.MultipleLocator(30))  # unit is saecond
+
 plt.tight_layout()
-plt.savefig(f"{project_root}/docs/"
-           f"Blatten_landslide_psd_{st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}.png",
-            dpi=600, transparent=True)
+#plt.savefig(f"{project_root}/docs/"
+           #f"Blatten_landslide_psd_{st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}.png",
+            #dpi=600, transparent=True)
 plt.show()
 plt.close(fig)
 
