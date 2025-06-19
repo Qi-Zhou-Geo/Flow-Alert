@@ -155,7 +155,7 @@ for j in np.arange(num_repeate):
     header_pro.append(f"pro{j+1}")
 
 header = f"time_stamps,target,{','.join(header_pro)},pro_mean,pro_95ci_range"
-np.savetxt(f"{current_dir}"
+np.savetxt(f"{current_dir}/"
            f"Blatten_landslide_predicted_by_{sub_window_size}_{window_overlap}_{trained_model_name}.txt",
            to_be_saved, delimiter=",", fmt="%s", header=header, comments='')
 # </editor-fold>
@@ -248,7 +248,8 @@ psd_plot(ax, ax_twin, st,
          x_interval=5/60)
 
 temp = f"{UTCDateTime(start_time).strftime('%Y-%m-%d')},"
-ax.set_title(f"Seismic Data Source: {st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}",
+ax.set_title(f"Seismic Data Source: {st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}\n"
+             f"Increased Warning Time: {delta_t} s",
              weight="bold", fontsize=7)
 
 ax.set_xlabel(f'Time [UTC+0, {temp}]', weight='bold')
@@ -270,9 +271,9 @@ ax.legend(lines, labels, loc="upper right", fontsize=6)
 ax.xaxis.set_major_locator(ticker.MultipleLocator(30))  # unit is saecond
 
 plt.tight_layout()
-#plt.savefig(f"{project_root}/docs/"
-           #f"Blatten_landslide_psd_{st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}.png",
-            #dpi=600, transparent=True)
+plt.savefig(f"{current_dir}/"
+           f"Blatten_landslide_psd_{st[0].stats.network}-{st[0].stats.station}-{st[0].stats.channel}.png",
+            dpi=600, transparent=True)
 plt.show()
 plt.close(fig)
 
