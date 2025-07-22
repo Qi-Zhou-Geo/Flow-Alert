@@ -1,0 +1,304 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# __modification time__ = 2025-02-16
+# __author__ = Qi Zhou and Sibashish Dash, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# Please do not distribute this code without the author's permission
+
+
+# Description: feature name and index
+# "Type A (without the network features)"
+feature_type_A:
+  - 0 # digit 1
+  - 1 # digit 2
+  - 2 # digit 3
+  - 3 # digit 4
+  - 4 # digit 5
+  - 5 # digit 6
+  - 6 # digit 7
+  - 7 # digit 8
+  - 8 # digit 9
+  - 9 # goodness
+  - 10 # alpha
+
+# "Type B (with the network features)"
+feature_type_B:
+  - 0 #RappMaxMean
+  - 1 #RappMaxMedian
+  - 2 #AsDec
+  - 3 #KurtoSig
+  - 4 #KurtoEnv
+  - 5 #SkewnessSig
+  - 6 #SkewnessEnv
+  - 7 #CorPeakNumber
+  - 8 #INT1
+  - 9 #INT2
+  - 10 #INT_RATIO
+  - 11 #ES_0
+  - 12 #ES_1
+  - 13 #ES_2
+  - 14 #ES_3
+  - 15 #ES_4
+  - 16 #KurtoF_0
+  - 17 #KurtoF_1
+  - 18 #KurtoF_2
+  - 19 #KurtoF_3
+  - 20 #KurtoF_4
+  - 21 #DistDecAmpEnv
+  - 22 #env_max_to_duration
+  - 23 #RMS
+  - 24 #IQR
+  - 25 #MeanFFT
+  - 26 #MaxFFT
+  - 27 #FmaxFFT
+  - 28 #FCentroid
+  - 29 #Fquart1
+  - 30 #Fquart3
+  - 31 #MedianFFT
+  - 32 #VarFFT
+  - 33 #NpeakFFT
+  - 34 #MeanPeaksFFT
+  - 35 #E1FFT
+  - 36 #E2FFT
+  - 37 #E3FFT
+  - 38 #E4FFT
+  - 39 #gamma1
+  - 40 #gamma2
+  - 41 #gammas
+  - 42 #SpecKurtoMaxEnv
+  - 43 #SpecKurtoMedianEnv
+  - 44 #RatioEnvSpecMaxMean
+  - 45 #RatioEnvSpecMaxMedian
+  - 46 #DistMaxMean
+  - 47 #DistMaxMedian
+  - 48 #NbrPeakMax
+  - 49 #NbrPeakMean
+  - 50 #NbrPeakMedian
+  - 51 #RatioNbrPeakMaxMean
+  - 52 #RatioNbrPeakMaxMedian
+  - 53 #NbrPeakFreqCenter
+  - 54 #NbrPeakFreqMax
+  - 55 #RatioNbrFreqPeaks
+  - 56 #DistQ2Q1
+  - 57 #DistQ3Q2
+  - 58 #DistQ3Q1
+  - 59 #id_maxRMS
+  - 60 #id_minRMS
+  - 61 #ration_maxTOminRMS
+  - 62 #ration_maxTOminIQR
+  - 63 #mean_coherenceOfNet
+  - 64 #max_coherenceOfNet
+  - 65 #mean_lagTimeOfNet
+  - 66 #std_lagTimeOfNet
+  - 67 #mean_wdOfNet
+  - 68 #std_wdOfNet
+
+# "Type C (with the network features)"
+feature_type_C:
+  - 0 # digit 1
+  - 1 # digit 2
+  - 2 # digit 3
+  - 3 # digit 4
+  - 4 # digit 5
+  - 5 # digit 6
+  - 6 # digit 7
+  - 7 # digit 8
+  - 8 # digit 9
+  - 9 # goodness
+  - 10 # alpha
+  - 11 # RappMaxMean
+  - 12 # RappMaxMedian
+  - 13 # AsDec
+  - 14 # KurtoSig
+  - 15 # KurtoEnv
+  - 16 # SkewnessSig
+  - 17 # SkewnessEnv
+  - 18 # CorPeakNumber
+  - 19 # INT1
+  - 20 # INT2
+  - 21 # INT_RATIO
+  - 22 # ES_0
+  - 23 # ES_1
+  - 24 # ES_2
+  - 25 # ES_3
+  - 26 # ES_4
+  - 27 # KurtoF_0
+  - 28 # KurtoF_1
+  - 29 # KurtoF_2
+  - 30 # KurtoF_3
+  - 31 # KurtoF_4
+  - 32 # DistDecAmpEnv
+  - 33 # env_max_to_duration
+  - 34 # RMS
+  - 35 # IQR
+  - 36 # MeanFFT
+  - 37 # MaxFFT
+  - 38 # FmaxFFT
+  - 39 # FCentroid
+  - 40 # Fquart1
+  - 41 # Fquart3
+  - 42 # MedianFFT
+  - 43 # VarFFT
+  - 44 # NpeakFFT
+  - 45 # MeanPeaksFFT
+  - 46 # E1FFT
+  - 47 # E2FFT
+  - 48 # E3FFT
+  - 49 # E4FFT
+  - 50 # gamma1
+  - 51 # gamma2
+  - 52 # gammas
+  - 53 # SpecKurtoMaxEnv
+  - 54 # SpecKurtoMedianEnv
+  - 55 # RatioEnvSpecMaxMean
+  - 56 # RatioEnvSpecMaxMedian
+  - 57 # DistMaxMean
+  - 58 # DistMaxMedian
+  - 59 # NbrPeakMax
+  - 60 # NbrPeakMean
+  - 61 # NbrPeakMedian
+  - 62 # RatioNbrPeakMaxMean
+  - 63 # RatioNbrPeakMaxMedian
+  - 64 # NbrPeakFreqCenter
+  - 65 # NbrPeakFreqMax
+  - 66 # RatioNbrFreqPeaks
+  - 67 # DistQ2Q1
+  - 68 # DistQ3Q2
+  - 69 # DistQ3Q1
+  - 70 # id_maxRMS
+  - 71 # id_minRMS
+  - 72 # ration_maxTOminRMS
+  - 73 # ration_maxTOminIQR
+  - 74 # mean_coherenceOfNet
+  - 75 # max_coherenceOfNet
+  - 76 # mean_lagTimeOfNet
+  - 77 # std_lagTimeOfNet
+  - 78 # mean_wdOfNet
+  - 79 # std_wdOfNet
+
+# "Type A + Type B (without the network features)"
+feature_type_D:
+  - 0 # digit 1
+  - 1 # digit 2
+  - 2 # digit 3
+  - 3 # digit 4
+  - 4 # digit 5
+  - 5 # digit 6
+  - 6 # digit 7
+  - 7 # digit 8
+  - 8 # digit 9
+  - 9 # goodness
+  - 10 # alpha
+  - 11 # RappMaxMean
+  - 12 # RappMaxMedian
+  - 13 # AsDec
+  - 14 # KurtoSig
+  - 15 # KurtoEnv
+  - 16 # SkewnessSig
+  - 17 # SkewnessEnv
+  - 18 # CorPeakNumber
+  - 19 # INT1
+  - 20 # INT2
+  - 21 # INT_RATIO
+  - 22 # ES_0
+  - 23 # ES_1
+  - 24 # ES_2
+  - 25 # ES_3
+  - 26 # ES_4
+  - 27 # KurtoF_0
+  - 28 # KurtoF_1
+  - 29 # KurtoF_2
+  - 30 # KurtoF_3
+  - 31 # KurtoF_4
+  - 32 # DistDecAmpEnv
+  - 33 # env_max_to_duration
+  - 34 # RMS
+  - 35 # IQR
+  - 36 # MeanFFT
+  - 37 # MaxFFT
+  - 38 # FmaxFFT
+  - 39 # FCentroid
+  - 40 # Fquart1
+  - 41 # Fquart3
+  - 42 # MedianFFT
+  - 43 # VarFFT
+  - 44 # NpeakFFT
+  - 45 # MeanPeaksFFT
+  - 46 # E1FFT
+  - 47 # E2FFT
+  - 48 # E3FFT
+  - 49 # E4FFT
+  - 50 # gamma1
+  - 51 # gamma2
+  - 52 # gammas
+  - 53 # SpecKurtoMaxEnv
+  - 54 # SpecKurtoMedianEnv
+  - 55 # RatioEnvSpecMaxMean
+  - 56 # RatioEnvSpecMaxMedian
+  - 57 # DistMaxMean
+  - 58 # DistMaxMedian
+  - 59 # NbrPeakMax
+  - 60 # NbrPeakMean
+  - 61 # NbrPeakMedian
+  - 62 # RatioNbrPeakMaxMean
+  - 63 # RatioNbrPeakMaxMedian
+  - 64 # NbrPeakFreqCenter
+  - 65 # NbrPeakFreqMax
+  - 66 # RatioNbrFreqPeaks
+  - 67 # DistQ2Q1
+  - 68 # DistQ3Q2
+  - 69 # DistQ3Q1
+
+# "Type A + Type B (manually selected)"
+feature_type_E:
+  - 10 # alpha
+  - 22 # freq in Energy of signals filtered in 1-5
+  - 23 # freq in Energy of signals filtered in 5-15
+  - 24 # freq in Energy of signals filtered in 15-25
+  - 33 # Ratio between Max envleope and duration
+  - 34 # RMS of the signal
+  - 35 # Interquartile range (Q75 - Q25)
+  - 36 # Mean of the discrete Fourier transform (DFT)
+  - 37 # Max of the DFT
+  - 46 # Energy in [0, 1/4] Nyquist frequency (Nyf)
+  - 47 # Energy in [1/4, 1/2] Nyquist frequency (Nyf)
+  - 57 # Number of peaks in the curve showing the temporal evolution of the Max DFTs
+  - 58 # Number of peaks in the curve showing the temporal evolution of the Mean DFTs
+
+
+# Description: Model and feature combination
+LSTM_A:
+  ref_model_name: "station_LSTM_A_repeatX.pt"
+  lstm_feature_size: 11
+  device: "CPU"
+  batch_size: 64
+  seq_length: 32
+
+LSTM_B:
+  ref_model_name: "station_LSTM_B_repeatX.pt"
+  lstm_feature_size: 69
+  device: "CPU"
+  batch_size: 64
+  seq_length: 32
+
+LSTM_C:
+  ref_model_name: "station_LSTM_C_repeatX.pt"
+  lstm_feature_size: 80
+  device: "CPU"
+  batch_size: 64
+  seq_length: 32
+
+LSTM_D:
+  ref_model_name: "station_LSTM_D_repeatX.pt"
+  lstm_feature_size: 70
+  device: "CPU"
+  batch_size: 64
+  seq_length: 32
+
+LSTM_E:
+  ref_model_name: "LSTM_ILL02_E_repeateX.pt"
+  lstm_feature_size: 13
+  device: "CPU"
+  batch_size: 64
+  seq_length: 32

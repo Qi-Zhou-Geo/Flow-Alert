@@ -1,0 +1,15 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# __modification time__ = 2025-02-16
+# __author__ = Qi Zhou and Sibashish Dash, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# Please do not distribute this code without the author's permission
+
+# seismic data source in the GFZ-GLIC server
+"glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
+#"glic_sac_dir": "/Users/qizhou/#python/#GitHub_saved/Diversity-of-Debris-Flow-Footprints/data/seismic_data"
+
+# seismic feature source on the GFZ-GLIC server
+seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature"
+#seismic_feature_dir: "/Users/qizhou/#python/#GitHub_saved/Diversity-of-Debris-Flow-Footprints/data/seismic_feature"
