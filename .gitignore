@@ -1,0 +1,49 @@
+## how to use this?
+# 1, you alway need to add the "rules" first, then add/remove your file,
+#    the git will automatically ingore the "big/untracked"file
+# 2, if you alrady add/commit the changes,
+#    use the following back to the old version
+# git reset --hard <reversion number>
+
+
+# add the file if you do not want to track it
+temp_test.py
+**/__pycache__/
+.idea/
+.DS_Store
+.vscode
+
+# Ignore all .mseed files in 'data' and any of its subfolders
+data/seismic_data/*.mseed
+data/seismic_feature/*.mseed
+data/precipitation_data
+
+docs/image/*.cdr
+
+# Ignore all trained model pt and pkl
+trained_model/**/*.pt
+trained_model/*.pt
+trained_model/**/*.pkl
+trained_model/*.pkl
+
+
+# Open it when after debuging
+functions/issue_network_warning/received_warning_time.py
+functions/issue_network_warning/calculate_inference_matrix.py
+functions/public/load_ENZ_feature.py
+functions/public/load_FD_feature.py
+functions/seismic_data_processing_obspy/welch_spectrum.py
+
+demo/Blatten_landslide
+demo/unknow_landslide
+demo/Yanmen
+
+# Temp ingore
+calculate_features/sbatch/9S-10s
+calculate_features/sbatch/9S-EHN
+calculate_features/sbatch/9S-EHE
+
+
+trained_model/version_task.txt
+trained_model/v3-model
+trained_model/v4-model
