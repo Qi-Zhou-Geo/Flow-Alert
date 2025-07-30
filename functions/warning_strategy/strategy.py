@@ -78,14 +78,15 @@ def selected_data(station, model, feature,
 
 def warning_controller(pro_arr, warning_threshold, pro_filter=0):
     '''
+    Check the wanring status
 
     Args:
-        pro_arr:
-        pro_filter: float, whether only consider the prepicted value bigger than "pro_filter"
-        warning_threshold:
+        pro_arr: numpy array, model predicted probability
+        warning_threshold: float, threshold for issuing the warning
+        pro_filter: float, whether only consider the predicted value bigger than "pro_filter"
 
     Returns:
-
+        status: str
     '''
 
     global_mean_pro = np.sum(pro_arr[pro_arr > pro_filter]) / pro_arr.size

@@ -24,7 +24,8 @@ from obspy.core import UTCDateTime # default is UTC+0 time zone
 from calculate_features.Type_A_features import calBL_feature                 # import Qi's all features (by *)
 from calculate_features.Type_B_features import calculate_all_attributes      # import Clement's all features (by *)
 from functions.public.min_max_normalize_transformer import min_max_normalize
-from functions.seismic_data_processing_obspy.remove_outlier import smooth_outliers
+from functions.seismic.remove_outlier import smooth_outliers
+from functions.seismic.visualize_seismic import convert_st2tr
 
 class Stream_to_feature:
     def __init__(self, sub_window_size, window_overlap):
@@ -35,12 +36,15 @@ class Stream_to_feature:
     def trim_st(self, st):
         # trim the Stream to get the minutes level (remove the seconds)
 
-        if type(st) is Stream:
+        if isinstance(st, Stream):
             st.merge(method=1, fill_value='latest', interpolation_samples=0)
             st._cleanup()
             tr = st[0]
-        elif type(st) is Trace:
+        elif isinstance(st, Trace):
             tr = st
+        else:
+            print(f"!!! Error\n"
+                  f"Make sure the input for <Stream_to_feature> is Obspy 'Trace' or 'Stream'.")
 
         # make sure the seismic trace with inter "00" at second level
         if tr.stats.starttime.strftime("%Y-%m-%dT%H:%M:%S")[-2:] != "00":
@@ -131,6 +135,28 @@ class Stream_to_feature:
 
         return output_feature
 
+    def one_step_feature(self, tr, normalize_type=None):
+
+        tr = convert_st2tr(st=tr)
+        time_array = np.array([tr.stats.starttime.strftime("%Y-%m-%dT%H:%M:%S"), tr.stats.starttime.timestamp])
+
+        type_a = self.cal_attributes_A(data_array=tr.data)
+        type_b = self.cal_attributes_B(data_array=tr.data, sps=tr.stats.sampling_rate)  # without network features
+
+        output_feature = np.concatenate((time_array, type_a, type_b), axis=0)
+
+        if normalize_type is not None:
+            output_feature = self.normalize_feature(output_feature=output_feature.reshape(1, 72),
+                                                    normalize_type="ref-training")
+        elif normalize_type is None:
+            # convert 1D array to 2D
+            output_feature = output_feature.reshape(1, -1)
+        else:
+            print(f"check the normalize_type {normalize_type}")
+
+
+        return output_feature
+
     def prepare_feature(self, st, num_features=70, print_reminder=True, normalize_type="ref-training"):
 
         tr = self.trim_st(st)
@@ -170,3 +196,4 @@ class Stream_to_feature:
             return output_feature
         else:
             print(f"check the normalize_type {normalize_type}")
+

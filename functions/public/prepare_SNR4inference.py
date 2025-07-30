@@ -19,9 +19,9 @@ from obspy import read, Stream, Trace, read_inventory, signal
 
 # import the custom functions
 from functions.public.min_max_normalize_transformer import min_max_normalize
-from functions.seismic_data_processing_obspy.remove_outlier import smooth_outliers
-from functions.seismic_data_processing_obspy.chunk_st2seq import chunk_data
-from functions.seismic_data_processing_obspy.welch_spectrum import welch_psd
+from functions.seismic.remove_outlier import smooth_outliers
+from functions.seismic.chunk_st2seq import chunk_data
+from functions.seismic.welch_spectrum import welch_psd
 
 class Stream_to_matrix:
     def __init__(self, sub_window_size, window_overlap):

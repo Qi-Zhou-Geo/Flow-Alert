@@ -49,7 +49,7 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
 
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    config_path = f"{project_root}/config/config_I-O.yaml"
+    config_path = f"{project_root}/functions/seismic_data_processing_obspy/catchment_code.yaml"
 
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
