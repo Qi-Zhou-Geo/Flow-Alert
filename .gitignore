@@ -28,11 +28,11 @@ trained_model/*.pkl
 
 
 # Open it when after debuging
-functions/issue_network_warning/received_warning_time.py
-functions/issue_network_warning/calculate_inference_matrix.py
+functions/warning_strategy/received_warning_time.py
+functions/warning_strategy/calculate_inference_matrix.py
 functions/public/load_ENZ_feature.py
 functions/public/load_FD_feature.py
-functions/seismic_data_processing_obspy/welch_spectrum.py
+functions/seismic/welch_spectrum.py
 
 demo/Blatten_landslide
 demo/unknow_landslide
@@ -42,8 +42,12 @@ demo/Yanmen
 calculate_features/sbatch/9S-10s
 calculate_features/sbatch/9S-EHN
 calculate_features/sbatch/9S-EHE
+calculate_features/sbatch/LD
+calculate_features/sbatch/WD
+calculate_features/sbatch/AM
+calculate_features/sbatch/AM_LD_WD
 
 
-trained_model/version_task.txt
+trained_model/version_task.md
 trained_model/v3-model
-trained_model/v4-model
+trained_model/v4model

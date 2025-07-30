@@ -16,6 +16,11 @@
   # sensor_type: "do-not-need"
   # normalization_factor: 1) "do-not-need", 2) or use some number when "direct"
 
+# seismic data source in the GFZ-GLIC server
+"glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
+# seismic feature source on the GFZ-GLIC server
+seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature"
+
 
 # Europen
 Illgraben-9J:
@@ -26,6 +31,24 @@ Illgraben-9J:
 
 Illgraben-9S:
   path_mapping: "European/Illgraben"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"
+
+"Luding-LD": # for 2023 Luding LD STA01 (SKLGP) sensor
+  path_mapping: "Asian/Luding"
+  response_type: "simulate"
+  sensor_type: "IGU_16HR_EB_3C_5Hz"
+  normalization_factor: "do-not-need"
+
+"Luding-WD": # for 2023 Luding WD STA02 (GFZ) sensor
+  path_mapping: "Asian/Luding"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"
+
+"Luding-AM": # for 2024 Luding AM R9BF5 (GFZ) sensor
+  path_mapping: "Asian/Luding"
   response_type: "xml"
   sensor_type: "do-not-need"
   normalization_factor: "do-not-need"

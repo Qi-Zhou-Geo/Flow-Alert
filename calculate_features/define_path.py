@@ -27,13 +27,12 @@ def check_folder(catchment_name, seismic_network, input_year, input_station, inp
     project_root = current_dir.parent
 
     # in-out path
-    config_path = (project_root / f"./config/config_I-O.yaml").resolve()
+    config_path = f"{project_root}/functions/seismic_data_processing_obspy/catchment_code.yaml"
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
     seismic_feature_dir = config['seismic_feature_dir']
 
     # catchment mapping
-    config_path = (project_root / "./config/config_catchment_code.yaml").resolve()
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
     catchment_mapping = config[f"{catchment_name}-{seismic_network}"]["path_mapping"]

@@ -38,7 +38,7 @@ from calculate_features.define_path import check_folder
 from calculate_features.Type_A_features import calBL_feature
 # import Clement's all features (by *)
 from calculate_features.Type_B_features import calculate_all_attributes
-from functions.seismic_data_processing_obspy.seismic_data_processing import load_seismic_signal
+from functions.seismic.seismic_data_processing import load_seismic_signal
 
 
 def cal_attributes_B(data_array, sps): # the main function is from Clement

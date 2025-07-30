@@ -13,7 +13,7 @@ Supporting material for "Enhancing debris flow warning via machine learning feat
 Please <br>
 Unzip **0seismic_feature.zip** and place the **European** folder into: <br>
 **data/seismic_feature** <br>
-Open [config_I-O.yaml](config/config_I-O.yaml) and relace the path **"seismic_feature_dir"** <br>
+Open [catchment_code.yaml](../functions/seismic/catchment_code.yaml) and relace the path **"seismic_feature_dir"** <br>
 ```text
 # seismic data-60s source in the GFZ-GLIC server
 "glic_sac_dir": "/path/to/your/3Diversity-of-Debris-Flow-Footprints/data/seismic_feature"
@@ -28,13 +28,13 @@ Open and run the [inference tutorial](docs/inference_tutorial.ipynb) notebook to
 ### 2.1 Configure the Path and Format for Your Raw Seismic Data
 #### 2.1.1 Configure the seismic data path
 
-Open [config_I-O.yaml](config/config_I-O.yaml) and replace the value for **"glic_sac_dir"**:
+Open [catchment_code.yaml](../functions/seismic/catchment_code.yaml) and replace the value for **"glic_sac_dir"**:
 ```text
 # seismic data source on the GFZ-GLIC server
 "glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
 ```
 
-Open [config_I-O.yaml](config/config_I-O.yaml) and relace the path **"seismic_feature_dir"** <br>
+Open [catchment_code.yaml](../functions/seismic/catchment_code.yaml) and relace the path **"seismic_feature_dir"** <br>
 ```text
 # seismic data-60s source on the GFZ-GLIC server
 "glic_sac_dir": "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature""

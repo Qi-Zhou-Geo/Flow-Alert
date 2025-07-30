@@ -23,7 +23,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.issue_network_warning.warning_strategy import manually_warning
+from functions.warning_strategy.strategy import manually_warning
 
 
 def main(model_type, feature_type, input_component,
