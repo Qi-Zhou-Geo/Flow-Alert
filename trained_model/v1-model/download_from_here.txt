@@ -1,6 +1,0 @@
-Please download the
-
-0seismic_feature.zip
-3trained_model.zip
-
-https://zenodo.org/records/15020368

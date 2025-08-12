@@ -2,36 +2,35 @@
 # -*- coding: UTF-8 -*-
 
 #__modification time__ = 2024-02-23
-#__author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
-#__find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
+#__author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
+#__find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 # Please do not distribute this code without the author's permission
 
 import os
+import sys
 import argparse
 
-import numpy as np
 import pandas as pd
+import numpy as np
+from obspy.core import UTCDateTime # default is UTC+0 time zone
 from datetime import datetime
 
-# <editor-fold desc="add the sys.path to search for custom modules">
-from pathlib import Path
-current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
-project_root = current_dir.parent.parent
-import sys
-sys.path.append(str(project_root))
-# </editor-fold>
 
-# import the custom functions
-from functions.warning_strategy.strategy import manually_warning
+# Get the absolute path of the parent directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+if project_root not in sys.path:
+    sys.path.append(project_root)
 
+# internal functions
+from config.config_dir import CONFIG_dir
+from functions.issue_network_warning.warning_strategy import *
 
-def main(model_type, feature_type, input_component,
-         class_weight=0.9, ratio=100000, buffer=120):
+def asd(model_type, feature_type, input_component):
 
-    pro_filter = 0
-    seismic_network = "9S"
-    input_station_list = ["ILL08", "ILL02", "ILL03"]
+    print(model_type, feature_type, input_component)
+
+    pro_threshold = 0
+    input_station_list = ["ILL18", "ILL12", "ILL13"]
 
     for idx1, warning_threshold in enumerate(np.arange(0.1, 1.1, 0.1)):
         for idx2, attention_window_size in enumerate(np.arange(1, 21, 1)):
@@ -39,28 +38,34 @@ def main(model_type, feature_type, input_component,
             warning_threshold = np.round(warning_threshold, 1)
             attention_window_size = np.round(attention_window_size, 0)
 
-            warning_output = manually_warning(pro_filter, warning_threshold, attention_window_size,
-                                              input_station_list, model_type, feature_type, input_component,
-                                              class_weight, ratio,
-                                              seismic_network, buffer)
-            header = f"warning_threshold, attention_window_size, num_station, " \
-                     f"model_type, feature_type, input_component, class_weight, ratio, " \
-                     f"num_false_warning, num_missed_warning, total_increases_warning, mean_increases_warning," \
-                     f"increased_warning_E1, increased_warning_E2, increased_warning_E3, increased_warning_E4, " \
-                     f"increased_warning_E5, increased_warning_E6, increased_warning_E7a, increased_warning_E7b, " \
-                     f"increased_warning_E8, increased_warning_E9, increased_warning_E10, increased_warning_E11"
+            warning(pro_threshold, warning_threshold, attention_window_size,
+                    input_station_list, model_type, feature_type, input_component)
 
-            record = f"{warning_threshold}, {attention_window_size}, 3, " \
-                     f"{model_type}, {feature_type}, {input_component}, {class_weight}, {ratio}, " \
-                     f"{warning_output}"
+            record = warning_summary(pro_threshold, warning_threshold, attention_window_size,
+                                     model_type, feature_type, input_component)
 
-            file_name = f"/home/qizhou/3paper/" \
-                        f"3Diversity-of-Debris-Flow-Footprints/output2/network_warning/" \
-                        f"{model_type}-{feature_type}-{input_component}-warning.txt"
+            print(f"Finish, {idx1}--{idx2}, {record} {pro_threshold, warning_threshold, attention_window_size, model_type, feature_type, input_component}",
+                  datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-            with open(file_name, "a") as f:
-                f.write(header + "\n")
-                f.write(record + "\n")
+def main(model_type, feature_type, input_component):
+    input_data_year = 2022
+    seismic_network = "9S"
+
+    df_write = pd.DataFrame()
+
+    for idx1, warning_threshold in enumerate(np.arange(0.1, 1.1, 0.1)):
+        for idx2, attention_window_size in enumerate(np.arange(1, 21, 1)):
+
+            warning_threshold = np.round(warning_threshold, 1)
+            attention_window_size = np.round(attention_window_size, 0)
+
+            warning(0, warning_threshold, attention_window_size, ["ILL17", "ILL12", "ILL13"], model_type, feature_type, input_component, input_data_year)
+            record = dual_testing_warning_summary(0, warning_threshold, attention_window_size, model_type, feature_type, input_component, seismic_network, input_data_year)
+            print(record)
+            df_write = df_write.append([record], ignore_index=True)
+
+    df_write.to_csv(f"{CONFIG_dir['output_dir']}/dual_test_{seismic_network}_warning/dual_testing_warning_summary2.txt",
+                    sep=',', header=False, index=False, mode='a')
 
 
 if __name__ == "__main__":

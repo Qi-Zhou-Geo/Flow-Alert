@@ -20,6 +20,8 @@ data/precipitation_data
 
 docs/image/*.cdr
 
+data_output/seismic_feature
+
 # Ignore all trained model pt and pkl
 trained_model/**/*.pt
 trained_model/*.pt
