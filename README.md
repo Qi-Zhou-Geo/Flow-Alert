@@ -8,9 +8,11 @@ you've come to the right place! <br>
 Check out our repository to get started.
 
 ### 🛠️ 0. Major Changes for v1.2
-Retested the LSTM workflow. <br>
-You may encounter bugs in the RF or XGBoost models<br>
-if you do, please report them to us.
+1, Added v2 model based on Type E features (13 selected features) with LSTM + Attention; <br>
+it may not outperform the Feature C model (2020 Illgraben data) but shows more robust transferability. <br>
+2, Added test catchments from 2023–2024 Wandong (in-house data):
+[2023 results](demo/Wandong/pro_Luding-WD-2023-STA02-BHZ-E-testing-False.png), [2024 results](demo/Wandong/pro_Luding-AM-2024-R9BF5-EHZ-E-testing-False.png) <br>
+3, Added real-time testing for Yanmen catchment (ongoing): [Yanmen](demo/Yanmen)
 
 
 ### 📁 1. Repository Structure
