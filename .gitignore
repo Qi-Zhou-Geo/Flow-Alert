@@ -8,48 +8,70 @@
 
 # add the file if you do not want to track it
 temp_test.py
+run_temp_test.sh
 **/__pycache__/
 .idea/
 .DS_Store
 .vscode
+v1.1/
+
+
+# calculate features
+calculate_features/sbatch/9S-10s
+calculate_features/sbatch/9S-EHN
+calculate_features/sbatch/9S-EHE
+
 
 # Ignore all .mseed files in 'data' and any of its subfolders
 data/seismic_data/*.mseed
 data/seismic_feature/*.mseed
+data/seismic_feature/2013-2022-02station-ILL.txt
 data/precipitation_data
+data/event_catalog
+data/scaler
 
+# demo
+demo/Blatten_landslide
+demo/unknow_landslide
+demo/Yanmen
+demo/global_test
+demo/Wandong
+
+# docs
 docs/image/*.cdr
 
-data_output/seismic_feature
-
-# Ignore all trained model pt and pkl
-trained_model/**/*.pt
-trained_model/*.pt
-trained_model/**/*.pkl
-trained_model/*.pkl
-
-
-# Open it when after debuging
+# functions
 functions/warning_strategy/received_warning_time.py
 functions/warning_strategy/calculate_inference_matrix.py
 functions/public/load_ENZ_feature.py
 functions/public/load_FD_feature.py
 functions/seismic/welch_spectrum.py
+<<<<<<< HEAD
 
-demo/Blatten_landslide
-demo/unknow_landslide
-demo/Yanmen
-
-# Temp ingore
-calculate_features/sbatch/9S-10s
-calculate_features/sbatch/9S-EHN
-calculate_features/sbatch/9S-EHE
-calculate_features/sbatch/LD
-calculate_features/sbatch/WD
-calculate_features/sbatch/AM
-calculate_features/sbatch/AM_LD_WD
-
+# trained model
+trained_model/**/*.pt
+trained_model/*.pt
+trained_model/**/*.pkl
+trained_model/*.pkl
+trained_model/v2-model
+trained_model/v2model
+trained_model/v1model
+trained_model/v11model
 
 trained_model/version_task.md
 trained_model/v3-model
 trained_model/v4model
+
+/functions/public/scaler/
+=======
+/functions/public/scaler/
+
+
+# trained model
+# temp model during the test period
+trained_model/m3model
+
+trained_model/v2-model
+trained_model/v2model
+
+>>>>>>> test

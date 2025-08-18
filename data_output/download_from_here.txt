@@ -1,7 +1,0 @@
-Date: 2025-08-12
-Source: Qi Zhou
-
-Please download the
-
-"seismic_feature.zip"
-from this link: https://zenodo.org/records/15020368

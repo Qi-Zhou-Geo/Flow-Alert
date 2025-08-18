@@ -1,0 +1,54 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# __modification time__ = 2025-02-16
+# __author__ = Qi Zhou and Sibashish Dash, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# Please do not distribute this code without the author's permission
+
+# catchment mapping, load as "dictionary" in python
+# data structure for the following
+# Illgraben-9J:
+  # path_mapping: "European/Illgraben"
+  # response_type: "xml" == with xml file,
+                 # "simulate" == with poles and zeros,
+                 # "direct" == # without poles and zeros
+  # sensor_type: "do-not-need"
+  # normalization_factor: 1) "do-not-need", 2) or use some number when "direct"
+
+# seismic data source in the GFZ-GLIC server
+"glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
+# seismic feature source on the GFZ-GLIC server
+seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature"
+
+
+# Europen
+Illgraben-9J:
+  path_mapping: "European/Illgraben"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"
+
+Illgraben-9S:
+  path_mapping: "European/Illgraben"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"
+
+"Luding-LD": # for 2023 Luding LD STA01 (SKLGP) sensor
+  path_mapping: "Asian/Luding"
+  response_type: "simulate"
+  sensor_type: "IGU_16HR_EB_3C_5Hz"
+  normalization_factor: "do-not-need"
+
+"Luding-WD": # for 2023 Luding WD STA02 (GFZ) sensor
+  path_mapping: "Asian/Luding"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"
+
+"Luding-AM": # for 2024 Luding AM R9BF5 (GFZ) sensor
+  path_mapping: "Asian/Luding"
+  response_type: "xml"
+  sensor_type: "do-not-need"
+  normalization_factor: "do-not-need"

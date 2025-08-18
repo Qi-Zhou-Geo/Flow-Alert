@@ -2,71 +2,94 @@
 # -*- coding: UTF-8 -*-
 
 #__modification time__ = 2024-02-23
-#__author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
-#__find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
+#__author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
+#__find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 # Please do not distribute this code without the author's permission
 
 import os
-import sys
 import argparse
 
 import pandas as pd
 import numpy as np
-from obspy.core import UTCDateTime # default is UTC+0 time zone
 from datetime import datetime
 
-
-# Get the absolute path of the parent directory
-project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-if project_root not in sys.path:
-    sys.path.append(project_root)
-
-# internal functions
-from config.config_dir import CONFIG_dir
-
-
-def write_down_warning(model_type, feature_type, input_component, warning_type, record):
-    f = open(f"{CONFIG_dir['output_dir']}/dual_test_9S_warning/{model_type}_{feature_type}_{input_component}_{warning_type}.txt", 'a')
-    f.write(str(record) + "\n")
-    f.close()
+# <editor-fold desc="add the sys.path to search for custom modules">
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+project_root = current_dir.parent.parent
+import sys
+sys.path.append(str(project_root))
+# </editor-fold>
 
 
-def merge_multi_detection(input_station_list, model_type, feature_type, input_component):
 
-    df0 = pd.read_csv(f"{CONFIG_dir['output_dir']}/dual_test_9S/"
-                      f"{input_station_list[0]}_{model_type}_{feature_type}_{input_component}_dual_testing_output.txt", header=0)
-
-    df1 = pd.read_csv(f"{CONFIG_dir['output_dir']}/dual_test_9S/"
-                      f"{input_station_list[1]}_{model_type}_{feature_type}_{input_component}_dual_testing_output.txt", header=0)
-
-    df2 = pd.read_csv(f"{CONFIG_dir['output_dir']}/dual_test_9S/"
-                      f"{input_station_list[2]}_{model_type}_{feature_type}_{input_component}_dual_testing_output.txt", header=0)
-
-    assert len(df0) == len(df1) or len(df0) == len(df2), f"check the data length for " \
-                                                         f"{input_station_list, model_type, feature_type, input_component}"
-
-    df = pd.concat([df0, df1.iloc[:, 1:], df2.iloc[:, 1:]], axis=1)
-
-    return df
-
-
-def warning_controller(pro_arr, pro_threshold, warning_threshold):
+def selected_data(station, model, feature,
+                  data_compression = True,
+                  input_component="EHZ", num_repeat=5, class_weight=0.9, ratio=100000,
+                  time1="2020-05-29T01:00:00", time2="2020-09-06T23:00:00"):
     '''
-    Parameters
-    ----------
-    pro1: numpy.narray, 1D
-    pro2: numpy.narray, 1D
-    pro3: numpy.narray, 1D
-    pro_arr: numpy.narray, shape by (attention_window_size, 3)
-    pro_threshold: threshold to seperate noise and debris flow for single station
+
+    Args:
+        station:
+        model:
+        feature:
+        data_compression:
+        input_component:
+        num_repeat:
+        class_weight:
+        ratio:
+        time1:
+        time2:
 
     Returns:
-            status: str, noise or warning
-    -------
 
     '''
 
-    global_mean_pro = np.sum(pro_arr[pro_arr > pro_threshold]) / pro_arr.size
+    df_temp = None
+    file_path = "/storage/vast-gfz-hpc-01/home/qizhou/3paper/3Diversity-of-Debris-Flow-Footprints/output-reviserved-paper"#f"{CONFIG_dir['output_dir2']}"
+    for repeat in np.arange(1, num_repeat+1):
+        name = f"9S-2017-{station}-{input_component}-training-True-repeat-{repeat}-" \
+               f"{model}-{feature}-DFweight-{class_weight}-" \
+               f"ratio-{ratio}-testing-output-2020-05-29.txt"
+
+        temp = pd.read_csv(f"{file_path}/{model}/{name}", header=0)
+        time_date = np.array(temp.iloc[:, 0])
+
+        id1 = np.where(time_date == time1)[0][0]
+        id2 = np.where(time_date == time2)[0][0] + 1
+
+        temp = temp.iloc[id1:id2, :]
+
+        if repeat == 1:
+            df_temp = np.array(temp.iloc[:, [0, 1, 4]])
+        else:
+            df_temp = np.hstack((df_temp, np.array(temp.iloc[:, 4]).reshape(-1, 1) ))
+
+    output = None
+    if data_compression is True:
+        output = df_temp[:, :2]
+        mean_pro = np.mean(df_temp[:, 2:], axis=1) # as row, use the mean pro from "num_repeat"
+        output = np.hstack((output, mean_pro.reshape(-1, 1)))
+    else:
+        output = df_temp
+
+    return output
+
+def warning_controller(pro_arr, warning_threshold, pro_filter=0):
+    '''
+    Check the wanring status
+
+    Args:
+        pro_arr: numpy array, model predicted probability
+        warning_threshold: float, threshold for issuing the warning
+        pro_filter: float, whether only consider the predicted value bigger than "pro_filter"
+
+    Returns:
+        status: str
+    '''
+
+    global_mean_pro = np.sum(pro_arr[pro_arr > pro_filter]) / pro_arr.size
 
     if global_mean_pro > warning_threshold:
         status = "warning"
@@ -76,146 +99,132 @@ def warning_controller(pro_arr, pro_threshold, warning_threshold):
     return status
 
 
-def calculate_increased_time(date_str, input_data_year):
+def check_warning(time_str, warning_status,
+                  seismic_network, input_station, input_component,
+                  buffer, print_false_warning=True):
 
-    df = pd.read_csv(f"{CONFIG_dir['project_root']}/data_input/warning_timestamp_benchmark/{input_data_year}_CD29time.txt", header=None)
-    warning_time_list = np.array(df).reshape(-1)
+    date = time_str
+    status = warning_status
+    input_year = date[0][:4]
 
-    arr = []
-    t1 = UTCDateTime(date_str)
+    current_dir = Path(__file__).resolve().parent
+    project_root = current_dir.parent.parent
 
-    for step in range(warning_time_list.size):
-        t2 = UTCDateTime(warning_time_list[step])
-        delta_t = float(t2 - t1)
-        arr.append(np.abs(delta_t))
-    arr = np.array(arr)
+    file_dir = f"{project_root}/data/manually_labeled_DF"
+    event = pd.read_csv(f"{file_dir}/{seismic_network}-{input_year}-DF.txt", header=0)
+    # select the manually labeled event time
+    event = event[(event.iloc[:, 4] == seismic_network) &
+                  (event.iloc[:, 5] == input_station) &
+                  (event.iloc[:, 6] == input_component)]
 
-    id = np.where(arr == np.min(np.abs(arr)))
+    cd29_time = pd.read_csv(f"{file_dir}/{seismic_network}-{input_year}-CD29-time.txt", header=0)
+    cd29_time = np.array(cd29_time).reshape(-1)
 
-    return np.min(np.abs(arr)), warning_time_list[id][0]
+    assert event.shape[0] == cd29_time.shape[0], f"event.shape[0] != cd29_time.shape[0], " \
+                                                 f"{event.shape[0], cd29_time.shape[0]}"
 
+    increased_warning = [] # unit by seconds
+    missed_warning = []
+    for idx, (event_start, event_end) in enumerate(zip(event.iloc[:, 2], event.iloc[:, 3])):
 
-def warning1(pro_threshold, warning_threshold, attention_window_size, input_station_list,
-            model_type, feature_type, input_component):
+        id1 = np.where(date == event_start)[0][0] - buffer
+        id2 = np.where(date == event_end)[0][0] + 1 + buffer
+        temp_status = status[id1:id2] # current status for event (event_start, event_end)
 
-    df = merge_multi_detection(input_station_list, model_type, feature_type, input_component)
+        if 1 in temp_status or 10 in temp_status:
+            # with warning
+            id3 = np.where((temp_status == 1) | (temp_status == 10))[0][0]
+            status[id1:id2][temp_status == 1] = 10 # replace the status 1
 
-    date = np.array(df.iloc[:, 0])
-    warning_status = [] # 0 noise, 1 warning
-    increased_warning_time = [] # float time
-    warning_ref_cd29 = [] # date string
-
-    pro18, pro12, pro13 = np.array(df.iloc[:, 3]), np.array(df.iloc[:, 6]), np.array(df.iloc[:, 9])
-    label18, label12, label13 = np.array(df.iloc[:, 1]), np.array(df.iloc[:, 4]), np.array(df.iloc[:, 7])
-
-    for step in range(attention_window_size, len(date)):
-
-        pro_arr = np.stack((pro18[step-attention_window_size:step],
-                            pro12[step-attention_window_size:step],
-                            pro13[step-attention_window_size:step]), axis=-1)
-
-        status = warning_controller(pro_arr, pro_threshold, warning_threshold)
-
-        if status == "warning":
-            label_arr = np.stack((label18[step],
-                                  label12[step],
-                                  label13[step]), axis=-1)
-            if np.sum(label_arr) >= 1:
-                status = 1 #"real_warning"
-                warning_time, ref_cd29 = calculate_increased_time(date[step])
-            elif np.sum(label_arr) == 0:
-                status = -1 #"false_warning"
-                warning_time, ref_cd29 = "false_warning", "none"
-            else:
-                print(f"error {date[step]}", np.mean(np.sum(pro_arr[pro_arr > pro_threshold])))
+            # calculate the increased warning
+            t1 = datetime.strptime(date[id1+id3], "%Y-%m-%dT%H:%M:%S")
+            t2 = datetime.strptime(cd29_time[idx], "%Y-%m-%dT%H:%M:%S")
+            delta_t = (t2 - t1).total_seconds()
         else:
-            status = 0 #"noise"
-            warning_time, ref_cd29 = "noise", "none"
+            # no warning
+            delta_t = np.nan
+            missed_warning.append(event_start)
 
-        warning_status.append(status)
-        increased_warning_time.append(warning_time)
-        warning_ref_cd29.append(ref_cd29)
+        increased_warning.append(delta_t)
 
-    df1 = df.iloc[attention_window_size:, :].copy()
-    assert len(df1) == len(warning_status), f"check the size of df1 and warning_status"
-    df1.loc[:, "warning_status"] = warning_status
-    df1.loc[:, "increased_warning_time"] = increased_warning_time
-    df1.loc[:, "warning_ref_cd29"] = warning_ref_cd29
-    df1.to_csv(f"{CONFIG_dir['output_dir']}/dual_test_9S_warning/{model_type}_{feature_type}_{input_component}_warning_"
-               f"{pro_threshold}_{warning_threshold}_{attention_window_size}.txt", sep=',', index=False, mode='w')
+    status[status == 1] = -1 # false warning
+    status[status == 10] = 1 # set ture warning status back to 1
 
-def warning(pro_threshold, warning_threshold, attention_window_size, input_station_list,
-            model_type, feature_type, input_component, input_data_year):
+    num_false_warning = np.where(status == -1)[0].size
+    num_missed_warning = len(missed_warning)
 
-    df = merge_multi_detection(input_station_list, model_type, feature_type, input_component)
+    if np.all(np.isnan(increased_warning)) is True:
+        # all event are not warned, increased_warning is full "np.nan"
+        total_increases_warning = 0
+        mean_increases_warning = 0
+    else:
+        total_increases_warning = np.nansum(np.array(increased_warning))
+        mean_increases_warning = np.nanmean(np.array(increased_warning))
 
-    date = np.array(df.iloc[:, 0])
-    warning_status = [] # 0 noise, 1 warning
-    increased_warning_time = [] # float time
-    warning_ref_cd29 = [] # date string
+    if print_false_warning is True:
+        for false_warning in date[np.where(status == -1)]:
+            print(f"false_warning at {false_warning}")
 
-    pro18, pro12, pro13 = np.array(df.iloc[:, 2]), np.array(df.iloc[:, 4]), np.array(df.iloc[:, 6])
+    output = f"{num_false_warning}, {num_missed_warning}, " \
+             f"{total_increases_warning}, {mean_increases_warning}," \
+             f"{increased_warning}"
 
-    for step in range(attention_window_size, len(date)):
+    return output
 
-        pro_arr = np.stack((pro18[step-attention_window_size:step],
-                            pro12[step-attention_window_size:step],
-                            pro13[step-attention_window_size:step]), axis=-1)
 
-        status = warning_controller(pro_arr, pro_threshold, warning_threshold)
+def manually_warning(pro_filter, warning_threshold, attention_window_size,
+                     input_station_list, model_type, feature_type, input_component,
+                     class_weight, ratio,
+                     seismic_network="9S", buffer=120):
 
-        if status == "warning":
-            warning_time, ref_cd29 = calculate_increased_time(date[step], input_data_year)
-            if warning_time > 3600 * 3: # not issue a warning close to the time stamps of any CD29, unit of 3600 is second
-                status = 'fake_warning'
-            else:
-                pass
+    # load the predicted DF probability
+    predicted_pro = None
+    for idx, station in enumerate(input_station_list):
+        pro = selected_data(station, model=model_type, feature=feature_type,
+                            class_weight=class_weight, ratio=ratio)
+
+        if idx == 0:
+            predicted_pro = pro
         else:
-            status = 0 #"noise"
-            warning_time, ref_cd29 = "noise", "none"
+            predicted_pro = np.hstack((predicted_pro, pro[:, 2].reshape(-1, 1)))
 
-        warning_status.append(status)
-        increased_warning_time.append(warning_time)
-        warning_ref_cd29.append(ref_cd29)
+    warning_status_mapping = {"noise":0, "warning":1}
+    warning_status = [] # 0 noise, 1 true warning, -1 false warning
 
-    df1 = df.iloc[attention_window_size:, :].copy()
-    assert len(df1) == len(warning_status), f"check the size of df1 and warning_status"
-    df1.loc[:, "warning_status"] = warning_status
-    df1.loc[:, "increased_warning_time"] = increased_warning_time
-    df1.loc[:, "warning_ref_cd29"] = warning_ref_cd29
-    df1.to_csv(f"{CONFIG_dir['output_dir']}/dual_test_9S_warning/{model_type}_{feature_type}_{input_component}_warning_"
-               f"{pro_threshold}_{warning_threshold}_{attention_window_size}.txt", sep=',', index=False, mode='w')
+    for step in range(attention_window_size, predicted_pro.shape[0]):
 
+        pro_arr = predicted_pro[step-attention_window_size:step, 2:]
+        status = warning_controller(pro_arr, warning_threshold, pro_filter)
+        warning_status.append(warning_status_mapping.get(status))
 
-def dual_testing_warning_summary(pro_threshold, warning_threshold, attention_window_size,
-                                 model_type, feature_type, input_component, seismic_network, input_data_year):
+    time_str = predicted_pro[attention_window_size:, 0]
+    warning_status = np.array(warning_status, dtype=float)
+    input_station = str(input_station_list[1].replace("0", "1"))
 
-    df1 = pd.read_csv(f"{CONFIG_dir['output_dir']}/dual_test_{seismic_network}_warning/{model_type}_{feature_type}_{input_component}_warning_"
-                      f"{pro_threshold}_{warning_threshold}_{attention_window_size}.txt", header=0)
-    date = np.array(df1.iloc[:, 0])
-    df1['increased_warning_time'] = df1['increased_warning_time'].replace(to_replace=['noise'], value=0)
+    warning_output = check_warning(time_str, warning_status, seismic_network, input_station, input_component, buffer)
+
+    return warning_output
 
 
-    df3 = pd.read_csv(f"{CONFIG_dir['project_root']}/data_input/warning_timestamp_benchmark/{input_data_year}_CD29time.txt", header=None)
+def quick_check_warning(predicted_pro, attention_window_size, warning_threshold, pro_filter):
+    '''
 
-    delta = []
-    for step in range(len(df3)):
-        id1 = np.where(date == df3.iloc[step, 0])[0][0] - 180
-        id2 = np.where(date == df3.iloc[step, 0])[0][0]
-        increased_warning_time = np.array(df1.iloc[id1:id2, -2], dtype= float)
-        increased_warning_time = np.max(increased_warning_time)
-        delta.append(increased_warning_time)
+    Args:
+        predicted_pro: 2D numpy array, stacked model predicted probability
+        attention_window_size: int or float
 
-    false_warning_times = np.where(df1.iloc[:, -3] == 'fake_warning')[0].size
+    Returns:
 
+    '''
+    warning_status_mapping = {"noise": 0, "warning": 1}
+    warning_status = []
 
-    record = [model_type, feature_type, input_component,
-              pro_threshold, warning_threshold, attention_window_size, "false_warning_times", false_warning_times]
-    record.extend(list(delta))
+    for step in range(attention_window_size, predicted_pro.shape[0]):
 
-    #f = open(f"{CONFIG_dir['output_dir']}/dual_test_{seismic_network}_warning/dual_testing_warning_summary.txt", 'a')
-    #f.write(str(record) + "\n")
-    #f.close()
+        pro_arr = predicted_pro[step-attention_window_size:step, :]
+        status = warning_controller(pro_arr, warning_threshold, pro_filter)
+        warning_status.append(warning_status_mapping.get(status))
 
-    return record
+    output = np.array(warning_status)
 
+    return output

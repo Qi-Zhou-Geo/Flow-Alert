@@ -20,6 +20,11 @@ conda activate seismic
 parameters1=(2020)
 parameters2=("ILL18" "ILL12" "ILL13")
 parameters3=("EHZ")
+catchment_name="Illgraben"
+seismic_network="9S"
+id1=150
+id2=270
+
 
 # Calculate the indices for the current combination
 parameters1_idx=$(( ($SLURM_ARRAY_TASK_ID - 1) / ( ${#parameters2[@]} * ${#parameters3[@]} ) % ${#parameters1[@]} + 1 ))
@@ -36,10 +41,10 @@ echo "Year: $current_parameters1, Station: $current_parameters2, Component: $cur
 
 # Run your Python script using srun with the parameters
 srun python ../../3merge_single_julday.py \
-    --catchment_name "Illgraben" \
-    --seismic_network "9S" \
+    --catchment_name "$catchment_name" \
+    --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \
     --input_station "$current_parameters2" \
     --input_component "$current_parameters3" \
-    --id1 150 \
-    --id2 250
+    --id1 "$id1" \
+    --id2 "$id2"
