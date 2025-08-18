@@ -53,11 +53,6 @@ from functions.warning_strategy.strategy import warning_controller
 sub_window_size = 30 # unit by second
 window_overlap = 0 # 0 -> no overlap, 0.9 -> 90% overlap = 10% new data for each step
 
-<<<<<<< HEAD
-normalize_type = "ref-itself"
-trained_model_name = "LSTM_E"
-=======
->>>>>>> test
 seq_length = 32
 num_extend = 4
 selected = None # this will be updated
@@ -72,16 +67,12 @@ station_list = ["STA01", "STA02", "STA03", "STA04", "STA05",
 attention_window_size = 10
 warning_threshold = 0.5
 
-<<<<<<< HEAD
-trained_model_name, model_version, num_repeate, attention = "LSTM_E", "v2-model", 7, True
-=======
 model_type = "LSTM"
 feature_type = "E"
 trained_model_name = f"{model_type}_{feature_type}"
 model_version, num_repeat, attention = "v2model", 3, True
 batch_size = 128
 seq_length = 32
->>>>>>> test
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # </editor-fold>
 
@@ -122,13 +113,6 @@ stream_to_feature = Stream_to_feature(sub_window_size, window_overlap)
 
 
 # <editor-fold desc="load the pre-trained model">
-<<<<<<< HEAD
-ensemble_pre_trained_LSTM = Ensemble_Trained_LSTM_Classifier(trained_model_name, model_version, device)
-models = ensemble_pre_trained_LSTM.ensemble_models(num_repeate=num_repeate,
-                                                   attention=attention,
-                                                   print_model_summary=True)
-
-=======
 ensemble_pre_trained_LSTM = Ensemble_Trained_LSTM_Classifier(model_version,
                                                              feature_type,
                                                              batch_size, seq_length,
@@ -138,25 +122,15 @@ ensemble_pre_trained_LSTM = Ensemble_Trained_LSTM_Classifier(model_version,
 models = ensemble_pre_trained_LSTM.ensemble_models(num_repeat=num_repeat,
                                                    attention=attention,
                                                    print_model_summary=True)
->>>>>>> test
 # </editor-fold>
 
 
 # <editor-fold desc="select the feature ID for the pre-trained model">
-<<<<<<< HEAD
-if trained_model_name == "LSTM_E":
-    config_path = f"{project_root}/config/config_inference.yaml"
-    with open(config_path, "r") as f:
-        config = yaml.safe_load(f)
-
-    selected = config['feature_type_E']
-=======
 config_path = f"{project_root}/config/config_inference.yaml"
 with open(config_path, "r") as f:
     config = yaml.safe_load(f)
 
-selected = config[f'feature_type_{feature_type}']
->>>>>>> test
+selected = config['feature_type_E']
 # </editor-fold>
 
 synthetic_feature = synthetic_input4model(sub_window_size, window_overlap, trained_model_name, seq_length*num_extend)
@@ -252,7 +226,3 @@ for t in tqdm(np.arange(1, num_step)):
         temp = f'{stt[0].stats.starttime.strftime("%Y-%m-%dT%H:%M:%S")}, ' \
                f'{", ".join(map(str, pro))}, {status_up}, {status_down}\n'
         f.write(temp)
-<<<<<<< HEAD
-
-=======
->>>>>>> test
