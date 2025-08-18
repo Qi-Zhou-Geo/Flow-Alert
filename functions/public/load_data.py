@@ -32,7 +32,7 @@ def config_catchment_path(catchment_name, seismic_network):
 
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    config_path = f"{project_root}/config/config_catchment_code.yaml"
+    config_path = f"{project_root}/config/catchment_code.yaml"
 
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
@@ -49,7 +49,7 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
 
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    config_path = f"{project_root}/functions/seismic_data_processing_obspy/catchment_code.yaml"
+    config_path = f"{project_root}/config/catchment_code.yaml"
 
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
@@ -110,13 +110,20 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
 
     if normalize is True:
         # min max normalize the data-60s
-        from functions.public.min_max_normalize_transformer import min_max_normalize
-        df.iloc[:, :-3] = min_max_normalize(df.iloc[:, :-3], input_station, feature_type="C")
+        #from functions.public.min_max_normalize_transformer import min_max_normalize
+        #df.iloc[:, :-3] = min_max_normalize(df.iloc[:, :-3], input_station, feature_type="C")
+
+        with np.load(f"{project_root}/data/scaler/normalize_factor4C.npz", "r") as f:
+            min_factor = f["min_factor"]
+            max_factor = f["max_factor"]
+
+        scaled = np.array(df.iloc[:, :-3]) - min_factor / (max_factor - min_factor)
+        df.iloc[:, :-3] = scaled
 
     return df
 
 def select_features(catchment_name, seismic_network, input_year, input_station, input_component, feature_type, with_label,
-                    descending=False, repeate=1, normalize=False):
+                    descending=False, repeat=1, normalize=False):
     '''
 
     Args:
@@ -128,7 +135,7 @@ def select_features(catchment_name, seismic_network, input_year, input_station, 
         with_label: bool, with manually labled feature or not,
         descending: bool, for testing the num of input feature influences,
                     rank the feature importance by descending (the first one is most important),
-        repeate: int, for random selecting the feature
+        repeat: int, for random selecting the feature
 
     Returns:
         input_features_name: 1D numpy array, List[str]
@@ -185,7 +192,7 @@ def select_features(catchment_name, seismic_network, input_year, input_station, 
     elif feature_type.split("-")[0] == "R":  # randomly selected
         # "K-16-model" means that randomly selected 16 features
         num_selected = int(feature_type.split("-")[1])
-        selected_column = generate_random_selected_feature_id(repeate, num_selected, num_total_feature=80)
+        selected_column = generate_random_selected_feature_id(repeat, num_selected, num_total_feature=80)
         print(f"{seismic_network, input_year, input_station, input_component, feature_type}\n"
               f"{selected_column}")
 
@@ -245,7 +252,7 @@ def load_waveform_pro(amp_array, seismic_network, input_year,
 
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    df = pd.read_csv(f"{project_root}/config/manually_labeled_DF/{seismic_network}-{input_year}-DF.txt", header=0)
+    df = pd.read_csv(f"{project_root}/data/manually_labeled_DF/{seismic_network}-{input_year}-DF.txt", header=0)
     # select the manually labeled event time
     df = df[(df.iloc[:, 4] == seismic_network) &
             (df.iloc[:, 5] == input_station) &

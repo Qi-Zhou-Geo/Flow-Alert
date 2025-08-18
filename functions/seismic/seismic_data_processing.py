@@ -16,6 +16,10 @@ from obspy import read, Trace, Stream, read_inventory, signal
 from obspy.core import UTCDateTime # default is UTC+0 time zone
 from obspy.signal.invsim import simulate_seismometer
 
+# for obspy taper
+import scipy.signal
+import scipy.signal.windows
+scipy.signal.hann = scipy.signal.windows.hann
 
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
@@ -193,7 +197,7 @@ def manually_remove_sensor_response(trace, sensor_type, pre_filt=(0.5, 1.0, 45.0
 
 def config_snesor_parameter(catchment_name, seismic_network):
 
-    catchment_code_path = f"{project_root}/functions/seismic_data_processing_obspy/catchment_code.yaml"
+    catchment_code_path = f"{project_root}/config/catchment_code.yaml"
     with open(catchment_code_path, "r") as f:
         config = yaml.safe_load(f)
         glic_sac_dir = config[f"glic_sac_dir"]
@@ -232,9 +236,14 @@ def load_seismic_signal(catchment_name, seismic_network, station, component,
         st = read(file_dir + data_name)
     else:
         st = Stream()
-        for n in np.arange(d1.julday, d2.julday+1):
+        for n in np.arange(d1.julday-1, d2.julday+1):
             data_name = f"{seismic_network}.{station}.{component}.{d1.year}.{str(n).zfill(3)}.mseed"
             st += read(file_dir + data_name)
+
+        # to avoid the "edge" effect in both sides
+        st.trim(starttime=UTCDateTime(year=d1.year, julday=d1.julday) - 3600 * 6,
+                endtime=UTCDateTime(year=d2.year, julday=d2.julday) + 3600 * 6,
+                nearest_sample=False)
 
     if raw_data is True:
         return st
@@ -243,6 +252,7 @@ def load_seismic_signal(catchment_name, seismic_network, station, component,
     st._cleanup()
     st.detrend('linear')
     st.detrend('demean')
+    st.taper(max_percentage=0.05) # to avoid the "edge" effect in both sides
 
     if remove_sensor_response is True:
 
@@ -268,6 +278,7 @@ def load_seismic_signal(catchment_name, seismic_network, station, component,
         st.trim(starttime=d1, endtime=d2, nearest_sample=False)
         st.detrend('linear')
         st.detrend('demean')
+        #st.taper(max_percentage=0.05, type='hann')
 
     else:
         st.trim(starttime=d1, endtime=d2, nearest_sample=False)

@@ -83,7 +83,7 @@ class Train_Test:
                  # input_format
                  output_dir: str = None,
                  input_format: str = "9S-2017_2019-ILL12-EHZ-C",
-                 model_type: str = "LSTM",
+                 model_type: str = "results",
 
                  # Non-DF label : DF label = 1-class_weight : class_weight
                  class_weight: float = 0.9,  # weight for DF label

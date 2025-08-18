@@ -8,12 +8,12 @@
 
 import random
 
-def generate_random_selected_feature_id(repeate, num_selected, num_total_feature=80):
+def generate_random_selected_feature_id(repeat, num_selected, num_total_feature=80):
       '''
       Random select some seismic features for training.
 
       Args:
-            repeate: int, this is make t
+            repeat: int, this is make t
             num_selected: int, 1 <= num_selected <= num_total_feature
             num_total_feature: int, number of (Type A + Type B) is 80
 
@@ -21,7 +21,7 @@ def generate_random_selected_feature_id(repeate, num_selected, num_total_feature
             selected_column: List[int], random selected feature
       '''
 
-      random.seed(200 + repeate)
+      random.seed(200 + repeat)
 
       selected_column = random.sample(range(num_total_feature), num_selected)
       selected_column.sort()

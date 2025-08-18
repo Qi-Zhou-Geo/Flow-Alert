@@ -34,7 +34,7 @@ from functions.model.lstm_model import LSTM_Classifier
 from functions.model.train_test import Train_Test
 from functions.public.undersamp_training_data import *
 
-def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, params, repeate=1):
+def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, params, repeat=1):
 
     # empty list to store the dataloader
     train_sequences = []
@@ -61,7 +61,7 @@ def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, 
                                                           input_component,
                                                           feature_type,
                                                           with_label,
-                                                          repeate=repeate,
+                                                          repeat=repeat,
                                                           normalize=True)
 
         # convert data-60s frame to data-60s loader
@@ -132,7 +132,7 @@ def load_model(feature_type, batch_size, seq_length, training_or_testing, device
         lstm_feature_size = map_feature_size.get(feature_type)
     else:
         print(feature_type)
-        lstm_feature_size = int(feature_type.split("-")[1]) # as 'R-60-LSTM'
+        lstm_feature_size = int(feature_type.split("-")[1]) # as 'R-60-results'
 
     model = LSTM_Classifier(feature_size=lstm_feature_size, device=device)
 
@@ -163,13 +163,13 @@ def load_model(feature_type, batch_size, seq_length, training_or_testing, device
 
 
 def main(model_type, feature_type, batch_size, seq_length,
-         class_weight, noise2event_ratio, params, repeate,
+         class_weight, noise2event_ratio, params, repeat,
          output_dir=None):
 
     job_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
     time_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     print(f"Start Job={job_id}, UTC+0={time_now}, "
-          f"{model_type, feature_type, batch_size, seq_length, class_weight, noise2event_ratio, repeate}", "\n")
+          f"{model_type, feature_type, batch_size, seq_length, class_weight, noise2event_ratio, repeat}", "\n")
 
     # working device
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -187,7 +187,7 @@ def main(model_type, feature_type, batch_size, seq_length,
     model, optimizer, scheduler = load_model(feature_type, batch_size, seq_length, training_or_testing, device)
 
     # train or test class
-    input_format = f"{params[0]}-repeate-{repeate}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
+    input_format = f"{params[0]}-repeat-{repeat}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
 
     if output_dir is not None:
         output_dir = output_dir
@@ -209,14 +209,14 @@ def main(model_type, feature_type, batch_size, seq_length,
 
     time_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     print(f"End Job={job_id}: UTC+0={time_now}, "
-          f"{model_type, feature_type, batch_size, seq_length, class_weight, noise2event_ratio, repeate}", "\n")
+          f"{model_type, feature_type, batch_size, seq_length, class_weight, noise2event_ratio, repeat}", "\n")
 
 
 if __name__ == "__main__":
     # sinfo -n node[501-514] -N --Format="Nodelist,CPUsState,AllocMem,Memory,GresUsed,Gres"
     parser = argparse.ArgumentParser(description='input parameters')
 
-    parser.add_argument("--model_type", default="LSTM", type=str, help="model type")
+    parser.add_argument("--model_type", default="results", type=str, help="model type")
     parser.add_argument("--feature_type", default="C", type=str, help="feature type")
 
     parser.add_argument("--batch_size", default=16, type=int, help='input batch size on each device')
@@ -227,13 +227,13 @@ if __name__ == "__main__":
 
     parser.add_argument("--params", nargs='+', type=str, help="list of stations")
 
-    parser.add_argument("--num_repeate", default=6, type=int, help="num of repeate")
+    parser.add_argument("--num_repeat", default=6, type=int, help="num of repeat")
     parser.add_argument("--output_dir", default="CONFIG_dir['output_dir_div']", type=str, help="model output dir")
 
     args = parser.parse_args()
 
-    for repeate in range(1, args.num_repeate + 1):  # repate 5 times
+    for repeat in range(1, args.num_repeat + 1):  # repate 5 times
         main(args.model_type, args.feature_type,
              args.batch_size, args.seq_length,
              args.class_weight, args.noise2event_ratio,
-             args.params, repeate, args.output_dir)
+             args.params, repeat, args.output_dir)

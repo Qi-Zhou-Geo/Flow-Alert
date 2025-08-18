@@ -7,18 +7,31 @@
 # create the “log” folder in case it doesn't exist
 mkdir -p logs 
 
-# Submit jobs for 2017 (sequential)
-job1_2017=$(sbatch submitStep1_2017.sh)
-job2_2017=$(sbatch --dependency=afterok:${job1_2017##* } submitStep2_2017.sh)
-sbatch --dependency=afterok:${job2_2017##* } submitStep3_2017.sh
+# Submit jobs for 2017
+job_2017_step1=$(sbatch submitStep1_2017.sh)
+job_2017_step2=$(sbatch --dependency=afterok:${job_2017_step1##* } submitStep2_2017.sh)
+sbatch --dependency=afterok:${job_2017_step2##* } submitStep3_2017.sh
 
-# Submit jobs for 2018/2019 (sequential)
-job4_2018_2019=$(sbatch submitStep1_2018_2019.sh)
-job5_2018_2019=$(sbatch --dependency=afterok:${job4_2018_2019##* } submitStep2_2018_2019.sh)
-sbatch --dependency=afterok:${job5_2018_2019##* } submitStep3_2018_2019.sh
+# Submit jobs for 2018
+job_2018_step1=$(sbatch submitStep1_2018.sh)
+job_2018_step2=$(sbatch --dependency=afterok:${job_2018_step1##* } submitStep2_2018.sh)
+sbatch --dependency=afterok:${job_2018_step2##* } submitStep3_2018.sh
 
-# Submit jobs for 2020 (sequential)
-job7_2020=$(sbatch submitStep1_2020.sh)
-job8_2020=$(sbatch --dependency=afterok:${job7_2020##* } submitStep2_2020.sh)
-sbatch --dependency=afterok:${job8_2020##* } submitStep3_2020.sh
+# Submit jobs for 2019
+job_2019_step1=$(sbatch submitStep1_2019.sh)
+job_2019_step2=$(sbatch --dependency=afterok:${job_2019_step1##* } submitStep2_2019.sh)
+sbatch --dependency=afterok:${job_2019_step2##* } submitStep3_2019.sh
 
+# Submit jobs for 2020
+job_2020_step1=$(sbatch submitStep1_2020.sh)
+job_2020_step2=$(sbatch --dependency=afterok:${job_2020_step1##* } submitStep2_2020.sh)
+sbatch --dependency=afterok:${job_2020_step2##* } submitStep3_2020.sh
+
+# Submit jobs for 2022
+job_2022_step1=$(sbatch submitStep1_2022.sh)
+job_2022_step2=$(sbatch --dependency=afterok:${job_2022_step1##* } submitStep2_2022.sh)
+sbatch --dependency=afterok:${job_2022_step2##* } submitStep3_2022.sh
+
+# Delete the logs if it is zero
+find logs/ -type f -name "*.txt" -size 0
+find logs/ -type f -name "*.txt" -size 0 -delete

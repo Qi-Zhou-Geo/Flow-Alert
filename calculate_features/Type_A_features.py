@@ -129,6 +129,8 @@ def calBL_feature(data, ruler, epsilon=1e-8):
         sum_d.append(i)
 
     alpha = 1 + len(data_selected) / (np.sum(sum_d) + epsilon)
+    if alpha > 10:
+        alpha = 10
     alpha = float("{:.4f}".format(alpha))
     # </editor-fold>
 

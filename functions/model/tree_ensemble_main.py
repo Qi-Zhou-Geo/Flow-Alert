@@ -22,7 +22,7 @@ sys.path.append(str(project_root))
 from functions.public.dataset_to_dataloader import *
 from functions.model.tree_ensemble_model import Ensemble_Tree_Model
 
-def prepare_dataloader(feature_type, params, repeate=1):
+def prepare_dataloader(feature_type, params, repeat=1):
     # empty list to store the dataloader
     train_dataloader = []
     test_dataloader = []
@@ -46,7 +46,7 @@ def prepare_dataloader(feature_type, params, repeate=1):
                                                           input_component,
                                                           feature_type,
                                                           with_label,
-                                                          repeate=repeate)
+                                                          repeat=repeat)
 
         # convert data-60s frame to data-60s loader
         if dataloader_type == "training":
@@ -62,7 +62,7 @@ def prepare_dataloader(feature_type, params, repeate=1):
     return input_features_name, train_data, test_data
 
 
-def main(model_type, feature_type, class_weight, noise2event_ratio, params, repeate):
+def main(model_type, feature_type, class_weight, noise2event_ratio, params, repeat):
 
     job_id = int(os.environ["SLURM_ARRAY_TASK_ID"])
     time_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
@@ -70,12 +70,12 @@ def main(model_type, feature_type, class_weight, noise2event_ratio, params, repe
           f"{model_type, feature_type, class_weight, noise2event_ratio}", "\n")
 
     # load the train_data and test-data-60s
-    input_features_name, train_data, test_data = prepare_dataloader(feature_type, params, repeate=repeate)
+    input_features_name, train_data, test_data = prepare_dataloader(feature_type, params, repeat=repeat)
     print(f"train_data.shape, {train_data.shape}, train DF, {np.sum(train_data[:, -1])}, "
           f"test_data.shape, {test_data.shape}, test DF, {np.sum(test_data[:, -1])}")
 
     # train or test class
-    input_format = f"{params[0]}-repeate-{repeate}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
+    input_format = f"{params[0]}-repeat-{repeat}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
     n_estimators = 500
     workflow = Ensemble_Tree_Model(train_data, test_data, input_features_name,
                                    input_format, model_type, n_estimators,
@@ -103,11 +103,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--params", nargs='+', type=str, help="list of stations")
 
-    parser.add_argument("--num_repeate", default=6, type=int, help="num of repeate")
+    parser.add_argument("--num_repeat", default=6, type=int, help="num of repeat")
 
     args = parser.parse_args()
 
-    for repeate in range(1, args.num_repeate): # repate 5 times
+    for repeat in range(1, args.num_repeat): # repate 5 times
         main(args.model_type, args.feature_type,
              args.class_weight, args.noise2event_ratio,
-             args.params, repeate)
+             args.params, repeat)

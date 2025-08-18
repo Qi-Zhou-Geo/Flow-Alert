@@ -270,35 +270,21 @@ feature_type_E:
 # Description: Model and feature combination
 LSTM_A:
   ref_model_name: "station_LSTM_A_repeatX.pt"
-  lstm_feature_size: 11
-  device: "CPU"
-  batch_size: 64
-  seq_length: 32
+  feature_size: 11
 
 LSTM_B:
   ref_model_name: "station_LSTM_B_repeatX.pt"
-  lstm_feature_size: 69
-  device: "CPU"
-  batch_size: 64
-  seq_length: 32
+  feature_size: 69
 
 LSTM_C:
   ref_model_name: "station_LSTM_C_repeatX.pt"
-  lstm_feature_size: 80
-  device: "CPU"
-  batch_size: 64
-  seq_length: 32
+  feature_size: 80
 
 LSTM_D:
   ref_model_name: "station_LSTM_D_repeatX.pt"
-  lstm_feature_size: 70
-  device: "CPU"
-  batch_size: 64
-  seq_length: 32
+  feature_size: 70
 
 LSTM_E:
-  ref_model_name: "LSTM_ILL02_E_repeateX.pt"
-  lstm_feature_size: 13
-  device: "CPU"
-  batch_size: 64
-  seq_length: 32
+  ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_b=[batch_size]_s=[seq_length]_repeat=[num_repeat].pt"
+  feature_size: 13
+

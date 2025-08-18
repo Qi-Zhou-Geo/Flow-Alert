@@ -7,6 +7,11 @@ including, but not limited to, **debris flows**, **glacial lake outburst floods 
 you've come to the right place! <br>
 Check out our repository to get started.
 
+### 🛠️ 0. Major Changes for v1.2
+Retested the LSTM workflow. <br>
+You may encounter bugs in the RF or XGBoost models<br>
+if you do, please report them to us.
+
 
 ### 📁 1. Repository Structure
 ```bash
@@ -19,8 +24,8 @@ Flow-Alert
 ├── functions            # Core functions and scripts
 ├── trained_model        # Pre-trained models
     └── feature_imp      # Seismic geature weight
-    └── v1_model         # Model version 1
-    └── v2_model         # Model version 2, with less input features
+    └── v1model         # Model version 1
+    └── v2model         # Model version 2, with less input features
 ```
 
 ### 🚀 2. How to Use Our Pre-trained Models on Your Data? <br>

@@ -188,7 +188,7 @@ class Ensemble_Trained_Tree_Classifier:
         self.model_dir = model_dir
         self.station = station
 
-    def load_trained_model(self, trained_model_name, repeate):
+    def load_trained_model(self, trained_model_name, repeat):
         """
         Load a pre-trained ensemble model (e.g., RF or XGB).
         """
@@ -200,18 +200,18 @@ class Ensemble_Trained_Tree_Classifier:
         else:
             ref_model_dir = Path(self.model_dir).resolve()
 
-        model_path = f"{ref_model_dir}/{self.station}_{trained_model_name}_repeat{repeate}.pkl"
+        model_path = f"{ref_model_dir}/{self.station}_{trained_model_name}_repeat{repeat}.pkl"
         model = joblib.load(model_path)
         print(f"Loaded pre-trained model: {model_path}")
         return model
 
-    def ensemble_models(self, num_repeate=5):
+    def ensemble_models(self, num_repeat=5):
         """
         Load multiple trained ensemble models for ensembling.
         """
         models = []
-        for repeate in range(1, num_repeate + 1):
-            model = self.load_trained_model(trained_model_name=self.trained_model_name, repeate=repeate)
+        for repeat in range(1, num_repeat + 1):
+            model = self.load_trained_model(trained_model_name=self.trained_model_name, repeat=repeat)
             models.append(model)
         return models
 

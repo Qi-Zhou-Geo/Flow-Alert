@@ -21,8 +21,10 @@ conda activate seismic
 parameters1=(2017)
 parameters2=("EHZ")
 parameters3=($(seq 138 183)) # 46 = (183 - 138 + 1)
-
 parameters4=("ILL08" "ILL02" "ILL03")
+catchment_name="Illgraben"
+seismic_network="9S"
+input_window_size=60
 
 
 # Calculate the indices for the current combination
@@ -40,10 +42,10 @@ echo "Year: $current_parameters1, Component: $current_parameters2, Julday: $curr
 
 # Run your Python script using srun with the parameters
 srun python ../../2cal_TypeB_network.py \
-    --catchment_name "Illgraben" \
-    --seismic_network "9S" \
+    --catchment_name "$catchment_name" \
+    --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \
     --station_list "${parameters4[@]}" \
     --input_component "$current_parameters2" \
-    --input_window_size 60 \
+    --input_window_size "$input_window_size" \
     --id "$current_parameters3"

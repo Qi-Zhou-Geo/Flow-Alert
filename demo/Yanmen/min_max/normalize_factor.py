@@ -42,7 +42,6 @@ for station in station_list:
     date = df_arr[:, 0]
     feature = df_arr[:, 1:]
 
-
     clipped = np.empty_like(feature)
     for i in range(feature.shape[1]):
         lower = np.percentile(feature[:, i], 1)

@@ -26,7 +26,7 @@ sys.path.append(str(project_root))
 
 def selected_data(station, model, feature,
                   data_compression = True,
-                  input_component="EHZ", num_repeate=5, class_weight=0.9, ratio=100000,
+                  input_component="EHZ", num_repeat=5, class_weight=0.9, ratio=100000,
                   time1="2020-05-29T01:00:00", time2="2020-09-06T23:00:00"):
     '''
 
@@ -36,7 +36,7 @@ def selected_data(station, model, feature,
         feature:
         data_compression:
         input_component:
-        num_repeate:
+        num_repeat:
         class_weight:
         ratio:
         time1:
@@ -48,8 +48,8 @@ def selected_data(station, model, feature,
 
     df_temp = None
     file_path = "/storage/vast-gfz-hpc-01/home/qizhou/3paper/3Diversity-of-Debris-Flow-Footprints/output-reviserved-paper"#f"{CONFIG_dir['output_dir2']}"
-    for repeate in np.arange(1, num_repeate+1):
-        name = f"9S-2017-{station}-{input_component}-training-True-repeate-{repeate}-" \
+    for repeat in np.arange(1, num_repeat+1):
+        name = f"9S-2017-{station}-{input_component}-training-True-repeat-{repeat}-" \
                f"{model}-{feature}-DFweight-{class_weight}-" \
                f"ratio-{ratio}-testing-output-2020-05-29.txt"
 
@@ -61,7 +61,7 @@ def selected_data(station, model, feature,
 
         temp = temp.iloc[id1:id2, :]
 
-        if repeate == 1:
+        if repeat == 1:
             df_temp = np.array(temp.iloc[:, [0, 1, 4]])
         else:
             df_temp = np.hstack((df_temp, np.array(temp.iloc[:, 4]).reshape(-1, 1) ))
@@ -69,7 +69,7 @@ def selected_data(station, model, feature,
     output = None
     if data_compression is True:
         output = df_temp[:, :2]
-        mean_pro = np.mean(df_temp[:, 2:], axis=1) # as row, use the mean pro from "num_repeate"
+        mean_pro = np.mean(df_temp[:, 2:], axis=1) # as row, use the mean pro from "num_repeat"
         output = np.hstack((output, mean_pro.reshape(-1, 1)))
     else:
         output = df_temp
@@ -110,7 +110,7 @@ def check_warning(time_str, warning_status,
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
 
-    file_dir = f"{project_root}/config/manually_labeled_DF"
+    file_dir = f"{project_root}/data/manually_labeled_DF"
     event = pd.read_csv(f"{file_dir}/{seismic_network}-{input_year}-DF.txt", header=0)
     # select the manually labeled event time
     event = event[(event.iloc[:, 4] == seismic_network) &

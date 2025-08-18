@@ -3,8 +3,9 @@
 #SBATCH --job-name=step1           # job name, "Qi_run"
 
 #SBATCH --ntasks=1                 # each individual task in the job array will have a single task associated with it
-#SBATCH --array=1-576              # job array id
-#SBATCH --mem-per-cpu=8G		       # Memory Request (per CPU; can use on GLIC)
+#SBATCH --array=1-318              # job array id
+
+#SBATCH --mem-per-cpu=8G		   # Memory Request (per CPU; can use on GLIC)
 
 #SBATCH --output=logs/step1_out_%A_%a_%x.txt  # Standard Output Log File
 #SBATCH --error=logs/step1_err_%A_%a_%x.txt   # Standard Error Log File
@@ -17,9 +18,13 @@ conda activate seismic
 
 
 # Define arrays for parameters1, parameters2, and parameters3
-parameters1=(2018 2019)
+parameters1=(2018)
 parameters2=("ILL18" "ILL12" "ILL13")
-parameters3=($(seq 145 240)) # 96 = 240 - 145 + 1
+parameters3=($(seq 145 250)) # 106 = 250 - 145 + 1
+catchment_name="Illgraben"
+seismic_network="9S"
+input_component="EHZ"
+input_window_size=60
 
 
 # Calculate the indices for the current combination
@@ -36,10 +41,10 @@ current_parameters3=${parameters3[$parameters3_idx - 1]}
 echo "Year: $current_parameters1, Station: $current_parameters2, Julday $current_parameters3"
 
 srun python ../../1cal_TypeA_TypeB.py \
-    --catchment_name "Illgraben" \
-    --seismic_network "9S" \
+    --catchment_name "$catchment_name" \
+    --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \
     --input_station "$current_parameters2" \
-    --input_component "EHZ" \
-    --input_window_size 60 \
+    --input_component "$input_component" \
+    --input_window_size "$input_window_size" \
     --id "$current_parameters3"

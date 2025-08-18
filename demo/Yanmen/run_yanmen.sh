@@ -6,6 +6,11 @@
 #SBATCH --array=1-1                # job array id
 
 #SBATCH --mem-per-cpu=32G          # Memory Request (per CPU; can use on GLIC)
+<<<<<<< HEAD
+=======
+#SBATCH --gres=gpu:A100:1             # load GPU A100 could be replace by A40/A30, 509-510 nodes has 4_A100_80G
+#SBATCH --reservation=GPU            # reserve the GPU
+>>>>>>> test
 
 #SBATCH --begin=2023-10-20T09:00:00  # job start time, if it later than NOW, job will be run immediatly.
 
@@ -21,4 +26,8 @@ source /home/qizhou/miniforge3/bin/activate
 conda activate flow-alert
 
 # Run the script with the selected parameter
+<<<<<<< HEAD
 srun python Yanmen_main.py
+=======
+srun --gres=gpu:A100:1 python Yanmen_main.py
+>>>>>>> test
