@@ -162,10 +162,10 @@ def load_model(feature_type, batch_size, seq_length, training_or_testing, device
         print(f"load model failed, p={feature_type, training_or_testing, device}")
 
     model.to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-5)
+    optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
     # Define scheduler: Reduce the LR by factor of 0.1 when the metric (like loss) stops improving
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.2, patience=5)
-    warmup_scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=warmup_lambda)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, patience=5)
+    # warmup_scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=warmup_lambda)
 
     # print the model structure
     summary(model=model,
@@ -173,7 +173,7 @@ def load_model(feature_type, batch_size, seq_length, training_or_testing, device
             col_names=("input_size", "output_size", "num_params", "params_percent", "trainable"),
             device=device)
 
-    return model, optimizer, scheduler, warmup_scheduler
+    return model, optimizer, scheduler
 
 def main(model_type, feature_type, batch_size, seq_length,
          class_weight, noise2event_ratio, params, repeat,
