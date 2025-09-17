@@ -157,7 +157,7 @@ def load_model(model_type, input_station, feature_type, batch_size, seq_length, 
         xlstm_params = json.load(f)
     print(xlstm_params)
     print(f"{model_type.lower()}, {feature_type}, {input_station}")
-    model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get(f"{input_station}")
+    model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get(f"{input_station}", "default")
     print(model_params)
     model = xLSTM_Classifier(feature_size=xlstm_feature_size, device=device, **model_params)
 

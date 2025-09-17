@@ -110,7 +110,7 @@ class xLSTM_Classifier(nn.Module):
     
 class Ensemble_Trained_xLSTM_Classifier:
     def __init__(self, model_version, feature_type, batch_size, seq_length,
-                 device, ML_name="LSTM", station="ILL02"):
+                 device, ML_name="xLSTM", station="ILL02"):
 
         self.model_version = model_version
         self.feature_type = feature_type
@@ -119,7 +119,7 @@ class Ensemble_Trained_xLSTM_Classifier:
 
 
         self.ML_name = ML_name
-        self.station = station
+        self.station = station.replace("0", "1")
 
         self.device = device
 
@@ -142,10 +142,10 @@ class Ensemble_Trained_xLSTM_Classifier:
         feature_size, ref_model_name = rename_model(ML_name, station,
                                                     feature_type, batch_size, seq_length,
                                                     num_repeat=repeat)
-        with open(f"./config/xlstm_params.json", 'r') as f:
+        with open(f"{project_root}/config/xlstm_params.json", 'r') as f:
             xlstm_params = json.load(f)
 
-        model_params = xlstm_params.get('xlstm').get('feature_type')
+        model_params = xlstm_params.get('xlstm').get('feature_type').get(self.station)
         model = xLSTM_Classifier(feature_size=feature_size, device=self.device, **model_params)
 
         ref_model_dir = f"{project_root}/trained_model/{self.model_version}"
