@@ -176,8 +176,8 @@ def load_model(model_type, input_station, feature_type, batch_size, seq_length, 
     model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
     # Define scheduler: Reduce the LR by factor of 0.1 when the metric (like loss) stops improving
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, patience=5)
-    # warmup_scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=warmup_lambda)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
+    warmup_scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=warmup_lambda)
 
     # print the model structure
     summary(model=model,
@@ -185,7 +185,7 @@ def load_model(model_type, input_station, feature_type, batch_size, seq_length, 
             col_names=("input_size", "output_size", "num_params", "params_percent", "trainable"),
             device=device)
 
-    return model, optimizer, scheduler
+    return model, optimizer, scheduler, warmup_scheduler
 
 def main(model_type, feature_type, batch_size, seq_length,
          class_weight, noise2event_ratio, params, repeat,
@@ -209,7 +209,7 @@ def main(model_type, feature_type, batch_size, seq_length,
     seismic_network, _, input_station, input_component, training_or_testing, _  = params[0].split("-")
 
     # load model
-    model, optimizer, scheduler = load_model(model_type, input_station, feature_type, batch_size, seq_length, training_or_testing, device)
+    model, optimizer, scheduler, warmup_scheduler = load_model(model_type, input_station, feature_type, batch_size, seq_length, training_or_testing, device)
 
     # train or test class
     input_format = f"{params[0]}-repeat-{repeat}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
@@ -222,7 +222,7 @@ def main(model_type, feature_type, batch_size, seq_length,
     workflow = Train_Test(model, optimizer, scheduler,
                           train_dataloader, test_dataloader, validate_dataloader,
                           device, output_dir, input_format, model_type,
-                          class_weight, noise2event_ratio, data_type="feature")
+                          class_weight, noise2event_ratio, data_type="feature", warmup_scheduler=warmup_scheduler)
 
 
     if training_or_testing == "training":

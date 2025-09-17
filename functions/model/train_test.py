@@ -90,6 +90,7 @@ class Train_Test:
                  noise2event_ratio: int = 1e5, # either sample the training data-60s or use all training data-60s
 
                  data_type: str = "feature",
+                 warmup_scheduler = None
                  ) -> None:
 
         # <editor-fold desc="set parameter that used in class">
@@ -103,6 +104,10 @@ class Train_Test:
 
         self.device = device
         self.model_type = model_type
+        if warmup_scheduler is not None:
+            self.warmup_scheduler = warmup_scheduler
+        else:
+            self.warmup_scheduler = None
         # </editor-fold>
 
 
@@ -273,12 +278,18 @@ class Train_Test:
 
         for epoch in range(1, num_epoch+1): # loop 50 times for training
             train_loss, train_matrix = self.training(epoch)  # train the model every epoch
-            self.scheduler.step(train_loss)
-
             if testing is True:
                 test_loss, test_matrix = self.testing(epoch, "testing", self.test_dataloader)
             else:
                 test_loss, test_matrix = -1, [-1] * 8
+
+            if self.model_type in ['xLSTM', 'sLSTM', 'mLSTM']:
+                if epoch < 3:
+                    self.warmup_scheduler.step()
+                else:
+                    self.scheduler.step(test_loss)  
+            else:
+                self.scheduler.step(test_loss)
 
             # check the test F1
             if test_matrix[-2] > self.test_monitor:
