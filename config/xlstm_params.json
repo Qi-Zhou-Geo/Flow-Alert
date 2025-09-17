@@ -22,6 +22,14 @@
                                 "num_blocks": 3,
                                 "hidden_size": 128,
                                 "slstm_at": [0]
+                            },
+                    "default" : {"conv1d_kernel_size": 12,
+                                "qkv_proj_blocksize": 4,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 128,
+                                "slstm_at": [0]
                             }
                 },
               "B": {"ILL12" : {"conv1d_kernel_size": 24,
@@ -47,7 +55,15 @@
                                 "num_blocks": 2,
                                 "hidden_size": 192,
                                 "slstm_at": [0]
-                            } 
+                            }, 
+                    "default" : {"conv1d_kernel_size": 24,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": [0]
+                            }
                 },
               "C": {"ILL12" : {"conv1d_kernel_size": 4,
                                 "qkv_proj_blocksize": 32,
@@ -71,6 +87,32 @@
                                 "context_length": 32,
                                 "num_blocks": 3,
                                 "hidden_size": 64,
+                                "slstm_at": [0]
+                            },
+                    "default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 4,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": [0]
+                            }
+                },
+                "D" : {"default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 4,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": [0]
+                            }
+                },
+                "E" : {"default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 4,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
                                 "slstm_at": [0]
                             }
                 }
@@ -98,6 +140,14 @@
                                 "num_blocks": 3,
                                 "hidden_size": 256,
                                 "slstm_at": [0, 1, 2]
+                            },
+                    "default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 28,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": [0, 1]
                             }
                 },
               "B": {"ILL12" : {"conv1d_kernel_size": 12,
@@ -123,7 +173,15 @@
                                 "num_blocks": 2,
                                 "hidden_size": 192,
                                 "slstm_at": [0, 1]
-                            } 
+                            },
+                    "default" : {"conv1d_kernel_size": 12,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": [0, 1]
+                            }
                 },
               "C": {"ILL12" : {"conv1d_kernel_size": 12,
                                 "qkv_proj_blocksize": 16,
@@ -147,6 +205,32 @@
                                 "context_length": 32,
                                 "num_blocks": 2,
                                 "hidden_size": 256,
+                                "slstm_at": [0, 1]
+                            },
+                    "default" : {"conv1d_kernel_size": 12,
+                                "qkv_proj_blocksize": 16,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 64,
+                                "slstm_at": [0, 1]
+                            }
+                },
+                "D": {"default" : {"conv1d_kernel_size": 12,
+                                "qkv_proj_blocksize": 16,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 64,
+                                "slstm_at": [0, 1]
+                            }
+                },
+                "E": {"default" : {"conv1d_kernel_size": 12,
+                                "qkv_proj_blocksize": 16,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 64,
                                 "slstm_at": [0, 1]
                             }
                 }
@@ -174,6 +258,14 @@
                                 "num_blocks": 2,
                                 "hidden_size": 128,
                                 "slstm_at": []
+                            },
+                    "default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 4,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 192,
+                                "slstm_at": []
                             }
                 },
               "B": {"ILL12" : {"conv1d_kernel_size": 24,
@@ -199,7 +291,15 @@
                                 "num_blocks": 2,
                                 "hidden_size": 64,
                                 "slstm_at": []
-                            } 
+                            },
+                    "default" : {"conv1d_kernel_size": 24,
+                                "qkv_proj_blocksize": 32,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 256,
+                                "slstm_at": []
+                            }
                 },
               "C": {"ILL12" : {"conv1d_kernel_size": 4,
                                 "qkv_proj_blocksize": 8,
@@ -223,6 +323,32 @@
                                 "context_length": 32,
                                 "num_blocks": 2,
                                 "hidden_size": 192,
+                                "slstm_at": []
+                            },
+                    "default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 8,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 128,
+                                "slstm_at": []
+                            }
+                },
+                "D": {"default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 8,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 128,
+                                "slstm_at": []
+                            }
+                },
+                "E": {"default" : {"conv1d_kernel_size": 4,
+                                "qkv_proj_blocksize": 8,
+                                "num_heads": 8,
+                                "context_length": 32,
+                                "num_blocks": 2,
+                                "hidden_size": 128,
                                 "slstm_at": []
                             }
                 }
