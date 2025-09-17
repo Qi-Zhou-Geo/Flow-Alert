@@ -26,6 +26,15 @@ import torch.optim as optim
 from torchinfo import summary
 # print("Torchinfo version:", torchinfo.__version__) = Torchinfo version: 1.8.0
 
+# <editor-fold desc="add the sys.path to search for custom modules">
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+project_root = current_dir.parent.parent
+import sys
+sys.path.append(str(project_root))
+# </editor-fold>
+
 # import the custom functions
 from functions.public.load_data import select_features
 from functions.public.dataset_to_dataloader import *
@@ -134,8 +143,9 @@ def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, 
 
     return train_dataloader, test_dataloader, validate_dataloader
 
-def load_model(feature_type, batch_size, seq_length, training_or_testing, device):
+def load_model(model_type, input_station, feature_type, batch_size, seq_length, training_or_testing, device):
 
+    input_station = input_station.replace("0", "1")
     map_feature_size = {"A":11, "B":69, "C":80, "D":70, "E":5}
     if feature_type in ["A", "B", "C", "D", "E"]:
         xlstm_feature_size = map_feature_size.get(feature_type)
@@ -143,10 +153,12 @@ def load_model(feature_type, batch_size, seq_length, training_or_testing, device
         print(feature_type)
         xlstm_feature_size = int(feature_type.split("-")[1]) # as 'R-60-results'
     
-    with open(f"./config/xlstm_params.json", 'r') as f:
+    with open(f"{CONFIG_dir['project_root']}/config/xlstm_params.json", 'r') as f:
         xlstm_params = json.load(f)
-
-    model_params = xlstm_params.get('xlstm').get('feature_type')
+    print(xlstm_params)
+    print(f"{model_type.lower()}, {feature_type}, {input_station}")
+    model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get(f"{input_station}")
+    print(model_params)
     model = xLSTM_Classifier(feature_size=xlstm_feature_size, device=device, **model_params)
 
     if training_or_testing == "training":
@@ -197,7 +209,7 @@ def main(model_type, feature_type, batch_size, seq_length,
     seismic_network, _, input_station, input_component, training_or_testing, _  = params[0].split("-")
 
     # load model
-    model, optimizer, scheduler = load_model(feature_type, batch_size, seq_length, training_or_testing, device)
+    model, optimizer, scheduler = load_model(model_type, input_station, feature_type, batch_size, seq_length, training_or_testing, device)
 
     # train or test class
     input_format = f"{params[0]}-repeat-{repeat}-{model_type}-{feature_type}-DFweight-{class_weight}-ratio-{noise2event_ratio}"
@@ -224,24 +236,28 @@ def main(model_type, feature_type, batch_size, seq_length,
     print(f"End Job={job_id}: UTC+0={time_now}, "
           f"{model_type, feature_type, batch_size, seq_length, class_weight, noise2event_ratio, repeat}", "\n")
 
-
-
 if __name__ == "__main__":
     # sinfo -n node[501-514] -N --Format="Nodelist,CPUsState,AllocMem,Memory,GresUsed,Gres"
     parser = argparse.ArgumentParser(description='input parameters')
-    parser.add_argument("--output_dir", default="path2model", type=str, help="check str path")
-    parser.add_argument("--input_station", default="ILL12", type=str, help="input station")
-    parser.add_argument("--model_type", default="Random_Forest", type=str, help="model type")
-    parser.add_argument("--feature_type", default="C", type=str, help="feature type")
-    parser.add_argument("--input_component", default="EHZ", type=str, help="seismic input_component")
 
-    parser.add_argument("--seq_length", default=64, type=int, help="Input sequence length")
-    parser.add_argument("--batch_size", default=16, type=int, help='Input batch size on each device')
+    parser.add_argument("--model_type", default="results", type=str, help="model type")
+    parser.add_argument("--feature_type", default="C", type=str, help="feature type")
+
+    parser.add_argument("--batch_size", default=16, type=int, help='input batch size on each device')
+    parser.add_argument("--seq_length", default=32, type=int, help="input sequence length")
+
+    parser.add_argument("--class_weight", default=0.9, type=float, help="weight for DF label")
+    parser.add_argument("--noise2event_ratio", default=1, type=int, help="Non-DF to DF label ratio")
+
+    parser.add_argument("--params", nargs='+', type=str, help="list of stations")
+
+    parser.add_argument("--num_repeat", default=6, type=int, help="num of repeat")
+    parser.add_argument("--output_dir", default="CONFIG_dir['output_dir_div']", type=str, help="model output dir")
 
     args = parser.parse_args()
-    print(f"Arguments: {args}")
 
-    os.makedirs(args.output_dir, exist_ok=True)
-
-    # Call the main function with parsed arguments
-    main(args.output_dir, args.input_station, args.model_type, args.feature_type, args.input_component, args.seq_length, args.batch_size)
+    for repeat in range(1, args.num_repeat + 1):  # repate 5 times
+        main(args.model_type, args.feature_type,
+             args.batch_size, args.seq_length,
+             args.class_weight, args.noise2event_ratio,
+             args.params, repeat, args.output_dir)

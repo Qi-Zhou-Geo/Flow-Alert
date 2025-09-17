@@ -102,6 +102,7 @@ class Train_Test:
         self.validate_dataloader = validate_dataloader
 
         self.device = device
+        self.model_type = model_type
         # </editor-fold>
 
 
@@ -163,13 +164,16 @@ class Train_Test:
                 self.optimizer.zero_grad()
                 loss.backward()
                 # clip the grad to avoid the explosion
-                total_norm = torch.nn.utils.clip_grad_norm_(
-                    self.model.parameters(),
-                    max_norm=10,
-                    norm_type=2
-                )
-                if total_norm > 10:
-                    print(f"Clipped from {total_norm:.2f} to 1.0")
+                if self.model_type in ['xLSTM', 'sLSTM', 'mLSTM']:
+                    pass
+                else:
+                    total_norm = torch.nn.utils.clip_grad_norm_(
+                        self.model.parameters(),
+                        max_norm=10,
+                        norm_type=2
+                    )
+                    if total_norm > 10:
+                        print(f"Clipped from {total_norm:.2f} to 1.0")
 
                 self.optimizer.step()
 
@@ -194,7 +198,7 @@ class Train_Test:
         be_saved_array = tensor_temp
         evaluate_matrix = dump_evaluate_matrix(be_saved_array,
                                                f"{purpose}, epoch_{epoch}_{self.output_format}",
-                                               f"{self.output_dir}", "summary_LSTM_all",
+                                               f"{self.output_dir}", f"summary_{self.model_type}_all",
                                                dump=dump_model)
         # update the training loss
         if epoch_loss < self.train_monitor:
@@ -254,7 +258,7 @@ class Train_Test:
                 be_saved_array = tensor_temp
                 evaluate_matrix = dump_evaluate_matrix(be_saved_array,
                                                        f"{purpose}, epoch_{epoch}_{self.output_format}",
-                                                       f"{self.output_dir}", "summary_LSTM_all")
+                                                       f"{self.output_dir}", f"summary_{self.model_type}_all")
 
                 if evaluate_matrix[-2] > self.test_monitor:
                     dump_model_prediction(be_saved_array, purpose, self.output_dir, self.output_format)
@@ -294,9 +298,9 @@ class Train_Test:
 
         # dump the optimal matrix to local
         dump_as_row(output_dir=f"{self.output_dir}",
-                    output_name="summary_LSTM_optimal",
+                    output_name=f"summary_{self.model_type}_optimal",
                     variable_str=train_matrix_temp)
         dump_as_row(output_dir=f"{self.output_dir}",
-                    output_name="summary_LSTM_optimal",
+                    output_name=f"summary_{self.model_type}_optimal",
                     variable_str=test_matrix_temp)
         
