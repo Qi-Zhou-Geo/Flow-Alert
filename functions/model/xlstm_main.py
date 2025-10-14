@@ -146,7 +146,7 @@ def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, 
 def load_model(model_type, input_station, feature_type, batch_size, seq_length, training_or_testing, device):
 
     input_station = input_station.replace("0", "1")
-    map_feature_size = {"A":11, "B":69, "C":80, "D":70, "E":5}
+    map_feature_size = {"A":11, "B":69, "C":80, "D":70, "E":13}
     if feature_type in ["A", "B", "C", "D", "E"]:
         xlstm_feature_size = map_feature_size.get(feature_type)
     else:
@@ -157,7 +157,10 @@ def load_model(model_type, input_station, feature_type, batch_size, seq_length, 
         xlstm_params = json.load(f)
     print(xlstm_params)
     print(f"{model_type.lower()}, {feature_type}, {input_station}")
-    model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get(f"{input_station}", "default")
+    if feature_type in ['A', 'B', 'C']:
+        model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get(f"{input_station}")
+    else:
+        model_params = xlstm_params.get(f"{model_type.lower()}").get(f"{feature_type}").get("default")
     print(model_params)
     model = xLSTM_Classifier(feature_size=xlstm_feature_size, device=device, **model_params)
 
@@ -226,7 +229,7 @@ def main(model_type, feature_type, batch_size, seq_length,
 
 
     if training_or_testing == "training":
-        workflow.activation(num_epoch=25)
+        workflow.activation(num_epoch=50)
     elif training_or_testing == "testing":
         workflow.testing(received_dataloader=test_dataloader)
     else:
