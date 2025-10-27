@@ -4,7 +4,7 @@
 #__license__ = "MIT"
 @authors: A.Maggi 2016 > Orignial code and porting from Matlab
           C. Hibert after 22/05/2017_1 > Original code from Matlab and addition of spectrogram attributes and other stuffs + comments
-This function computes the attributes of a seismic signal later used to perform identification through machine
+This function computes the attributes of seismic signal later used to perform identification through machine
 learning algorithms.
 - Example: from ComputeAttributes_CH_V1 import calculate_all_attributes
            all_attributes = calculate_all_attributes(Data,sps,flag)
@@ -39,16 +39,15 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
         detect peaks (valleys) that are greater (smaller) than `threshold`
         in relation to their immediate neighbors.
     edge : {None, 'rising', 'falling', 'both'}, optional (default = 'rising')
-        for a flat peak, keep only the rising edge ('rising'), only the
-        falling edge ('falling'), both edges ('both'), or don't detect a
-        flat peak (None).
+        for flat peak, keep only the rising edge ('rising'), only the
+        falling edge ('falling'), both edges ('both'), or don't detect a flat peak (None).
     kpsh : bool, optional (default = False)
         keep peaks with same height even if they are closer than `mpd`.
     valley : bool, optional (default = False)
         if True (1), detect valleys (local minima) instead of peaks.
     show : bool, optional (default = False)
         if True (1), plot data-60s in matplotlib figure.
-    ax : a matplotlib.axes.Axes instance, optional (default = None).
+    ax : matplotlib.axes.Axes instance, optional (default = None).
     Returns
     -------
     ind : 1D array_like
@@ -405,8 +404,10 @@ def get_freq_band_stuff(Data, sps):
         FFE = np.array([5, 15, 24, 24, 24])  # higher bounds of the different tested freq. bands
 
     else:
-        FFI = np.array([1, 5,  15, 25, 35]) # lower bounds of the different tested freq. bands
-        FFE = np.array([5, 15, 25, 35, 45])  # higher bounds of the different tested freq. bands
+        # FFI = np.array([1, 5,  15, 25, 35]) # lower bounds of the different tested freq. bands
+        # FFE = np.array([5, 15, 25, 35, 45])  # higher bounds of the different tested freq. bands
+        FFI = np.array([1, 5,  10, 15, 20]) # lower bounds of the different tested freq. bands
+        FFE = np.array([5, 10, 15, 20, 25])  # higher bounds of the different tested freq. bands
 
     nf = len(FFI)
 
@@ -567,7 +568,7 @@ def get_pseudo_spectral_stuff(Data, sps):
     Freq=np.linspace(0, sps, int(n/2) ) # Sampling of frequency array
     b_filt = np.ones(100) / 100.0 # Smoothing param
 
-    # Spectrogram computation from DFT (Discrete Fourier Transform on a moving window)
+    # Spectrogram computation from DFT (Discrete Fourier Transform on moving window)
     f, t, spec = spectrogram(Data, fs=sps, window='boxcar',
                                      nperseg=SpecWindow, nfft=n, noverlap=noverlap,
                                      scaling='spectrum')

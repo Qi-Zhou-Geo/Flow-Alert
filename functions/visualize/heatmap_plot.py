@@ -16,13 +16,14 @@ import matplotlib.ticker as ticker
 import matplotlib.gridspec as gridspec
 
 from datetime import datetime
+from obspy import UTCDateTime
 
 from sklearn.metrics import confusion_matrix
 
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
 project_root = current_dir.parent.parent
 import sys
 sys.path.append(str(project_root))
@@ -44,17 +45,17 @@ plt.rcParams.update( {'font.size':7,
                       'axes.formatter.limits': (-4, 6),
                       'axes.formatter.use_mathtext': True} )
 
-def probability_map(ax, time_window_start, visualization_value,
+def probability_map(ax, time_window_start_float, visualization_value,
                     vmin=0, vmax=1, cmap='inferno',
                     fig=None, cbar_ax=None, cbar_ax_title=None):
 
     '''
-    Plot a 2D heatmap to visualize the value.
+    Plot 2D heatmap to visualize the value.
 
     Args:
         ax: plt ax,
-        time_window_start: numpy 1D array or list, float time stamps
-        visualization_value: numpy 1D array or list, values at time_window_start
+        time_window_start_float: numpy 1D array or list, float time stamps
+        visualization_value: numpy 1D array or list, values at time_window_start_float
         vmin: float, min of the visualization_value
         vmax: float, max of the visualization_value
         fig: plt fig,
@@ -65,35 +66,23 @@ def probability_map(ax, time_window_start, visualization_value,
 
     '''
 
-    '''
-    
-
-    Args:
-        ax: plt ax,
-        time_window_start: numpy 1D array or list, float time stamps
-        visualization_value: numpy 1D array or list, values at time_window_start
-
-    Returns:
-
-    '''
-
 
     # x interval
-    sps = time_window_start[1] - time_window_start[0] # unit by seconds
+    sps = time_window_start_float[1] - time_window_start_float[0] # unit by seconds
     sps = 3600 * 6 / sps # set the "set_minor_locator" as 6h
 
     # <editor-fold desc="time">
-    time_window_start_str = np.array([datetime.utcfromtimestamp(ts).strftime("%Y-%m-%dT%H:%M:%S") for ts in time_window_start])
-    julian_day = np.array([datetime.utcfromtimestamp(ts).strftime("%j") for ts in time_window_start])
+    time_window_start_float_str = np.array([datetime.utcfromtimestamp(ts).strftime("%Y-%m-%dT%H:%M:%S") for ts in time_window_start_float])
+    julian_day = np.array([datetime.utcfromtimestamp(ts).strftime("%j") for ts in time_window_start_float])
     julian_day = julian_day.astype(int)
     seconds_id = np.array([(
             datetime.utcfromtimestamp(ts).hour * 3600 +
             datetime.utcfromtimestamp(ts).minute * 60 +
-            datetime.utcfromtimestamp(ts).second) for ts in time_window_start])
+            datetime.utcfromtimestamp(ts).second) for ts in time_window_start_float])
     # </editor-fold>
 
     df = pd.DataFrame({
-        'time_window_start': time_window_start_str,
+        'time_window_start_float': time_window_start_float_str,
         'julian_day': julian_day,
         'seconds_id': seconds_id,
         'pro': visualization_value})
@@ -106,7 +95,7 @@ def probability_map(ax, time_window_start, visualization_value,
                           square=False, cbar=False,
                           cmap=cmap, ax=ax)
 
-    ax.set_ylabel(f'Julian Day [{datetime.utcfromtimestamp(time_window_start[1]).strftime("%Y")}]', weight='bold')
+    ax.set_ylabel(f'Julian Day [{datetime.utcfromtimestamp(time_window_start_float[1]).strftime("%Y")}]', weight='bold')
     ax.set_xlabel('Time [UTC+0]', weight='bold')
 
     ax.xaxis.set_minor_locator(ticker.MultipleLocator(sps / 6))  # set the "set_minor_locator" as 6h
@@ -120,3 +109,56 @@ def probability_map(ax, time_window_start, visualization_value,
         cbar.set_label(f"{cbar_ax_title}", fontsize=6)
 
     return heatmap
+
+def visualize_probability_map(ax, time_window_start_float, pre_y_pro,
+                              cbar=True, cbar_ax=None):
+
+    # x interval
+    sps = time_window_start_float[1] - time_window_start_float[0] # unit by seconds
+    sps = 3600 * 6 / sps # set the "set_minor_locator" as 6h
+
+    # <editor-fold desc="time">
+    time_window_start_float_str = np.array([UTCDateTime(ts).isoformat() for ts in time_window_start_float])
+    julian_day = np.array([UTCDateTime(ts).julday for ts in time_window_start_float])
+    julian_day = julian_day.astype(int)
+    seconds_id = np.array([
+        t.hour * 3600 + t.minute * 60 + t.second + t.microsecond * 1e-6
+        for t in map(UTCDateTime, time_window_start_float)
+    ])
+    # </editor-fold>
+
+    df = pd.DataFrame({
+        'time_window_start_float': time_window_start_float_str,
+        'julian_day': julian_day,
+        'seconds_id': seconds_id,
+        'pro': pre_y_pro})
+
+    df_probability = df.pivot(index="julian_day", columns="seconds_id", values="pro")
+    df_probability.fillna(0, inplace=True)
+
+    if np.max(pre_y_pro) > 0.1:
+        vmin, vmax = 0, 1
+    else:
+        vmin, vmax = 0, 0.1
+
+    heatmap = sns.heatmap(df_probability, vmin=vmin, vmax=vmax,
+                          square=False, cbar=cbar,
+                          cmap='inferno', ax=ax)
+    ax.invert_yaxis()
+    ax.set_ylabel(f'Day of Year {time_window_start_float_str[0][:4]}', weight='bold')
+    ax.set_xlabel('Time [UTC+0]', weight='bold')
+
+    ax.xaxis.set_minor_locator(ticker.MultipleLocator(sps / 6))  # set the "set_minor_locator" as 6h
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(sps))  # set the "set_major_locator" as 1h
+    ax.set_xticks([i * sps for i in np.arange(0, 5)],
+                  [f"{str(i).zfill(2)}:00" for i in np.arange(0, 25, 6)],
+                  ha="center", rotation=0)
+
+    if cbar_ax is None:
+        pass
+    else:
+        cbar = fig.colorbar(heatmap.collections[0], cax=cbar_ax, orientation="horizontal")
+        cbar.set_label(f"Probability", fontsize=6)
+
+    return heatmap
+

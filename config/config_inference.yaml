@@ -266,6 +266,43 @@ feature_type_E:
   - 57 # Number of peaks in the curve showing the temporal evolution of the Max DFTs
   - 58 # Number of peaks in the curve showing the temporal evolution of the Mean DFTs
 
+feature_type_F:
+  - 22 # freq in Energy of signals filtered in 1-5, ES_0, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 23 # freq in Energy of signals filtered in 5-15, ES_1, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 24 # freq in Energy of signals filtered in 15-25, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 25 # freq in Energy of signals filtered in 25-35, ES_3, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 33 # Ratio between Max envleope and duration, env_max_to_duration, clip lower = 0 to upper 2e-5 = 20 * 1e-6 m/s
+  - 34 # RMS of the signal, RMS, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 35 # Interquartile range (Q75 - Q25), IQR, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 37 # MaxFFT, clip 0 to 4 * 1e-9 m/s
+
+feature_type_G:
+  - 10 # alpha, clip lower = 1 to upper = 10
+  # suppose the mean of envelop of the velocity is bounder = np.log10(mean velocity[m/s] * window length [second])
+  - 22 # freq in Energy of signals filtered in 1-5, ES_0, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 23 # freq in Energy of signals filtered in 5-10, ES_1, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 24 # freq in Energy of signals filtered in 10-15, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 25 # freq in Energy of signals filtered in 15-20, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 26 # freq in Energy of signals filtered in 20-25, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 33 # Ratio between Max envleope and duration, env_max_to_duration, clip lower = 0 to upper 2e-5 = 20 * 1e-6 m/s
+  - 34 # RMS of the signal, RMS, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 35 # Interquartile range (Q75 - Q25), IQR, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 37 # MaxFFT, clip 0 to 4 * 1e-9 m/s
+
+feature_type_H:
+  - 10 # alpha, clip lower = 1 to upper = 10
+  # suppose the mean of envelop of the velocity is bounder = np.log10(mean velocity[m/s] * window length [second])
+  - 22 # freq in Energy of signals filtered in 1-5, ES_0, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 23 # freq in Energy of signals filtered in 5-10, ES_1, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 24 # freq in Energy of signals filtered in 10-15, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 25 # freq in Energy of signals filtered in 15-20, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 26 # freq in Energy of signals filtered in 20-25, ES_2, clip lower = -5.22 (~1e-7 m/s with 60s window) to upper = -1.22 (~1e-3 m/s with 60s window)
+  - 33 # Ratio between Max envleope and duration, env_max_to_duration, clip lower = 0 to upper 2e-5 = 20 * 1e-6 m/s
+  - 34 # RMS of the signal, RMS, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 35 # Interquartile range (Q75 - Q25), IQR, clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+  - 37 # MaxFFT, clip 0 to 4 * 1e-9 m/s
+  - 57 # DistMaxMean
+  - 58 # DistMaxMedian
 
 # Description: Model and feature combination
 LSTM_A:
@@ -288,3 +325,15 @@ LSTM_E:
   ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_b=[batch_size]_s=[seq_length]_repeat=[num_repeat].pt"
   feature_size: 13
 
+LSTM_F:
+  ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_b=[batch_size]_s=[seq_length]_repeat=[num_repeat].pt"
+  feature_size: 8
+
+LSTM_G:
+  ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_b=[batch_size]_s=[seq_length]_repeat=[num_repeat].pt"
+  feature_size: 10
+
+LSTM_H:
+  ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_repeat=[num_repeat].pt"
+  #ref_model_name: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_b=[batch_size]_s=[seq_length]_repeat=[num_repeat].pt"
+  feature_size: 12

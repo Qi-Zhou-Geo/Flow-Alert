@@ -1,0 +1,24 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# __modification time__ = 2025-02-16
+# __author__ = Qi Zhou and Sibashish Dash, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# Please do not distribute this code without the author's permission
+
+# catchment mapping, load as "dictionary" in python
+# data structure for the following
+# Illgraben-9J:
+  # path_mapping: "European/Illgraben"
+  # response_type: "xml" == with xml file,
+                 # "simulate" == with poles and zeros,
+                 # "direct" == # without pol es and zeros
+  # sensor_type: "do-not-need"
+  # normalization_factor: 1) "do-not-need", 2) or use some number when "direct"
+
+# seismic data source in the GFZ-GLIC server
+"glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
+# seismic feature source on the GFZ-GLIC server
+seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature_25"
+# event catalog
+event_catalog_version: "Flow_Bench_Catalog_work_v0dot8-12.txt"

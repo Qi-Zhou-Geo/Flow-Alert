@@ -11,6 +11,7 @@ import pandas as pd
 
 from typing import List
 
+from datetime import datetime
 from obspy import Stream, Trace
 from obspy.core import UTCDateTime # default is UTC+0 time zone
 
@@ -21,11 +22,76 @@ import matplotlib.ticker as ticker
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+# <editor-fold desc="add the sys.path to search for custom modules">
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
+project_root = current_dir.parent.parent
+import sys
+sys.path.append(str(project_root))
+# </editor-fold>
+
+# import the custom functions
+from functions.seismic.st2tr import stream_to_trace
 
 plt.rcParams.update( {'font.size':7,
                       'axes.formatter.limits': (-3, 6),
                       'axes.formatter.use_mathtext': True} )
 
+def rewrite_x_ticks(ax, data_start, data_end, data_sps, x_interval=1):
+    '''
+    Re write the x/time ticks
+
+    Args:
+        ax:
+        data_start:
+        data_end:
+        data_sps:
+        x_interval: for PSD, levea it as 1, for waveform or other, set as SPS
+
+    Returns:
+
+    '''
+    start = UTCDateTime(data_start).timestamp
+    end = UTCDateTime(data_end).timestamp
+
+    x_location = np.arange(start, end + 1, 3600 * x_interval)
+    x_ticks = []
+    for j, k in enumerate(x_location):
+        if j == 0:
+            fmt = "%Y-%m-%d\n%H:%M:%S"
+        else:
+            fmt = "%H:%M"
+        x_ticks.append(datetime.utcfromtimestamp(int(k)).strftime(fmt))
+
+    x_location = (x_location - start) * data_sps
+
+    ax.set_xticks(x_location, x_ticks)
+
+def psd_plot(fig, ax, cbar_ax, st, fix_colorbar=True, per_lap=0.5, wlen=60, x_interval=1):
+
+    st = stream_to_trace(st)
+    st.spectrogram(per_lap=per_lap, wlen=wlen, log=False, dbscale=True, mult=True, title="", axes=ax, cmap='inferno')
+    data_sps = 1 / (per_lap * wlen)
+
+    if fix_colorbar is True:
+        ax.images[0].set_clim(-180, -100) # from experiences
+
+    ax.set_ylim(1, 45)
+    ax.set_yticks([1, 10, 20, 30, 40, 45], [1, 10, 20, 30, 40, 45])
+    ax.set_ylabel('Frequency [Hz]', weight='bold')
+
+    cbar = fig.colorbar(ax.images[0], cax=cbar_ax, orientation="horizontal")
+    cbar.set_label("Power Spectral Density (dB)")
+
+    rewrite_x_ticks(ax,
+                    data_start=st.stats.starttime,
+                    data_end=st.stats.endtime,
+                    data_sps=1, # fixed for psd
+                    x_interval=x_interval)
+
+
+    return ax, data_sps
 
 
 def plot_st(fig, st, time=None):
@@ -101,13 +167,13 @@ def time_series_plot2(amp_data, data_start, data_end,
     plt.close(fig)
 
 
-def time_series_plot(*stream, time_markers=None, time_markers_label=None):
+def time_series_plot(stream, time_markers=None, time_markers_label=None):
 
     '''
     Plot the time seris data-60s
 
     Args:
-        *stream: Obspy Stream, collects all positional arguments into a tuple
+        stream: Obspy Stream, collects all positional arguments into tuple
         time_markers: list of string time stamps, format by "%Y-%m-%dT%H:%M:%S"
         time_markers_label: custom explanation of your time stamps
 
@@ -131,18 +197,18 @@ def time_series_plot(*stream, time_markers=None, time_markers_label=None):
 
         data = st.data
         sps = st.stats.sampling_rate
-        duration = int((st.stats.endtime - st.stats.starttime)/3600) # unit by hour
+        duration = st.stats.endtime - st.stats.starttime # unit by second
 
-        if duration >= 12:
-            x_interval = 4
-        elif 4 <= duration < 12:
-            x_interval = 2
-        elif 1 < duration < 4:
-            x_interval = 1
-        elif 0.5 < duration <= 1:
-            x_interval = 0.25
+        if duration >= 12 * 3600:
+            x_interval = 4 * 3600
+        elif 4 * 3600 <= duration < 12 * 3600:
+            x_interval = 2 * 3600
+        elif 1 * 3600 < duration < 4 * 3600:
+            x_interval = 1 * 3600
+        elif 0.5 * 3600 < duration <= 1 * 3600:
+            x_interval = 0.25 * 3600 # 15 min
         else:
-            x_interval = 5/60
+            x_interval = 5/60 * 3600 # 5 min
 
         ax = plt.subplot(gs[idx])
         axes.append(ax)
@@ -154,13 +220,20 @@ def time_series_plot(*stream, time_markers=None, time_markers_label=None):
             color_list = [f"C{i}" for i in range(len(time_markers))]
 
             for c, (t, s) in enumerate(zip(time_markers, time_markers_label)):
+                # give different ls
+                if s[:2] == "on":
+                    ls = "--"
+                else:
+                    ls = "-"
+
                 x = (UTCDateTime(t) - st.stats.starttime) * sps
-                ax.axvline(x=x, lw=1, color=color_list[c], zorder=1, label=s)
+                ax.axvline(x=x, lw=1, ls=ls, color=color_list[c], zorder=1, label=s)
 
-        ax.legend(loc="upper right", fontsize=6)
+        ax.legend(fontsize=6)
 
-        xLocation = np.arange(0, sps * 3600 * (duration + x_interval), sps * 3600 * x_interval)
-        xTicks = [(st.stats.starttime + i * 1 / sps).strftime('%H:%M:%S') for i in xLocation]
+        xLocation = np.arange(0, st.stats.npts, sps * x_interval)
+        xTicks = [(st.stats.starttime + i * st.stats.delta).strftime('%H:%M:%S') for i in xLocation]
+
         ax.set_xticks(xLocation, xTicks)
         ax.set_xlabel(f"Time [UTC+0, {st.stats.starttime.strftime('%Y-%m-%d')}]", fontweight='bold')
 

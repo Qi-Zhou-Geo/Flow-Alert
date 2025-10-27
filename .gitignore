@@ -9,23 +9,20 @@
 # add the file if you do not want to track it
 temp_test.py
 run_temp_test.sh
+
 **/__pycache__/
 .idea/
 .DS_Store
-.vscode
 v1.1/
 
-
-# calculate features
-calculate_features/sbatch/9S-10s
-calculate_features/sbatch/9S-EHN
-calculate_features/sbatch/9S-EHE
+.vscode
+archive
 
 
 # Ignore all .mseed files in 'data' and any of its subfolders
 data/seismic_data/*.mseed
 data/seismic_feature/*.mseed
-data/seismic_feature/2013-2022-02station-ILL.txt
+data/seismic_feature/European
 data/precipitation_data
 data/scaler
 data/event_catalog
@@ -33,21 +30,13 @@ data/manually_labeled_DF/Flow_Bench_Catalog.txt
 data/manually_labeled_DF/Flow_Bench_Catalog.xlsx
 
 # demo
-demo/Blatten_landslide
-demo/unknow_landslide
 demo/Yanmen
-demo/global_test
 demo/Wandong
 
 # docs
-docs/image/*.cdr
+docs/Flow-Alert_structure.drawio
 
 # functions
-functions/warning_strategy/received_warning_time.py
-functions/warning_strategy/calculate_inference_matrix.py
-functions/public/load_ENZ_feature.py
-functions/public/load_FD_feature.py
-functions/seismic/welch_spectrum.py
 
 
 # trained model
@@ -57,5 +46,5 @@ trained_model/**/*.pkl
 trained_model/*.pkl
 trained_model/v2-model
 trained_model/v2model
-trained_model/m3model
+archive/v3model
 trained_model/v4model

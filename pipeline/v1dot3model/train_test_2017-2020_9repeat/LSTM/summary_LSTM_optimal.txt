@@ -1,0 +1,648 @@
+Training, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s16, 425878, 1394, 548, 1236, 0.47, 0.6928, 0.56, 0.4256
+testing, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s16, 172705, 112, 394, 869, 0.8858, 0.688, 0.7745, 0.7377 
+
+Training, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s16, 426900, 372, 854, 930, 0.7143, 0.5213, 0.6027, 0.5379
+testing, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s16, 172705, 111, 437, 827, 0.8817, 0.6543, 0.7511, 0.7151 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s32, 426423, 593, 708, 1076, 0.6447, 0.6031, 0.6232, 0.5319
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s32, 172772, 43, 441, 824, 0.9504, 0.6514, 0.773, 0.7577 
+
+Training, epoch_34_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s32, 425749, 1011, 475, 1309, 0.5642, 0.7337, 0.6379, 0.5118
+testing, epoch_34_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s32, 172700, 115, 334, 931, 0.8901, 0.736, 0.8057, 0.7675 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s16, 426801, 471, 890, 894, 0.6549, 0.5011, 0.5678, 0.4939
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s16, 172902, 41, 519, 746, 0.9479, 0.5897, 0.7271, 0.7129 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s32, 426747, 399, 939, 843, 0.6787, 0.4731, 0.5575, 0.4926
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s32, 172775, 41, 473, 791, 0.9507, 0.6258, 0.7548, 0.7403 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s48, 425563, 1198, 504, 1279, 0.5164, 0.7173, 0.6005, 0.4687
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s48, 172724, 92, 329, 935, 0.9104, 0.7397, 0.8162, 0.7847 
+
+Training, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s48, 426532, 486, 655, 1127, 0.6987, 0.6324, 0.6639, 0.5808
+testing, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s48, 172766, 49, 360, 905, 0.9486, 0.7154, 0.8157, 0.7981 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s64, 425503, 1258, 504, 1279, 0.5041, 0.7173, 0.5921, 0.4586
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s64, 172719, 98, 285, 978, 0.9089, 0.7743, 0.8363, 0.8026 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s48, 426664, 480, 796, 988, 0.673, 0.5538, 0.6076, 0.5295
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s48, 172770, 47, 376, 887, 0.9497, 0.7023, 0.8075, 0.7906 
+
+Training, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s16, 425859, 1413, 565, 1219, 0.4631, 0.6833, 0.5521, 0.4183
+testing, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s16, 172622, 194, 346, 918, 0.8255, 0.7263, 0.7727, 0.7144 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s64, 426160, 856, 593, 1191, 0.5818, 0.6676, 0.6218, 0.5082
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s64, 172757, 58, 309, 956, 0.9428, 0.7557, 0.839, 0.8181 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s16, 426524, 748, 764, 1020, 0.5769, 0.5717, 0.5743, 0.4744
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s16, 172691, 125, 425, 839, 0.8703, 0.6638, 0.7531, 0.7131 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s16, 426806, 466, 1119, 665, 0.588, 0.3728, 0.4563, 0.3934
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s16, 172943, 0, 797, 468, 1.0, 0.37, 0.5401, 0.5401 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s64, 426387, 630, 746, 1037, 0.6221, 0.5816, 0.6012, 0.5083
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s64, 172765, 50, 348, 917, 0.9483, 0.7249, 0.8217, 0.8037 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s96, 425388, 1373, 533, 1250, 0.4766, 0.7011, 0.5674, 0.4326
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s96, 172770, 46, 351, 913, 0.952, 0.7223, 0.8214, 0.8048 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s32, 426778, 430, 1103, 681, 0.613, 0.3817, 0.4705, 0.4096
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s32, 172827, 53, 436, 828, 0.9398, 0.6551, 0.772, 0.7534 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s32, 426205, 811, 658, 1126, 0.5813, 0.6312, 0.6052, 0.4969
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s32, 172749, 67, 402, 862, 0.9279, 0.682, 0.7861, 0.7628 
+
+Training, epoch_31_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s32, 425775, 987, 488, 1294, 0.5673, 0.7262, 0.637, 0.5125
+testing, epoch_31_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s32, 172696, 120, 346, 918, 0.8844, 0.7263, 0.7976, 0.7581 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s96, 426328, 689, 631, 1152, 0.6257, 0.6461, 0.6358, 0.5342
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s96, 172685, 130, 309, 956, 0.8803, 0.7557, 0.8133, 0.7707 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s16, 427018, 254, 1154, 630, 0.7127, 0.3531, 0.4723, 0.4312
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s16, 172760, 183, 409, 856, 0.8239, 0.6767, 0.7431, 0.6884 
+
+Training, epoch_24_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s16, 426351, 921, 534, 1250, 0.5758, 0.7007, 0.6321, 0.5127
+testing, epoch_24_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s16, 172728, 87, 408, 857, 0.9078, 0.6775, 0.7759, 0.7465 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s96, 425916, 1100, 972, 812, 0.4247, 0.4552, 0.4394, 0.3386
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s96, 172816, 0, 355, 909, 1.0, 0.7191, 0.8366, 0.8366 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s48, 426602, 542, 1074, 710, 0.5671, 0.398, 0.4677, 0.3969
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s48, 172879, 0, 515, 750, 1.0, 0.5929, 0.7444, 0.7444 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s128, 425130, 1630, 444, 1340, 0.4512, 0.7511, 0.5637, 0.4198
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b512,s128, 172744, 71, 315, 950, 0.9305, 0.751, 0.8311, 0.8061 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s16, 426550, 722, 807, 977, 0.575, 0.5476, 0.561, 0.4647
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s16, 172725, 91, 442, 822, 0.9003, 0.6503, 0.7552, 0.7249 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s32, 426623, 522, 810, 973, 0.6508, 0.5457, 0.5937, 0.5121
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s32, 172790, 28, 505, 757, 0.9643, 0.5998, 0.7396, 0.7296 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s48, 425328, 1433, 461, 1322, 0.4799, 0.7414, 0.5826, 0.4428
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s48, 172716, 102, 305, 957, 0.9037, 0.7583, 0.8246, 0.7899 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s48, 425937, 1080, 650, 1133, 0.512, 0.6354, 0.5671, 0.4464
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s48, 172747, 69, 349, 915, 0.9299, 0.7239, 0.8141, 0.7898 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s128, 425914, 847, 593, 1190, 0.5842, 0.6674, 0.623, 0.51
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b256,s128, 172815, 0, 380, 885, 1.0, 0.6996, 0.8233, 0.8233 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s64, 426592, 488, 1007, 777, 0.6142, 0.4355, 0.5097, 0.4394
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s64, 172830, 49, 369, 896, 0.9481, 0.7083, 0.8109, 0.7933 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s128, 426193, 695, 771, 1013, 0.5931, 0.5678, 0.5802, 0.4839
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b128,s128, 172815, 0, 359, 906, 1.0, 0.7162, 0.8346, 0.8346 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s64, 425659, 1102, 510, 1273, 0.536, 0.714, 0.6123, 0.484
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s64, 172764, 52, 323, 941, 0.9476, 0.7445, 0.8339, 0.8151 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s48, 426694, 450, 816, 968, 0.6827, 0.5426, 0.6046, 0.5301
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s48, 172771, 44, 406, 859, 0.9513, 0.6791, 0.7924, 0.7767 
+
+Training, epoch_18_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s16, 426299, 973, 556, 1228, 0.5579, 0.6883, 0.6163, 0.4954
+testing, epoch_18_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s16, 172704, 111, 384, 881, 0.8881, 0.6964, 0.7807, 0.7441 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s64, 426001, 1015, 593, 1191, 0.5399, 0.6676, 0.597, 0.4759
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s64, 172766, 51, 308, 955, 0.9493, 0.7561, 0.8418, 0.8233 
+
+Training, epoch_40_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s32, 425745, 1015, 463, 1321, 0.5655, 0.7405, 0.6413, 0.5145
+testing, epoch_40_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s32, 172680, 137, 335, 928, 0.8714, 0.7348, 0.7973, 0.7529 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s32, 426340, 677, 680, 1103, 0.6197, 0.6186, 0.6191, 0.5203
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s32, 172765, 52, 429, 834, 0.9413, 0.6603, 0.7762, 0.7578 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s16, 426539, 733, 796, 988, 0.5741, 0.5538, 0.5638, 0.4663
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s16, 172730, 86, 449, 815, 0.9046, 0.6448, 0.7529, 0.7241 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s16, 426315, 957, 1001, 783, 0.45, 0.4389, 0.4444, 0.3495
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s16, 172887, 57, 496, 768, 0.9309, 0.6076, 0.7353, 0.7158 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s16, 426889, 383, 1121, 663, 0.6338, 0.3716, 0.4686, 0.4127
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s16, 172943, 0, 1002, 263, 1.0, 0.2079, 0.3442, 0.3442 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s96, 426460, 556, 1102, 682, 0.5509, 0.3823, 0.4514, 0.3812
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s96, 172815, 0, 407, 858, 1.0, 0.6783, 0.8083, 0.8083 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s64, 426394, 623, 749, 1034, 0.624, 0.5799, 0.6012, 0.509
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s64, 172760, 55, 322, 943, 0.9449, 0.7455, 0.8334, 0.8136 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s32, 426075, 1069, 1008, 776, 0.4206, 0.435, 0.4277, 0.3304
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s32, 172671, 145, 399, 865, 0.8564, 0.6843, 0.7608, 0.7152 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s48, 425376, 1386, 520, 1262, 0.4766, 0.7082, 0.5698, 0.434
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s48, 172753, 62, 325, 940, 0.9381, 0.7431, 0.8293, 0.8072 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s48, 426126, 891, 609, 1174, 0.5685, 0.6584, 0.6102, 0.4955
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s48, 172757, 60, 371, 892, 0.937, 0.7063, 0.8054, 0.7842 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s16, 425857, 1415, 542, 1242, 0.4674, 0.6962, 0.5593, 0.4242
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s16, 172726, 89, 417, 848, 0.905, 0.6704, 0.7702, 0.7403 
+
+Training, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s96, 425953, 807, 521, 1263, 0.6101, 0.708, 0.6554, 0.5419
+testing, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s96, 172706, 110, 315, 949, 0.8961, 0.7508, 0.817, 0.7801 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s16, 426521, 751, 773, 1011, 0.5738, 0.5667, 0.5702, 0.4706
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s16, 172723, 93, 442, 822, 0.8984, 0.6503, 0.7545, 0.7236 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s32, 426756, 452, 1201, 583, 0.5633, 0.3268, 0.4136, 0.3565
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s32, 172860, 19, 591, 674, 0.9726, 0.5328, 0.6885, 0.6818 
+
+Training, epoch_32_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s32, 425775, 990, 493, 1286, 0.565, 0.7229, 0.6343, 0.5098
+testing, epoch_32_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s32, 172697, 119, 361, 903, 0.8836, 0.7144, 0.79, 0.7509 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s32, 426435, 583, 718, 1064, 0.646, 0.5971, 0.6206, 0.5304
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s32, 172771, 45, 443, 821, 0.948, 0.6495, 0.7709, 0.7549 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s96, 425813, 1203, 559, 1225, 0.5045, 0.6867, 0.5817, 0.4524
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s96, 172811, 4, 364, 901, 0.9956, 0.7123, 0.8304, 0.8289 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s128, 426403, 485, 950, 834, 0.6323, 0.4675, 0.5375, 0.4649
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,1,LSTM,H,b64,s128, 172798, 17, 500, 765, 0.9783, 0.6047, 0.7474, 0.7413 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s16, 426892, 380, 943, 841, 0.6888, 0.4714, 0.5597, 0.4969
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s16, 172915, 28, 519, 746, 0.9638, 0.5897, 0.7317, 0.7218 
+
+Training, epoch_15_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s64, 425653, 1109, 524, 1258, 0.5315, 0.7059, 0.6064, 0.4785
+testing, epoch_15_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s64, 172754, 61, 321, 944, 0.9393, 0.7462, 0.8317, 0.81 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s48, 426621, 523, 784, 1000, 0.6566, 0.5605, 0.6048, 0.5222
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s48, 172765, 52, 351, 912, 0.9461, 0.7221, 0.819, 0.8004 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s64, 426325, 691, 656, 1128, 0.6201, 0.6323, 0.6261, 0.5254
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s64, 172759, 56, 297, 968, 0.9453, 0.7652, 0.8458, 0.8256 
+
+Training, epoch_17_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s16, 426266, 1006, 528, 1256, 0.5553, 0.704, 0.6209, 0.4972
+testing, epoch_17_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s16, 172664, 151, 345, 920, 0.859, 0.7273, 0.7877, 0.7398 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s96, 426337, 679, 808, 976, 0.5897, 0.5471, 0.5676, 0.474
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s96, 172789, 26, 358, 907, 0.9721, 0.717, 0.8253, 0.8156 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s48, 426573, 571, 1063, 721, 0.558, 0.4041, 0.4688, 0.3954
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s48, 172832, 47, 386, 879, 0.9492, 0.6949, 0.8024, 0.7855 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s128, 425396, 1365, 479, 1304, 0.4886, 0.7314, 0.5858, 0.4483
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b512,s128, 172674, 141, 285, 980, 0.8742, 0.7747, 0.8215, 0.7756 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s16, 426518, 754, 802, 982, 0.5657, 0.5504, 0.558, 0.4595
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s16, 172733, 83, 444, 820, 0.9081, 0.6487, 0.7568, 0.7289 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s32, 426744, 401, 846, 937, 0.7003, 0.5255, 0.6004, 0.5321
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s32, 172767, 53, 423, 837, 0.9404, 0.6643, 0.7786, 0.7599 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s48, 425253, 1509, 570, 1212, 0.4454, 0.6801, 0.5383, 0.4032
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s48, 172735, 80, 330, 935, 0.9212, 0.7391, 0.8202, 0.7924 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s48, 426116, 902, 614, 1168, 0.5643, 0.6554, 0.6064, 0.4914
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s48, 172712, 103, 321, 944, 0.9016, 0.7462, 0.8166, 0.7818 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s16, 426767, 505, 1118, 666, 0.5687, 0.3733, 0.4508, 0.385
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s16, 172916, 27, 518, 747, 0.9651, 0.5905, 0.7327, 0.7231 
+
+Training, epoch_44_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s32, 425821, 941, 491, 1291, 0.5784, 0.7245, 0.6432, 0.5211
+testing, epoch_44_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s32, 172705, 112, 337, 926, 0.8921, 0.7332, 0.8049, 0.7675 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s128, 425876, 884, 569, 1215, 0.5788, 0.6811, 0.6258, 0.5098
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b256,s128, 172733, 82, 306, 959, 0.9212, 0.7581, 0.8317, 0.8032 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s32, 426460, 556, 718, 1066, 0.6572, 0.5975, 0.626, 0.5381
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s32, 172725, 92, 411, 852, 0.9025, 0.6746, 0.7721, 0.7412 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s64, 426365, 653, 724, 1058, 0.6184, 0.5937, 0.6058, 0.5104
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s64, 172766, 51, 342, 921, 0.9475, 0.7292, 0.8242, 0.8058 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s64, 426563, 517, 917, 867, 0.6264, 0.486, 0.5473, 0.4706
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s64, 172836, 43, 371, 894, 0.9541, 0.7067, 0.812, 0.7964 
+
+Training, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s16, 425921, 1351, 605, 1179, 0.466, 0.6609, 0.5466, 0.4162
+testing, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s16, 172653, 162, 349, 916, 0.8497, 0.7241, 0.7819, 0.7313 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s16, 426182, 1090, 969, 815, 0.4278, 0.4568, 0.4419, 0.3411
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s16, 172902, 41, 541, 724, 0.9464, 0.5723, 0.7133, 0.6992 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s16, 426255, 1017, 721, 1063, 0.5111, 0.5959, 0.5502, 0.4356
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s16, 172727, 88, 450, 815, 0.9025, 0.6443, 0.7518, 0.7225 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s128, 425727, 1161, 1081, 703, 0.3771, 0.3941, 0.3854, 0.2924
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b128,s128, 172815, 0, 337, 928, 1.0, 0.7336, 0.8463, 0.8463 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s96, 425726, 1035, 519, 1264, 0.5498, 0.7089, 0.6193, 0.494
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s96, 172733, 82, 288, 977, 0.9226, 0.7723, 0.8408, 0.8121 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s64, 425312, 1452, 431, 1349, 0.4816, 0.7579, 0.589, 0.4472
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s64, 172732, 83, 276, 989, 0.9226, 0.7818, 0.8464, 0.8174 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s48, 426087, 1057, 1018, 766, 0.4202, 0.4294, 0.4247, 0.3285
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s48, 172688, 130, 333, 929, 0.8772, 0.7361, 0.8005, 0.7581 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s32, 426613, 595, 1084, 700, 0.5405, 0.3924, 0.4547, 0.3811
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s32, 172850, 29, 513, 752, 0.9629, 0.5945, 0.7351, 0.7248 
+
+Training, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s64, 426299, 717, 644, 1140, 0.6139, 0.639, 0.6262, 0.5232
+testing, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s64, 172765, 51, 324, 940, 0.9485, 0.7437, 0.8337, 0.8153 
+
+Training, epoch_21_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s32, 425765, 997, 494, 1288, 0.5637, 0.7228, 0.6334, 0.5087
+testing, epoch_21_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s32, 172700, 116, 336, 928, 0.8889, 0.7342, 0.8042, 0.7657 
+
+Training, epoch_17_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s16, 426283, 990, 530, 1253, 0.5586, 0.7027, 0.6225, 0.4996
+testing, epoch_17_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s16, 172698, 119, 365, 898, 0.883, 0.711, 0.7877, 0.7486 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s96, 426158, 859, 559, 1224, 0.5876, 0.6865, 0.6332, 0.5181
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s96, 172666, 149, 259, 1006, 0.871, 0.7953, 0.8314, 0.7832 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s48, 425465, 1296, 513, 1270, 0.4949, 0.7123, 0.584, 0.45
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s48, 172724, 91, 324, 941, 0.9118, 0.7439, 0.8193, 0.7881 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s32, 425914, 1102, 682, 1102, 0.5, 0.6177, 0.5527, 0.433
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s32, 172628, 189, 366, 897, 0.826, 0.7102, 0.7637, 0.7069 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s32, 426749, 395, 899, 885, 0.6914, 0.4961, 0.5777, 0.5117
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s32, 172778, 37, 494, 771, 0.9542, 0.6095, 0.7438, 0.7308 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s48, 425817, 1199, 653, 1131, 0.4854, 0.634, 0.5498, 0.4257
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s48, 172759, 56, 347, 918, 0.9425, 0.7257, 0.82, 0.8 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s16, 426247, 1025, 734, 1050, 0.506, 0.5886, 0.5442, 0.43
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s16, 172736, 84, 450, 810, 0.906, 0.6429, 0.7521, 0.7239 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s16, 426676, 596, 894, 890, 0.5989, 0.4989, 0.5443, 0.4604
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s16, 172866, 77, 456, 809, 0.9131, 0.6395, 0.7522, 0.7262 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s16, 426918, 354, 1147, 637, 0.6428, 0.3571, 0.4591, 0.4072
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s16, 172929, 14, 650, 615, 0.9777, 0.4862, 0.6494, 0.6447 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s96, 426506, 510, 1182, 602, 0.5414, 0.3374, 0.4157, 0.3535
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s96, 172708, 107, 306, 959, 0.8996, 0.7581, 0.8228, 0.7867 
+
+Training, epoch_12_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s16, 426106, 1166, 595, 1189, 0.5049, 0.6665, 0.5745, 0.4483
+testing, epoch_12_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s16, 172752, 63, 437, 828, 0.9293, 0.6545, 0.7681, 0.7463 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s96, 426397, 619, 737, 1047, 0.6285, 0.5869, 0.607, 0.5146
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s96, 172723, 92, 277, 988, 0.9148, 0.781, 0.8426, 0.8108 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s48, 426589, 555, 1094, 690, 0.5542, 0.3868, 0.4556, 0.385
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s48, 172832, 47, 402, 863, 0.9484, 0.6822, 0.7936, 0.7768 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s128, 425380, 1380, 449, 1335, 0.4917, 0.7483, 0.5935, 0.4542
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b512,s128, 172778, 37, 285, 980, 0.9636, 0.7747, 0.8589, 0.8452 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s64, 426398, 619, 738, 1045, 0.628, 0.5861, 0.6063, 0.514
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s64, 172753, 63, 319, 945, 0.9375, 0.7476, 0.8319, 0.8094 
+
+Training, epoch_26_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s32, 425896, 866, 521, 1261, 0.5929, 0.7076, 0.6452, 0.5282
+testing, epoch_26_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s32, 172697, 118, 354, 911, 0.8853, 0.7202, 0.7942, 0.7554 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s16, 426422, 850, 763, 1021, 0.5457, 0.5723, 0.5587, 0.4533
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s16, 172743, 74, 466, 797, 0.915, 0.631, 0.747, 0.7219 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s64, 425561, 1201, 472, 1310, 0.5217, 0.7351, 0.6103, 0.4769
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s64, 172763, 52, 306, 959, 0.9486, 0.7581, 0.8427, 0.8239 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s32, 426043, 974, 658, 1125, 0.536, 0.631, 0.5796, 0.4633
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s32, 172776, 42, 417, 845, 0.9526, 0.6696, 0.7864, 0.7713 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s48, 425353, 1411, 550, 1230, 0.4657, 0.691, 0.5564, 0.4218
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s48, 172763, 52, 345, 920, 0.9465, 0.7273, 0.8225, 0.8038 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s48, 425980, 1164, 1014, 770, 0.3981, 0.4316, 0.4142, 0.3154
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s48, 172771, 46, 378, 885, 0.9506, 0.7007, 0.8067, 0.7902 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s32, 426722, 422, 822, 962, 0.6951, 0.5392, 0.6073, 0.5359
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s32, 172775, 40, 470, 795, 0.9521, 0.6285, 0.7571, 0.743 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s48, 426329, 688, 642, 1141, 0.6238, 0.6399, 0.6318, 0.5307
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s48, 172745, 71, 352, 912, 0.9278, 0.7215, 0.8117, 0.7869 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s16, 427003, 270, 1161, 622, 0.6973, 0.3489, 0.465, 0.4224
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s16, 172923, 20, 534, 731, 0.9734, 0.5779, 0.7252, 0.7181 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s64, 425984, 1033, 625, 1158, 0.5285, 0.6495, 0.5828, 0.4626
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s64, 172768, 48, 323, 941, 0.9515, 0.7445, 0.8353, 0.8179 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s128, 426028, 733, 653, 1130, 0.6065, 0.6338, 0.6199, 0.5161
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b256,s128, 172682, 133, 295, 970, 0.8794, 0.7668, 0.8193, 0.7757 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s96, 425555, 1205, 504, 1280, 0.5151, 0.7175, 0.5997, 0.4677
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s96, 172732, 83, 317, 948, 0.9195, 0.7494, 0.8258, 0.797 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s64, 426644, 436, 1056, 728, 0.6254, 0.4081, 0.4939, 0.4303
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s64, 172836, 43, 405, 860, 0.9524, 0.6798, 0.7934, 0.7779 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s32, 426725, 483, 1104, 680, 0.5847, 0.3812, 0.4615, 0.3965
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s32, 172876, 3, 665, 600, 0.995, 0.4743, 0.6424, 0.6414 
+
+Training, epoch_38_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s32, 425730, 1033, 476, 1305, 0.5582, 0.7327, 0.6336, 0.5066
+testing, epoch_38_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s32, 172701, 115, 345, 919, 0.8888, 0.7271, 0.7998, 0.7617 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s96, 425832, 1185, 652, 1131, 0.4883, 0.6343, 0.5518, 0.4281
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s96, 172764, 51, 285, 980, 0.9505, 0.7747, 0.8537, 0.8351 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s16, 426876, 396, 1122, 662, 0.6257, 0.3711, 0.4659, 0.4089
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s16, 172943, 0, 845, 420, 1.0, 0.332, 0.4985, 0.4985 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s32, 426164, 852, 658, 1126, 0.5693, 0.6312, 0.5986, 0.4881
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s32, 172766, 49, 418, 847, 0.9453, 0.6696, 0.7839, 0.7665 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s128, 425921, 967, 1008, 776, 0.4452, 0.435, 0.44, 0.3453
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,2,LSTM,H,b64,s128, 172719, 96, 387, 878, 0.9014, 0.6941, 0.7843, 0.752 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s128, 426338, 552, 768, 1014, 0.6475, 0.569, 0.6057, 0.52
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b128,s128, 172713, 103, 444, 820, 0.8884, 0.6487, 0.7499, 0.7162 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s16, 426883, 389, 1105, 679, 0.6358, 0.3806, 0.4762, 0.419
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s16, 172849, 96, 434, 829, 0.8962, 0.6564, 0.7578, 0.7259 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s48, 425357, 1404, 507, 1276, 0.4761, 0.7156, 0.5718, 0.435
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s48, 172760, 57, 335, 928, 0.9421, 0.7348, 0.8256, 0.8052 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s64, 425515, 1249, 581, 1199, 0.4898, 0.6736, 0.5672, 0.4378
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s64, 172746, 69, 293, 972, 0.9337, 0.7684, 0.843, 0.8185 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s32, 426567, 578, 801, 982, 0.6295, 0.5508, 0.5875, 0.5009
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s32, 172779, 37, 462, 802, 0.9559, 0.6345, 0.7627, 0.7495 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s64, 426357, 659, 744, 1040, 0.6121, 0.583, 0.5972, 0.5022
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s64, 172755, 60, 312, 953, 0.9408, 0.7534, 0.8367, 0.8152 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s48, 425939, 1079, 650, 1132, 0.512, 0.6352, 0.567, 0.4464
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s48, 172758, 57, 333, 932, 0.9424, 0.7368, 0.827, 0.8066 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s48, 426671, 473, 755, 1029, 0.6851, 0.5768, 0.6263, 0.5475
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s48, 172766, 49, 351, 914, 0.9491, 0.7225, 0.8205, 0.8028 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s64, 426212, 804, 620, 1164, 0.5915, 0.6525, 0.6205, 0.511
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s64, 172761, 55, 346, 918, 0.9435, 0.7263, 0.8207, 0.801 
+
+Training, epoch_22_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s32, 425890, 874, 510, 1270, 0.5924, 0.7135, 0.6473, 0.5294
+testing, epoch_22_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s32, 172700, 116, 360, 904, 0.8863, 0.7152, 0.7916, 0.7533 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s96, 426461, 555, 746, 1038, 0.6516, 0.5818, 0.6147, 0.528
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s96, 172731, 86, 274, 989, 0.92, 0.7831, 0.846, 0.816 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s48, 426748, 396, 984, 800, 0.6689, 0.4484, 0.5369, 0.4739
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s48, 172848, 31, 560, 705, 0.9579, 0.5573, 0.7046, 0.6939 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s128, 425983, 780, 503, 1278, 0.621, 0.7176, 0.6658, 0.5534
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b512,s128, 172707, 109, 273, 991, 0.9009, 0.784, 0.8384, 0.8015 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s32, 426130, 887, 666, 1117, 0.5574, 0.6265, 0.5899, 0.478
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s32, 172740, 77, 410, 853, 0.9172, 0.6754, 0.7779, 0.7515 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s96, 425685, 1077, 481, 1301, 0.5471, 0.7301, 0.6255, 0.4968
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s96, 172761, 55, 333, 931, 0.9442, 0.7366, 0.8276, 0.8078 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s16, 426675, 597, 880, 904, 0.6023, 0.5067, 0.5504, 0.4657
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s16, 172864, 81, 459, 804, 0.9085, 0.6366, 0.7486, 0.7214 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s32, 426578, 567, 822, 961, 0.6289, 0.539, 0.5805, 0.4956
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s32, 172782, 34, 486, 778, 0.9581, 0.6155, 0.7495, 0.7374 
+
+Training, epoch_49_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s48, 425899, 863, 422, 1360, 0.6118, 0.7632, 0.6792, 0.5588
+testing, epoch_49_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s48, 172680, 136, 302, 962, 0.8761, 0.7611, 0.8146, 0.7702 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s16, 426894, 378, 1138, 646, 0.6309, 0.3621, 0.4601, 0.4055
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s16, 172941, 2, 780, 485, 0.9959, 0.3834, 0.5537, 0.553 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s32, 426725, 483, 1114, 670, 0.5811, 0.3756, 0.4562, 0.3918
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s32, 172862, 18, 602, 662, 0.9735, 0.5237, 0.6811, 0.6748 
+
+Training, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s96, 426309, 708, 886, 897, 0.5589, 0.5031, 0.5295, 0.438
+testing, epoch_11_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s96, 172816, 0, 443, 821, 1.0, 0.6495, 0.7875, 0.7875 
+
+Training, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s48, 426462, 555, 670, 1113, 0.6673, 0.6242, 0.645, 0.5557
+testing, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s48, 172722, 95, 319, 944, 0.9086, 0.7474, 0.8202, 0.7877 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s64, 425347, 1415, 471, 1311, 0.4809, 0.7357, 0.5816, 0.4427
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s64, 172711, 106, 264, 999, 0.9041, 0.791, 0.8437, 0.8076 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s128, 425569, 1191, 632, 1152, 0.4917, 0.6457, 0.5583, 0.4332
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b256,s128, 172720, 95, 280, 985, 0.912, 0.7787, 0.8401, 0.8074 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s96, 425797, 1219, 646, 1138, 0.4828, 0.6379, 0.5496, 0.4246
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s96, 172777, 38, 324, 941, 0.9612, 0.7439, 0.8387, 0.8247 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s48, 426693, 451, 784, 1000, 0.6892, 0.5605, 0.6182, 0.5426
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s48, 172758, 59, 348, 915, 0.9394, 0.7245, 0.8181, 0.797 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s64, 426321, 697, 712, 1070, 0.6055, 0.6004, 0.603, 0.504
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s64, 172757, 58, 315, 950, 0.9425, 0.751, 0.8359, 0.8151 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s64, 426501, 580, 1120, 663, 0.5334, 0.3718, 0.4382, 0.3677
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s64, 172830, 49, 364, 901, 0.9484, 0.7123, 0.8135, 0.7959 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s64, 426082, 935, 615, 1168, 0.5554, 0.6551, 0.6011, 0.4845
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s64, 172753, 63, 294, 970, 0.939, 0.7674, 0.8446, 0.822 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s48, 425330, 1436, 463, 1315, 0.478, 0.7396, 0.5807, 0.4409
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s48, 172752, 65, 343, 920, 0.934, 0.7284, 0.8185, 0.7955 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s32, 426658, 486, 809, 975, 0.6674, 0.5465, 0.6009, 0.5226
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s32, 172753, 64, 424, 839, 0.9291, 0.6643, 0.7747, 0.7525 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s48, 425915, 1102, 620, 1163, 0.5135, 0.6523, 0.5746, 0.4517
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s48, 172753, 62, 332, 933, 0.9377, 0.7375, 0.8257, 0.8036 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s128, 426326, 562, 766, 1018, 0.6443, 0.5706, 0.6052, 0.5186
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b128,s128, 172675, 140, 378, 887, 0.8637, 0.7012, 0.774, 0.7294 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s96, 426219, 797, 933, 851, 0.5164, 0.477, 0.4959, 0.4025
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s96, 172735, 80, 292, 973, 0.924, 0.7692, 0.8395, 0.8115 
+
+Training, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s96, 425802, 958, 523, 1261, 0.5683, 0.7068, 0.63, 0.5084
+testing, epoch_9_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s96, 172715, 100, 261, 1004, 0.9094, 0.7937, 0.8476, 0.8133 
+
+Training, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s64, 425572, 1190, 461, 1321, 0.5261, 0.7413, 0.6154, 0.4819
+testing, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s64, 172749, 67, 286, 978, 0.9359, 0.7737, 0.8471, 0.8232 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s48, 426566, 578, 1075, 709, 0.5509, 0.3974, 0.4617, 0.3886
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s48, 172842, 37, 424, 841, 0.9579, 0.6648, 0.7849, 0.7716 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s16, 426853, 419, 1120, 664, 0.6131, 0.3722, 0.4632, 0.4041
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s16, 172925, 18, 601, 664, 0.9736, 0.5249, 0.6821, 0.6758 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s128, 425320, 1442, 483, 1299, 0.4739, 0.729, 0.5744, 0.4355
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b512,s128, 172773, 42, 298, 967, 0.9584, 0.7644, 0.8505, 0.8351 
+
+Training, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s48, 426755, 389, 747, 1037, 0.7272, 0.5813, 0.6461, 0.5763
+testing, epoch_13_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s48, 172773, 43, 403, 861, 0.9524, 0.6812, 0.7943, 0.7788 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s32, 426678, 530, 1123, 661, 0.555, 0.3705, 0.4444, 0.3772
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s32, 172858, 21, 561, 704, 0.971, 0.5565, 0.7075, 0.7001 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s64, 426181, 835, 600, 1184, 0.5864, 0.6637, 0.6227, 0.5106
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s64, 172765, 52, 319, 944, 0.9478, 0.7474, 0.8358, 0.817 
+
+Training, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s96, 426369, 647, 641, 1143, 0.6385, 0.6407, 0.6396, 0.5416
+testing, epoch_7_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s96, 172762, 54, 340, 924, 0.9448, 0.731, 0.8243, 0.8049 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s64, 426404, 612, 759, 1025, 0.6261, 0.5746, 0.5992, 0.5083
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s64, 172763, 52, 346, 919, 0.9464, 0.7265, 0.822, 0.8033 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s128, 426098, 790, 1087, 697, 0.4687, 0.3907, 0.4262, 0.3433
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,3,LSTM,H,b64,s128, 172782, 33, 607, 658, 0.9522, 0.5202, 0.6728, 0.6616 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s128, 425558, 1204, 640, 1142, 0.4868, 0.6409, 0.5533, 0.4284
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b256,s128, 172817, 0, 350, 913, 1.0, 0.7229, 0.8392, 0.8392 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s64, 425374, 1388, 458, 1324, 0.4882, 0.743, 0.5892, 0.4502
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s64, 172747, 68, 298, 967, 0.9343, 0.7644, 0.8409, 0.8167 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s64, 426484, 596, 1124, 660, 0.5255, 0.37, 0.4342, 0.363
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s64, 172816, 63, 310, 955, 0.9381, 0.7549, 0.8366, 0.8142 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s16, 427097, 175, 1214, 570, 0.7651, 0.3195, 0.4508, 0.4216
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s16, 172938, 5, 699, 566, 0.9912, 0.4474, 0.6166, 0.6149 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s48, 426673, 471, 783, 1001, 0.68, 0.5611, 0.6149, 0.5372
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s48, 172776, 39, 404, 861, 0.9567, 0.6806, 0.7954, 0.7813 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s96, 426282, 734, 990, 794, 0.5196, 0.4451, 0.4795, 0.3925
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s96, 172793, 22, 368, 897, 0.9761, 0.7091, 0.8214, 0.8132 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s96, 425586, 1175, 477, 1306, 0.5264, 0.7325, 0.6126, 0.4802
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s96, 172725, 90, 300, 965, 0.9147, 0.7628, 0.8319, 0.8008 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s64, 426125, 891, 600, 1184, 0.5706, 0.6637, 0.6136, 0.4985
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s64, 172768, 47, 337, 928, 0.9518, 0.7336, 0.8286, 0.8115 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s96, 426358, 658, 755, 1029, 0.61, 0.5768, 0.5929, 0.4984
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s96, 172748, 67, 283, 982, 0.9361, 0.7763, 0.8487, 0.8249 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s48, 426540, 604, 1082, 702, 0.5375, 0.3935, 0.4544, 0.3801
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s48, 172845, 34, 450, 815, 0.96, 0.6443, 0.7711, 0.7588 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s64, 426365, 651, 684, 1100, 0.6282, 0.6166, 0.6223, 0.5256
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s64, 172763, 52, 328, 937, 0.9474, 0.7407, 0.8314, 0.8127 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s128, 425476, 1284, 550, 1234, 0.4901, 0.6917, 0.5737, 0.4418
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b512,s128, 172758, 57, 299, 966, 0.9443, 0.7636, 0.8444, 0.8239 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s32, 426704, 504, 1088, 696, 0.58, 0.3901, 0.4665, 0.3991
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s32, 172853, 26, 519, 746, 0.9663, 0.5897, 0.7324, 0.7232 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s96, 426241, 776, 597, 1186, 0.6045, 0.6652, 0.6334, 0.5247
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s96, 172750, 65, 310, 955, 0.9363, 0.7549, 0.8359, 0.8128 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s128, 426328, 560, 766, 1018, 0.6451, 0.5706, 0.6056, 0.5191
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b128,s128, 172719, 96, 288, 977, 0.9105, 0.7723, 0.8358, 0.8028 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s16, 427068, 204, 1192, 592, 0.7437, 0.3318, 0.4589, 0.4253
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s16, 172943, 0, 845, 420, 1.0, 0.332, 0.4985, 0.4985 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s128, 425962, 799, 570, 1213, 0.6029, 0.6803, 0.6393, 0.5281
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b256,s128, 172686, 130, 292, 972, 0.882, 0.769, 0.8216, 0.7788 
+
+Training, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s96, 425528, 1234, 419, 1363, 0.5248, 0.7649, 0.6225, 0.4857
+testing, epoch_10_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s96, 172668, 147, 257, 1008, 0.8727, 0.7968, 0.8331, 0.7854 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s64, 426319, 697, 711, 1073, 0.6062, 0.6015, 0.6038, 0.5048
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s64, 172765, 50, 320, 945, 0.9497, 0.747, 0.8363, 0.8182 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s64, 426507, 574, 1130, 653, 0.5322, 0.3662, 0.4339, 0.3644
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s64, 172879, 0, 527, 738, 1.0, 0.5834, 0.7369, 0.7369 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s32, 426856, 352, 1159, 625, 0.6397, 0.3503, 0.4527, 0.4015
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s32, 172861, 18, 617, 648, 0.973, 0.5123, 0.6712, 0.665 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s96, 425963, 1053, 1014, 770, 0.4224, 0.4316, 0.4269, 0.3305
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s96, 172765, 50, 360, 905, 0.9476, 0.7154, 0.8153, 0.7974 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s48, 426631, 513, 1125, 659, 0.5623, 0.3694, 0.4459, 0.3799
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s48, 172880, 0, 541, 723, 1.0, 0.572, 0.7277, 0.7277 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s96, 426392, 624, 602, 1182, 0.6545, 0.6626, 0.6585, 0.561
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s96, 172739, 76, 271, 994, 0.929, 0.7858, 0.8514, 0.8246 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s128, 425897, 865, 488, 1294, 0.5994, 0.7262, 0.6567, 0.5385
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b512,s128, 172749, 66, 331, 934, 0.934, 0.7383, 0.8247, 0.8014 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s128, 426235, 653, 1316, 468, 0.4175, 0.2623, 0.3222, 0.2631
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,4,LSTM,H,b64,s128, 172807, 9, 318, 946, 0.9906, 0.7484, 0.8526, 0.8492 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s96, 426201, 815, 1000, 784, 0.4903, 0.4395, 0.4635, 0.3735
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s96, 172725, 90, 311, 954, 0.9138, 0.7542, 0.8263, 0.7953 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s128, 426343, 545, 763, 1021, 0.652, 0.5723, 0.6096, 0.5243
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b128,s128, 172739, 76, 322, 943, 0.9254, 0.7455, 0.8257, 0.7992 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s96, 425755, 1009, 529, 1251, 0.5535, 0.7028, 0.6193, 0.4955
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s96, 172742, 73, 310, 955, 0.929, 0.7549, 0.833, 0.8073 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s128, 425646, 1116, 653, 1129, 0.5029, 0.6336, 0.5607, 0.439
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b256,s128, 172783, 32, 309, 956, 0.9676, 0.7557, 0.8486, 0.8368 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s32, 426975, 233, 1123, 661, 0.7394, 0.3705, 0.4937, 0.4541
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s32, 172879, 0, 776, 489, 1.0, 0.3866, 0.5576, 0.5576 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s96, 426203, 813, 597, 1187, 0.5935, 0.6654, 0.6274, 0.5164
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s96, 172746, 71, 266, 997, 0.9335, 0.7894, 0.8554, 0.8301 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s96, 426027, 989, 781, 1003, 0.5035, 0.5622, 0.5312, 0.421
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s96, 172756, 59, 313, 952, 0.9416, 0.7526, 0.8366, 0.8154 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s64, 426436, 644, 1003, 781, 0.5481, 0.4378, 0.4868, 0.4054
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s64, 172828, 51, 359, 906, 0.9467, 0.7162, 0.8155, 0.7972 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s48, 426801, 343, 1060, 724, 0.6785, 0.4058, 0.5079, 0.4534
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s48, 172867, 12, 652, 613, 0.9808, 0.4846, 0.6487, 0.6446 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s128, 425467, 1293, 485, 1299, 0.5012, 0.7281, 0.5937, 0.4583
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b512,s128, 172678, 137, 281, 984, 0.8778, 0.7779, 0.8248, 0.78 
+
+Training, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s128, 426353, 535, 786, 998, 0.651, 0.5594, 0.6017, 0.5182
+testing, epoch_3_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b128,s128, 172733, 82, 317, 948, 0.9204, 0.7494, 0.8261, 0.7976 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s128, 425969, 792, 577, 1206, 0.6036, 0.6764, 0.6379, 0.5274
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b256,s128, 172731, 84, 325, 940, 0.918, 0.7431, 0.8213, 0.7922 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s96, 426335, 681, 1008, 776, 0.5326, 0.435, 0.4789, 0.3957
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s96, 172815, 0, 400, 865, 1.0, 0.6838, 0.8122, 0.8122 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s96, 425986, 1030, 729, 1055, 0.506, 0.5914, 0.5454, 0.4307
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s96, 172816, 0, 315, 949, 1.0, 0.7508, 0.8577, 0.8577 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s48, 426600, 544, 1058, 726, 0.5717, 0.407, 0.4754, 0.4036
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s48, 172879, 0, 521, 744, 1.0, 0.5881, 0.7407, 0.7407 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s128, 426033, 855, 1289, 495, 0.3667, 0.2775, 0.3159, 0.2482
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,5,LSTM,H,b64,s128, 172545, 270, 293, 972, 0.7826, 0.7684, 0.7754, 0.7 
+
+Training, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s64, 426573, 507, 921, 863, 0.6299, 0.4837, 0.5472, 0.4715
+testing, epoch_5_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s64, 172826, 53, 354, 911, 0.945, 0.7202, 0.8174, 0.7984 
+
+Training, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s128, 425768, 993, 491, 1292, 0.5654, 0.7246, 0.6352, 0.5106
+testing, epoch_8_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b512,s128, 172779, 36, 318, 947, 0.9634, 0.7486, 0.8425, 0.8292 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s128, 425797, 964, 598, 1185, 0.5514, 0.6646, 0.6027, 0.4841
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b256,s128, 172749, 67, 316, 948, 0.934, 0.75, 0.8319, 0.8082 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s128, 426420, 469, 811, 972, 0.6745, 0.5451, 0.603, 0.5264
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b128,s128, 172815, 0, 432, 833, 1.0, 0.6585, 0.7941, 0.7941 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s96, 426455, 561, 933, 851, 0.6027, 0.477, 0.5325, 0.453
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s96, 172815, 0, 385, 880, 1.0, 0.6957, 0.8205, 0.8205 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s64, 426529, 551, 1156, 628, 0.5327, 0.352, 0.4239, 0.3574
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s64, 172828, 51, 353, 912, 0.947, 0.7209, 0.8187, 0.8004 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s128, 425992, 896, 1086, 698, 0.4379, 0.3913, 0.4133, 0.3266
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,6,LSTM,H,b64,s128, 172762, 53, 462, 803, 0.9381, 0.6348, 0.7572, 0.7387 
+
+Training, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s128, 426255, 633, 850, 934, 0.596, 0.5235, 0.5574, 0.4689
+testing, epoch_6_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b128,s128, 172769, 46, 369, 896, 0.9512, 0.7083, 0.812, 0.7954 
+
+Training, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s96, 426639, 377, 1430, 354, 0.4843, 0.1984, 0.2815, 0.2448
+testing, epoch_4_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s96, 172815, 0, 413, 852, 1.0, 0.6735, 0.8049, 0.8049 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s128, 426429, 459, 978, 806, 0.6372, 0.4518, 0.5287, 0.4595
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,7,LSTM,H,b64,s128, 172782, 33, 425, 840, 0.9622, 0.664, 0.7858, 0.7738 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s96, 426416, 600, 1181, 603, 0.5012, 0.338, 0.4037, 0.3362
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s96, 172811, 4, 337, 928, 0.9957, 0.7336, 0.8448, 0.8433 
+
+Training, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s128, 425931, 957, 1062, 722, 0.43, 0.4047, 0.417, 0.3267
+testing, epoch_2_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,8,LSTM,H,b64,s128, 172775, 40, 496, 769, 0.9506, 0.6079, 0.7416, 0.7275 
+
+Training, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s128, 426231, 658, 1216, 567, 0.4629, 0.318, 0.377, 0.3093
+testing, epoch_1_Illgraben,9S,2017,ILL02,EHZ,H,training,True,repeat,9,LSTM,H,b64,s128, 172811, 4, 470, 795, 0.995, 0.6285, 0.7703, 0.7689 
+

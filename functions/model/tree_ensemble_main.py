@@ -12,14 +12,14 @@ import argparse
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
 project_root = current_dir.parent.parent
 import sys
 sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.dataset_to_dataloader import *
+from functions.data_process.dataset_to_dataloader import *
 from functions.model.tree_ensemble_model import Ensemble_Tree_Model
 
 def prepare_dataloader(feature_type, params, repeat=1):
