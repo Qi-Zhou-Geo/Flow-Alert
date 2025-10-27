@@ -1,0 +1,27 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+# __modification time__ = 2025-02-16
+# __author__ = Qi Zhou and Sibashish Dash, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# Please do not distribute this code without the author's permission
+
+
+station: "ILL02"
+feature_type: "H"
+feature_size: 12
+archived_model_format: "Model=[ML_name]_STA=[station]_Feature=[feature_type]_repeat=[num_repeat]" # remember add format .pt or .pkl
+
+LSTM:
+  batch_size: 128
+  seq_length: 64
+  num_repeat: 9
+  extension: "pt"
+
+RF:
+  num_repeat: 3
+  extension: "joblib"
+
+XGB:
+  num_repeat: 3
+  extension: "ubj"

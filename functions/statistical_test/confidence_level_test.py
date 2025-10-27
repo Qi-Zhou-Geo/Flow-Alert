@@ -10,7 +10,7 @@ import numpy as np
 from scipy.stats import t as student_t  # Student's t-distribution
 
 
-def statistical_testing(input_data, row_or_column="column", confidence_interval=0.95):
+def student_t_testing(input_data, row_or_column="column", confidence_interval=0.95):
     '''
     # Calculate the ranges based on confidence_interval by student t distribution
     

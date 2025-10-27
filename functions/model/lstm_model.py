@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-#__modification time__ = 2024-02-23
-#__author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
-#__find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
+# __modification time__ = 2024-02-23
+# __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
+# __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
 
 import sys
@@ -11,6 +11,9 @@ import yaml
 
 import math
 import numpy as np
+
+from datetime import datetime, timedelta, timezone
+
 from scipy.stats import t as student_t  # Student's t-distribution
 
 import torch
@@ -22,19 +25,21 @@ from torchinfo import summary
 from pathlib import Path
 from tqdm import tqdm
 
-
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
+
 current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
 project_root = current_dir.parent.parent
 
 import sys
+
 sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.tool.copy_trained_model import rename_model
+from functions.toolkit.copy_trained_model import rename_model
+from functions.model.train_test import prepare_records
 
 
 class LSTM_Classifier(nn.Module):
@@ -90,23 +95,23 @@ class LSTM_Classifier(nn.Module):
 
         # output.shape = ([batch_size, sequence_length, hidden_size])
         # h_n.shape = c_n.shape = ([num_layers * self.D, batch_size, hidden_size])
-        output, (h_n, c_n) = self.lstm(x, (h0, c0)) # do not need (h_n, c_n)
-
+        output, (h_n, c_n) = self.lstm(x, (h0, c0))  # do not need (h_n, c_n)
 
         # extract features
         if self.bidirectional is True:
-            forward_last = h_n[-2, :, :]   # last layer's forward hidden state
+            forward_last = h_n[-2, :, :]  # last layer's forward hidden state
             backward_last = h_n[-1, :, :]  # last layer's backward hidden state
             # concatenate along the feature dimension
             output = torch.cat((forward_last, backward_last), dim=1)
         else:
-            #output = h_n[-1, :, :]
+            # output = h_n[-1, :, :]
             # or use "output = output[:, -1, :]" to only focous the last time step in "sequence_length" domain
             output = output[:, -1, :]
 
         output = self.fully_connect(output)
 
         return output
+
 
 class LSTM_Attention(nn.Module):
     def __init__(self, feature_size, device,
@@ -146,7 +151,6 @@ class LSTM_Attention(nn.Module):
                 n = param.size(0)
                 param.data[n // 4:n // 2].fill_(1.0)
 
-
         # attention layer
         self.attention = nn.MultiheadAttention(
             embed_dim=hidden_size * self.D,
@@ -175,9 +179,9 @@ class LSTM_Attention(nn.Module):
     def _normalize(self, x, epsilon=1e-6):
         # shape of x is ([batch_size, sequence_length, num_stations * num_channels = feature size])
 
-        #seq_mean = x.mean(dim=1, keepdim=True)
-        #seq_std = x.std(dim=1, keepdim=True)
-        #x = (x - seq_mean) / (seq_std + epsilon)
+        # seq_mean = x.mean(dim=1, keepdim=True)
+        # seq_std = x.std(dim=1, keepdim=True)
+        # x = (x - seq_mean) / (seq_std + epsilon)
 
         median = x.median(dim=1, keepdim=True).values
         q1 = x.quantile(0.25, dim=1, keepdim=True)
@@ -204,11 +208,10 @@ class LSTM_Attention(nn.Module):
 
         return x
 
-
     def forward(self, x, t=None, hidden=None):
         x = x.to(torch.float32)
-        #x = self._normalize(x)
-        #x = self._pos_encoder(x)
+        # x = self._normalize(x)
+        # x = self._pos_encoder(x)
 
         self.lstm.flatten_parameters()
 
@@ -230,7 +233,7 @@ class LSTM_Attention(nn.Module):
         output = output + attn_output  # skip connection helps gradient flow
 
         # pooling and output
-        #pooled_output = torch.mean(output, dim=1)
+        # pooled_output = torch.mean(output, dim=1)
         attn_scores = torch.matmul(output, self.attn_pool_weight)  # Shape: (batch, seq_len, 1)
         attn_weights = torch.softmax(attn_scores, dim=1)  # normalize scores
         pooled_output = torch.sum(output * attn_weights, dim=1)  # weighted sum across time steps
@@ -238,6 +241,7 @@ class LSTM_Attention(nn.Module):
         output = self.fully_connect(pooled_output)
 
         return output
+
 
 class Ensemble_Trained_LSTM_Classifier:
     def __init__(self, model_version, feature_type, batch_size, seq_length,
@@ -248,12 +252,12 @@ class Ensemble_Trained_LSTM_Classifier:
         self.batch_size = batch_size
         self.seq_length = seq_length
 
-
         self.ML_name = ML_name
         self.station = station
 
         self.device = device
-
+        self.DF_threshold = 0.5
+        self.temperature_scaling = 1
 
     def load_trained_model(self, ML_name, station,
                            feature_type,
@@ -264,7 +268,7 @@ class Ensemble_Trained_LSTM_Classifier:
         # <editor-fold desc="add the sys.path to search for custom modules">
         from pathlib import Path
         current_dir = Path(__file__).resolve().parent
-        # using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+        # using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
         project_root = current_dir.parent.parent
 
         import sys
@@ -280,7 +284,11 @@ class Ensemble_Trained_LSTM_Classifier:
         else:
             model = LSTM_Classifier(feature_size=feature_size, device=self.device)
 
-        ref_model_dir = f"{project_root}/trained_model/{self.model_version}"
+        if self.model_version in ["v1.3", "v1dot3", "v1dot3model"]:
+            ref_model_dir = f"{project_root}/trained_model/v1dot3model"
+        else:
+            print(f"Error!\nPlease check the model version {self.model_version}.")
+
         load_checkpoint = torch.load(f"{ref_model_dir}/{ref_model_name}", map_location=torch.device('cpu'))
 
         model.load_state_dict(load_checkpoint)
@@ -307,7 +315,6 @@ class Ensemble_Trained_LSTM_Classifier:
 
         models = []
         for repeat in range(1, num_repeat + 1):
-
             model = self.load_trained_model(self.ML_name, self.station,
                                             self.feature_type,
                                             self.batch_size, self.seq_length,
@@ -345,7 +352,7 @@ class Ensemble_Trained_LSTM_Classifier:
 
         return pro_mean, ci_range
 
-    def predictor_from_dataLoader(self, dataloader, models):
+    def predictor_from_dataLoader(self, models, dataloader):
         '''
 
         Args:
@@ -356,7 +363,7 @@ class Ensemble_Trained_LSTM_Classifier:
 
         '''
 
-        array_temp = np.empty((0, 4+len(models)))
+        array_temp = []
 
         for batch_data in tqdm(dataloader,
                                desc="Progress of <predictor_from_dataLoader>",
@@ -372,26 +379,32 @@ class Ensemble_Trained_LSTM_Classifier:
             target = batch_data['target']
 
             predicted_pro = np.empty((len(target), len(models)))
+            # predicted_logits = np.empty((len(target), len(models)))
             for idx, model in enumerate(models):
                 # make sure does not change the model parameters
                 model.eval()
                 with torch.no_grad():
-                    logits = model(features, t_features) # return the model output logits, shape (batch_size, 2)
-                    DF_pro = torch.softmax(logits, dim=1)[:, 1]
+                    raw_logits = model(features, t_features)  # return the model output logits, shape (batch_size, 2)
+                    DF_pro = torch.softmax(raw_logits, dim=1)[:, 1]
                     DF_pro = DF_pro.cpu().detach().numpy()
 
-                    predicted_pro[:, idx] = np.round(DF_pro.reshape(-1), 3) # keep 3 decimal places
+                    predicted_pro[:, idx] = np.round(DF_pro.reshape(-1), 3)  # keep 3 decimal places
 
             pro_mean, ci_range = self.statistical_testing(predicted_pro, row_or_column="row")
+            t_str = np.array(
+                [datetime.fromtimestamp(ts, tz=timezone.utc).isoformat() for ts in t_target.cpu().detach().numpy()])
 
             record = np.concatenate((t_target.reshape(-1, 1),
+                                     t_str.reshape(-1, 1),
                                      target.reshape(-1, 1),
                                      predicted_pro,
                                      pro_mean.reshape(-1, 1),
                                      ci_range.reshape(-1, 1)), axis=1)  # as column
-            array_temp = np.vstack((array_temp, record))  # as row
 
+            array_temp.append(record)  # as row
 
+        # convert to array and sort by time float
+        array_temp = np.vstack(array_temp)
         sort_indices = array_temp[:, 0].argsort()
         array_temp = array_temp[sort_indices]
 

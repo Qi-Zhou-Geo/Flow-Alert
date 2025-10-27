@@ -19,7 +19,7 @@ from torchinfo import summary
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
 project_root = current_dir.parent.parent
 import sys
 sys.path.append(str(project_root))
@@ -27,12 +27,12 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
-from functions.public.load_data import select_features
-from functions.public.dataset_to_dataloader import *
-from functions.public.min_max_normalize_transformer import min_max_normalize
+from functions.data_process.load_data import select_features
+from functions.data_process.dataset_to_dataloader import *
+from functions.data_process.min_max_normalize_transformer import min_max_normalize
 from functions.model.lstm_model import LSTM_Classifier
 from functions.model.train_test import Train_Test
-from functions.public.undersamp_training_data import *
+from functions.data_process.undersamp_training_data import *
 
 def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, params, repeat=1):
 
@@ -106,19 +106,19 @@ def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, 
 
     # check the data-60s loader length
     if len(train_dataloader) == 0:
-        # give a "fake" dataloader to make sure lstm_train_test works well
+        # give "fake" dataloader to make sure lstm_train_test works well
         train_dataloader.append(test_dataloader[0])
     else:
         pass
 
     if len(test_dataloader) == 0:
-        # give a "fake" dataloader to make sure lstm_train_test works well
+        # give "fake" dataloader to make sure lstm_train_test works well
         test_dataloader.append(train_dataloader[0])
     else:
         pass
 
     if len(validate_dataloader) == 0:
-        # give a "fake" dataloader to make sure lstm_train_test works well
+        # give "fake" dataloader to make sure lstm_train_test works well
         validate_dataloader.append(train_dataloader[0])
     else:
         pass

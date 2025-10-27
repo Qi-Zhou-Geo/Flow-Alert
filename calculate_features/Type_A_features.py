@@ -32,7 +32,7 @@ def get_num_magnitude(variable):
     Get the mangnitude n for x * 10^n
 
     Args:
-        variable: float or int, a number like 1234.567, -0.0123
+        variable: float or int, number like 1234.567, -0.0123
 
     Returns:
         data-60s magnitude based on 10
@@ -65,6 +65,7 @@ def calBL_feature(data, ruler, epsilon=1e-8):
 
     # convert to int and ingore the data-60s less than 0
     data_abs = np.abs(data).astype(int)
+
 
     # if you see the warning,
     # it means either the data-60s is too small or ruler is too big
@@ -120,6 +121,7 @@ def calBL_feature(data, ruler, epsilon=1e-8):
     sum_d = []
     y_min = np.nanmin(data_selected)
     if y_min == 0:  # in csse of "divide by zero encountered in scalar divide"
+        print("Warning!\n Data contain zero magnitude data.")
         y_min = 1
     else:
         pass
@@ -129,8 +131,6 @@ def calBL_feature(data, ruler, epsilon=1e-8):
         sum_d.append(i)
 
     alpha = 1 + len(data_selected) / (np.sum(sum_d) + epsilon)
-    if alpha > 10:
-        alpha = 10
     alpha = float("{:.4f}".format(alpha))
     # </editor-fold>
 

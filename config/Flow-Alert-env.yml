@@ -1,0 +1,58 @@
+name: flow-alert
+channels:
+  - pytorch
+  - nvidia        # safe: ignored on non-Linux platforms
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - pip
+
+  # Core scientific stack
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
+  - numba
+  - h5py
+  - statsmodels
+  - xarray
+
+  # Visualization / utilities
+  - matplotlib
+  - seaborn
+  - tqdm
+  - requests
+  - colorcet
+  - networkx
+  - multipledispatch
+
+  # Machine learning
+  - xgboost # replaces the platform-specific "py-xgboost-cpu"
+
+  # PyTorch (CPU or GPU auto-select)
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-lightning
+
+  # Seismology
+  - obspy
+
+  # Other useful dependencies
+  - pillow
+  - protobuf
+  - sqlalchemy
+  - werkzeug
+
+  # YAML libraries
+  - pyyaml
+  - ruamel.yaml
+
+  # For datashader (optional but kept)
+  - datashader
+  - multipledispatch
+
+  pip:
+    - torchsummary==1.5.1

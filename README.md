@@ -18,7 +18,7 @@ it may not outperform the Feature C model (2020 Illgraben data) but shows more r
 ### 📁 1. Repository Structure
 ```bash
 Flow-Alert
-├── calculate_features   # Convert raw seismic data into features
+├── calculate_features_old   # Convert raw seismic data into features
 ├── config               # Configuration files
 ├── data                 # Seismic data and extracted features
 ├── demo                 # Examples of running the case

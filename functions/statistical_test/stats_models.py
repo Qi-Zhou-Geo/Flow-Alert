@@ -15,14 +15,14 @@ from itertools import combinations
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
-# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
 project_root = current_dir.parent.parent
 import sys
 sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.archive_data import dump_evaluate_matrix
+from functions.data_process.archive_data import dump_evaluate_matrix
 
 
 def mcnemar_test(target, model1_predicted, model2_predicted, model1=None, model2=None, print_results=True):

@@ -1,0 +1,15 @@
+please downoload the archived v1.1 model from Zenodo:
+
+@dataset{zhou_2025_16811121,
+  author       = {Zhou, Qi},
+  title        = {Supporting material for "Enhancing debris flow
+                   warning via machine learning feature reduction and
+                   model selection"
+                  },
+  month        = aug,
+  year         = 2025,
+  publisher    = {Zenodo},
+  version      = {v1.1},
+  doi          = {10.5281/zenodo.16811121},
+  url          = {https://doi.org/10.5281/zenodo.16811121},
+}
