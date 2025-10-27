@@ -35,20 +35,20 @@ Illgraben-9S:
   sensor_type: "do-not-need"
   normalization_factor: "do-not-need"
 
-"Luding-LD": # for 2023 Luding LD STA01 (SKLGP) sensor
-  path_mapping: "Asian/Luding"
+"Wandong-LD": # for 2023 Wandong LD STA01 (SKLGP) sensor
+  path_mapping: "Asian/Wandong"
   response_type: "simulate"
   sensor_type: "IGU_16HR_EB_3C_5Hz"
   normalization_factor: "do-not-need"
 
-"Luding-WD": # for 2023 Luding WD STA02 (GFZ) sensor
-  path_mapping: "Asian/Luding"
+"Wandong-WD": # for 2023 Wandong WD STA02 (GFZ) sensor
+  path_mapping: "Asian/Wandong"
   response_type: "xml"
   sensor_type: "do-not-need"
   normalization_factor: "do-not-need"
 
-"Luding-AM": # for 2024 Luding AM R9BF5 (GFZ) sensor
-  path_mapping: "Asian/Luding"
+"Wandong-AM": # for 2024 Wandong AM R9BF5 (GFZ) sensor
+  path_mapping: "Asian/Wandong"
   response_type: "xml"
   sensor_type: "do-not-need"
   normalization_factor: "do-not-need"

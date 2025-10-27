@@ -6,7 +6,6 @@
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
 
-import sys
 import yaml
 
 import torch
@@ -15,13 +14,6 @@ import numpy as np
 from tqdm import tqdm
 
 from datetime import datetime, timezone
-
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.gridspec as gridspec
-
-from obspy.clients.fdsn import Client
-from obspy import read, Stream, read_inventory, signal, UTCDateTime
 
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
@@ -33,17 +25,8 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.df_to_dataloader import prepare_dataloader, prepare_sequences
-from functions.public.prepare_feature4inference import Stream_to_feature
-from functions.public.prepare_SNR4inference import Stream_to_matrix
+from functions.public.df_to_dataloader import prepare_sequences
 from functions.model.lstm_model import Ensemble_Trained_LSTM_Classifier
-from functions.seismic.generate_seismic_trace import create_trace
-from functions.seismic.plot_obspy_st import time_series_plot
-from functions.warning_strategy.calculate_inference_matrix import inference_matrix
-from functions.public.synthetic_input import synthetic_input4model
-from functions.seismic.visualize_seismic import psd_plot, waveform_plot, pro_plot, convert_st2tr
-from functions.warning_strategy.strategy import warning_controller
-
 
 # <editor-fold desc="prepare the input parameters">
 model_version, num_repeat, attention = "v2model", 9, True

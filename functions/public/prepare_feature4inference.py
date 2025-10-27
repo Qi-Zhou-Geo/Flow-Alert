@@ -7,17 +7,16 @@
 # Please do not distribute this code without the author's permission
 
 import sys
-import yaml
 
 import pytz
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from tqdm import tqdm
 
 import numpy as np
 import pandas as pd
 
-from obspy import read, Stream, Trace, read_inventory, signal
+from obspy import Stream, Trace
 from obspy.core import UTCDateTime # default is UTC+0 time zone
 
 # import the custom functions
@@ -25,7 +24,7 @@ from calculate_features.Type_A_features import calBL_feature                 # i
 from calculate_features.Type_B_features import calculate_all_attributes      # import Clement's all features (by *)
 from functions.public.min_max_normalize_transformer import min_max_normalize
 from functions.seismic.remove_outlier import smooth_outliers
-from functions.seismic.visualize_seismic import convert_st2tr
+from functions.visualize.visualize_seismic import convert_st2tr
 
 class Stream_to_feature:
     def __init__(self, sub_window_size, window_overlap):

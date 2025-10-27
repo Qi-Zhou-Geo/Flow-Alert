@@ -65,18 +65,6 @@ def probability_map(ax, time_window_start, visualization_value,
 
     '''
 
-    '''
-    
-
-    Args:
-        ax: plt ax,
-        time_window_start: numpy 1D array or list, float time stamps
-        visualization_value: numpy 1D array or list, values at time_window_start
-
-    Returns:
-
-    '''
-
 
     # x interval
     sps = time_window_start[1] - time_window_start[0] # unit by seconds

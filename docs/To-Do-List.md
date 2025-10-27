@@ -22,7 +22,9 @@ Unzip **3trained_model.zip** and place the **LSTM, Random_Forest, XGBoost** fold
 **trained_model/v1-model** <br>
 
 ### 1.2 Run the Tutorial
-Open and run the [inference tutorial](docs/inference_tutorial.ipynb) notebook to get started with the model and explore its functionality.
+Open and run the [inference tutorial](docs/inference_tutorial.ipynb) or [Wandong_main.py](demo/Wandong/Wandong_main.py) 
+to get started with the model and explore its functionality. <br>
+You may see errors or bugs, please feel free to contact us.
 
 ## 2. Calaulate the Seismic Features
 ### 2.1 Configure the Path and Format for Your Raw Seismic Data
