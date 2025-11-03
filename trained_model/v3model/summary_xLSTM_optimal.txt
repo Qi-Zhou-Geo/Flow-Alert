@@ -1,0 +1,40 @@
+training, epoch_25_9S-2017-ILL02-EHZ-training-True-repeat-1-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354426), np.int64(1086), np.int64(175), np.int64(1305), 0.5458, 0.8818, 0.6742, 0.5265] 
+
+testing, epoch_25_9S-2017-ILL02-EHZ-training-True-repeat-1-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172603), np.int64(157), np.int64(257), np.int64(1063), 0.8713, 0.8053, 0.837, 0.7883] 
+
+training, epoch_24_9S-2017-ILL02-EHZ-training-True-repeat-2-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354376), np.int64(1136), np.int64(176), np.int64(1304), 0.5344, 0.8811, 0.6653, 0.5158] 
+
+testing, epoch_24_9S-2017-ILL02-EHZ-training-True-repeat-2-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172641), np.int64(119), np.int64(312), np.int64(1008), 0.8944, 0.7636, 0.8239, 0.7857] 
+
+training, epoch_28_9S-2017-ILL02-EHZ-training-True-repeat-3-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354450), np.int64(1062), np.int64(122), np.int64(1358), 0.5612, 0.9176, 0.6964, 0.5474] 
+
+testing, epoch_28_9S-2017-ILL02-EHZ-training-True-repeat-3-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172545), np.int64(215), np.int64(283), np.int64(1037), 0.8283, 0.7856, 0.8064, 0.7442] 
+
+training, epoch_24_9S-2017-ILL02-EHZ-training-True-repeat-4-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354548), np.int64(964), np.int64(172), np.int64(1308), 0.5757, 0.8838, 0.6972, 0.5547] 
+
+testing, epoch_24_9S-2017-ILL02-EHZ-training-True-repeat-4-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172607), np.int64(153), np.int64(344), np.int64(976), 0.8645, 0.7394, 0.7971, 0.7502] 
+
+training, epoch_19_9S-2017-ILL02-EHZ-training-True-repeat-5-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354165), np.int64(1347), np.int64(234), np.int64(1246), 0.4805, 0.8419, 0.6118, 0.4598] 
+
+testing, epoch_19_9S-2017-ILL02-EHZ-training-True-repeat-5-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172671), np.int64(89), np.int64(349), np.int64(971), 0.916, 0.7356, 0.816, 0.7866] 
+
+training, epoch_34_9S-2017-ILL02-EHZ-training-True-repeat-6-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354506), np.int64(1006), np.int64(114), np.int64(1366), 0.5759, 0.923, 0.7092, 0.5624] 
+
+testing, epoch_34_9S-2017-ILL02-EHZ-training-True-repeat-6-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172602), np.int64(158), np.int64(287), np.int64(1033), 0.8673, 0.7826, 0.8228, 0.7741] 
+
+training, epoch_22_9S-2017-ILL02-EHZ-training-True-repeat-7-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354473), np.int64(1039), np.int64(161), np.int64(1319), 0.5594, 0.8912, 0.6873, 0.5409] 
+
+testing, epoch_22_9S-2017-ILL02-EHZ-training-True-repeat-7-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172569), np.int64(191), np.int64(194), np.int64(1126), 0.855, 0.853, 0.854, 0.7963] 
+
+training, epoch_23_9S-2017-ILL02-EHZ-training-True-repeat-8-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354554), np.int64(958), np.int64(167), np.int64(1313), 0.5782, 0.8872, 0.7001, 0.5577] 
+
+testing, epoch_23_9S-2017-ILL02-EHZ-training-True-repeat-8-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172553), np.int64(207), np.int64(322), np.int64(998), 0.8282, 0.7561, 0.7905, 0.7306] 
+
+training, epoch_38_9S-2017-ILL02-EHZ-training-True-repeat-9-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354809), np.int64(703), np.int64(83), np.int64(1397), 0.6652, 0.9439, 0.7804, 0.6523] 
+
+testing, epoch_38_9S-2017-ILL02-EHZ-training-True-repeat-9-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172548), np.int64(212), np.int64(276), np.int64(1044), 0.8312, 0.7909, 0.8106, 0.7489] 
+
+training, epoch_37_9S-2017-ILL02-EHZ-training-True-repeat-10-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(354564), np.int64(948), np.int64(143), np.int64(1337), 0.5851, 0.9034, 0.7102, 0.5674] 
+
+testing, epoch_37_9S-2017-ILL02-EHZ-training-True-repeat-10-xLSTM-E-DFweight-0.9-ratio-300000, [np.int64(172580), np.int64(180), np.int64(235), np.int64(1085), 0.8577, 0.822, 0.8395, 0.7848] 
+
