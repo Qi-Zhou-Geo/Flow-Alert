@@ -164,18 +164,6 @@ def load_model(model_type, input_station, feature_type, batch_size, seq_length, 
     print(model_params)
     model = xLSTM_Classifier(feature_size=xlstm_feature_size, device=device, **model_params)
 
-    # if training_or_testing == "training":
-    #     pass
-    # elif training_or_testing == "testing":
-    #     # the default reference model is trained with "2017-2019 9S-ILL12" data-60s
-    #     try:
-    #         load_ckp = f"{CONFIG_dir['ref_model_dir']}/ref-train-9S-2017_2019-ILL12-EHZ-{feature_type}-att.pt"
-    #     except Exception as e:
-    #         sys.exit(f"Exiting the process due to an error, {e}")
-    #     model.load_state_dict(torch.load(load_ckp, map_location=torch.device('cpu')))
-    # else:
-    #     print(f"load model failed, p={feature_type, training_or_testing, device}")
-
     model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=5e-5)
     # Define scheduler: Reduce the LR by factor of 0.1 when the metric (like loss) stops improving
