@@ -144,8 +144,10 @@ class Ensemble_Trained_xLSTM_Classifier:
                                                     num_repeat=repeat)
         with open(f"{project_root}/config/xlstm_params.json", 'r') as f:
             xlstm_params = json.load(f)
-
-        model_params = xlstm_params.get('xlstm').get('feature_type').get(self.station)
+        if feature_type in ['A', 'B', 'C']:
+            model_params = xlstm_params.get(f"{ML_name.lower()}").get(f"{feature_type}").get(f"{station}")
+        else:
+            model_params = xlstm_params.get(f"{ML_name.lower()}").get(f"{feature_type}").get("default")
         model = xLSTM_Classifier(feature_size=feature_size, device=self.device, **model_params)
 
         ref_model_dir = f"{project_root}/trained_model/{self.model_version}"
@@ -287,13 +289,14 @@ class Ensemble_Trained_xLSTM_Classifier:
         t_features = torch.from_numpy(t_features).unsqueeze(0)
 
         features, t_features = features.to(self.device), t_features.to(self.device)
-
+        # print(features.size())
+        # print(t_features.size())
         predicted_pro = []
         for model in models:
             # make sure does not change the model parameters
             model.eval()
             with torch.no_grad():
-                logits = model(features, t_features)
+                logits = model(x= features, t= t_features)
                 DF_pro = torch.softmax(logits, dim=1)[:, 1]
                 DF_pro = DF_pro.cpu().detach().numpy()
                 predicted_pro.append(DF_pro)

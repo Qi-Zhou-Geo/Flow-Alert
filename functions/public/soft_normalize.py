@@ -37,8 +37,8 @@ def load_normalize_factor(feature_type):
     selected = config[f'feature_type_{feature_type}']
 
     with np.load(f"{project_root}/data/scaler/normalize_factor4C.npz", "r") as f:
-        min_factor = f["min_factor"][selected]
-        max_factor = f["max_factor"][selected]
+        min_factor = f["min_factor"][:,selected]
+        max_factor = f["max_factor"][:,selected]
 
     return min_factor, max_factor
 
@@ -79,7 +79,7 @@ def normalize_outside_boundary(case, prior_features, rms_id, boundary):
     return x_scaled
 
 
-def soft_scaler(prior_features, rms_id=6, lower_boundary=2e-8, upper_boundary=5e-5):
+def soft_scaler(prior_features, feature_type, rms_id=6, lower_boundary=2e-8, upper_boundary=5e-5):
 
     '''
        Soft-normalize/scale 'current_rms' using
@@ -109,7 +109,7 @@ def soft_scaler(prior_features, rms_id=6, lower_boundary=2e-8, upper_boundary=5e
     min_factor, max_factor = load_normalize_factor(feature_type)
 
 
-    prior_features = np.array(prior_features)
+    prior_features = np.array(prior_features, dtype=float)
     
     mean_rms = np.min(prior_features[:, rms_id])
     current_rms = prior_features[-1, rms_id]
@@ -132,14 +132,16 @@ def soft_scaler(prior_features, rms_id=6, lower_boundary=2e-8, upper_boundary=5e
     elif ranks == np.array([0, 2, 3, 1]) or ranks == np.array([0, 3, 2, 1]):
         # Case 3: within the boundary
         case = 3
-        current_features = normalize_within_boundary(current_features, feature_type="E")
+        current_features = normalize_within_boundary(current_features, feature_type=feature_type)
     elif ranks == np.array([0, 2, 1, 3]) or ranks == np.array([0, 3, 1, 2]):
         # Case 4: leave the boundary from the above
         case = 4
     elif ranks == np.array([0, 1, 2, 3]) or ranks == np.array([0, 1, 3, 2]):
         # Case 5: above the boundary
-        current_features = normalize_outside_boundary(x=current_features,
-                                                      boundary=max_factor)
+        current_features = normalize_outside_boundary(case,
+                                                      prior_features,
+                                                      rms_id,
+                                                      boundary=min_factor)
     elif ranks == np.array([2, 0, 1, 3]) or ranks == np.array([3, 0, 1, 2]):
         # Case 6: boundary within the new data
         case = 6
