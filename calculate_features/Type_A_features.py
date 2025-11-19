@@ -66,6 +66,7 @@ def calBL_feature(data, ruler, epsilon=1e-8):
     # convert to int and ingore the data-60s less than 0
     data_abs = np.abs(data).astype(int)
 
+
     # if you see the warning,
     # it means either the data-60s is too small or ruler is too big
     # data-60s is too small = source-receiver too big? or event energy is too weak?
@@ -120,6 +121,7 @@ def calBL_feature(data, ruler, epsilon=1e-8):
     sum_d = []
     y_min = np.nanmin(data_selected)
     if y_min == 0:  # in csse of "divide by zero encountered in scalar divide"
+        print("Warning!\n Data contain zero magnitude data.")
         y_min = 1
     else:
         pass

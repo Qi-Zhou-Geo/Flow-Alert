@@ -20,7 +20,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.min_max_normalize_fit import get_scaler_name
+from functions.data_process.min_max_normalize_fit import get_scaler_name
 
 
 def min_max_normalize(x, input_station, feature_type,

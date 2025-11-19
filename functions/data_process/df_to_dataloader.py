@@ -11,8 +11,9 @@ import yaml
 import argparse
 
 import numpy as np
+import pandas as pd
 
-from datetime import datetime
+from obspy import UTCDateTime
 
 # print("PyTorch version:", torch.__version__) = PyTorch version: 1.12.1
 import torch.optim as optim
@@ -31,9 +32,9 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
-from functions.public.soft_normalize import soft_scaler
-from functions.public.load_data import select_features
-from functions.public.dataset_to_dataloader import data_to_seq, seq_to_dataset, dataset_to_dataloader
+from functions.data_process.soft_normalize import soft_scaler
+from functions.data_process.load_data import select_features
+from functions.data_process.dataset_to_dataloader import data_to_seq, seq_to_dataset, dataset_to_dataloader
 
 
 def prepare_sequences(params, normalize, seq_length):
@@ -110,6 +111,7 @@ def prepare_dataloader(params, normalize, batch_size, seq_length, repeat=1):
     '''
 
     # empty list to store the dataloader
+    df_list = []
     train_sequences = []
     test_sequences = []
 
@@ -135,7 +137,7 @@ def prepare_dataloader(params, normalize, batch_size, seq_length, repeat=1):
                                                           with_label,
                                                           repeat=repeat,
                                                           normalize=normalize)
-
+        df_list.append(pd.DataFrame(data_array))
         # convert data frame to data loader
         sequences = data_to_seq(array=data_array, seq_length=seq_length)
 
@@ -175,6 +177,13 @@ def prepare_dataloader(params, normalize, batch_size, seq_length, repeat=1):
 
     test_dataloader.append(dataloader.dataLoader())
 
+    df_list = pd.concat(df_list, axis=0, ignore_index=True)
+    column_name = ["time_stamps"] + input_features_name.to_list() + ["target"]
+    print(column_name)
+    df_list.columns = column_name
+    t_str = [UTCDateTime(t).isoformat() for t in df_list.iloc[:, 0]]
+    df_list.insert(0, "time_window_start", t_str)
 
-    return train_dataloader, test_dataloader
+
+    return train_dataloader, test_dataloader, df_list
 

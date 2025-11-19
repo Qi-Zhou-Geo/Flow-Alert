@@ -25,39 +25,59 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-#from functions.public.archive_data_h5 import load_hdf5
-from functions.public.random_select_feature import generate_random_selected_feature_id
+#from functions.data_process.archive_data_h5 import load_hdf5
+from functions.data_process.random_select_feature import generate_random_selected_feature_id
+from functions.seismic.seismic_data_processing import config_snesor_parameter
 
-def config_catchment_path(catchment_name, seismic_network):
 
-    current_dir = Path(__file__).resolve().parent
-    project_root = current_dir.parent.parent
-    config_path = f"{project_root}/config/catchment_code.yaml"
+def clip_df_columns(df):
 
-    with open(config_path, "r") as f:
-        config = yaml.safe_load(f)
+    for col_names in ["alpha"]:
+        if col_names in df.columns:
+            df[col_names] = df[col_names].clip(lower=1, upper=10)
 
-    config = config[f"{catchment_name}-{seismic_network}"]
-    path_mapping = config["path_mapping"]
 
-    return path_mapping
+    for col_names in ["ES_0", "ES_1", "ES_2", "ES_3", "ES_4"]:
+        if col_names in df.columns:
+            # clip -5.22 (~1e-7 m/s with 60s window) to -1.22 (~1e-3 m/s with 60s window)
+            df[col_names] = df[col_names].clip(lower=-5.22, upper=-1.22)
+
+    for col_names in ["env_max_to_duration"]:
+        if col_names in df.columns:
+            df[col_names] = df[col_names].clip(lower=0, upper=2e-5)
+
+    for col_names in ["RMS", "IQR"]:
+        if col_names in df.columns:
+            # clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+            df[col_names] = df[col_names].clip(lower=0, upper=1e-4)
+
+    for col_names in ["MaxFFT"]:
+        if col_names in df.columns:
+            # clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+            df[col_names] = df[col_names].clip(lower=0, upper=4e-9)
+
+    for col_names in ["DistMaxMean", "DistMaxMedian"]:
+        if col_names in df.columns:
+            # clip lower = 0 to 1e-4 = 100 * 1e-6 m/s
+            df[col_names] = df[col_names].clip(lower=0, upper=1e-9)
+
+    return df
 
 ## for seismic feature
 def load_all_features(catchment_name, seismic_network, input_year, input_station, input_component,
                       with_network, with_label,
                       normalize=False):
 
+    # set dir path
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    config_path = f"{project_root}/config/catchment_code.yaml"
 
-    with open(config_path, "r") as f:
-        config = yaml.safe_load(f)
-        feature_dir_raw = config["seismic_feature_dir"]
 
-    feature_dir = f"{feature_dir_raw}/" \
-                  f"{config_catchment_path(catchment_name, seismic_network)}/" \
-                  f"{input_year}/{input_station}/{input_component}"
+    # catchment mapping
+    sac_path, feature_path, response_type, sensor_type = config_snesor_parameter(catchment_name, seismic_network)
+    feature_dir = f"{feature_path}/{input_year}/{input_station}/{input_component}"
+    network_feature_dir = f"{feature_path}/{input_year}/{input_component}_net"
+
 
     # BL sets
     df1 = pd.read_csv(f"{feature_dir}/{input_year}_{input_station}_{input_component}_all_A.txt",
@@ -74,10 +94,6 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
 
     # network sets
     if with_network is True:  # need the network feature
-        network_feature_dir = f"{feature_dir_raw}/" \
-                              f"{config_catchment_path(catchment_name, seismic_network)}/" \
-                              f"{input_year}/{input_component}_net"
-
         df3 = pd.read_csv(f"{network_feature_dir}/{input_year}_{input_component}_all_network.txt",
                           header=0, low_memory=False, usecols=np.arange(3, 13))
     else:  # do NOT need the network feature, and generate synthetic data-60s to keep the df4 structure
@@ -87,6 +103,7 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
 
     # manually label
     if with_label is True:  # with manually label
+        print(with_label)
         df4 = pd.read_csv(f"{feature_dir}/{input_year}_{input_station}_{input_component}_all_A.txt",
                           header=0, low_memory=False)
         amp_array = np.array(df4.iloc[:, :2])
@@ -108,16 +125,19 @@ def load_all_features(catchment_name, seismic_network, input_year, input_station
     columnsName = np.concatenate([df1.columns.values, df2.columns.values, df3.columns.values, df4.columns.values])
     df.columns = columnsName
 
+    df = clip_df_columns(df)
+
     if normalize is True:
         # min max normalize the data-60s
-        #from functions.public.min_max_normalize_transformer import min_max_normalize
+        #from functions.data_process.min_max_normalize_transformer import min_max_normalize
         #df.iloc[:, :-3] = min_max_normalize(df.iloc[:, :-3], input_station, feature_type="C")
 
         with np.load(f"{project_root}/data/scaler/normalize_factor4C.npz", "r") as f:
             min_factor = f["min_factor"]
             max_factor = f["max_factor"]
 
-        scaled = np.array(df.iloc[:, :-3]) - min_factor / (max_factor - min_factor)
+        X = df.iloc[:, :-3].to_numpy().astype(float)
+        scaled = (X - min_factor) / (max_factor - min_factor)
         df.iloc[:, :-3] = scaled
 
     return df
@@ -157,15 +177,15 @@ def select_features(catchment_name, seismic_network, input_year, input_station, 
         selected_column = np.arange(0, 70).tolist()
         selected_column.extend([80, 81, 82])
         with_network = False
-    elif feature_type == "E":  # selected from C
+    elif feature_type in ["E", "F", "G", "H"]:  # selected from C
 
         current_dir = Path(__file__).resolve().parent
         project_root = current_dir.parent.parent
         config_path = (project_root / f"./config/config_inference.yaml").resolve()
         with open(config_path, "r") as f:
             config = yaml.safe_load(f)
-            selected_column = config["feature_type_E"]
-
+            selected_column = config[f"feature_type_{feature_type}"]
+            print(selected_column)
         selected_column.extend([80, 81, 82])
         with_network = False
     elif feature_type.split("-")[0] == "X":  # selected based on feature IMP
@@ -252,7 +272,8 @@ def load_waveform_pro(amp_array, seismic_network, input_year,
 
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent
-    df = pd.read_csv(f"{project_root}/data/manually_labeled_DF/{seismic_network}-{input_year}-DF.txt", header=0)
+    # df = pd.read_csv(f"{project_root}/data/manually_labeled_DF/{seismic_network}-{input_year}-DF.txt", header=0)
+    df = pd.read_csv(f"{project_root}/data/event_catalog/{seismic_network}-{input_year}-DF.txt", header=0)
     # select the manually labeled event time
     df = df[(df.iloc[:, 4] == seismic_network) &
             (df.iloc[:, 5] == input_station) &

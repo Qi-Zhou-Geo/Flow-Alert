@@ -22,7 +22,7 @@ parameters1=(2013)
 parameters2=("IGB02")
 parameters3=($(seq 185 219)) # 35 = (219 - 185 + 1)
 input_component="HHZ"
-input_window_size=60
+input_window_size=30
 catchment_name="Illgraben"
 seismic_network="9J"
 

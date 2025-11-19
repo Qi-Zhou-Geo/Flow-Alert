@@ -19,7 +19,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.dataset_to_dataloader import *
+from functions.data_process.dataset_to_dataloader import *
 from functions.model.tree_ensemble_model import Ensemble_Tree_Model
 
 def prepare_dataloader(feature_type, params, repeat=1):

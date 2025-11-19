@@ -1,30 +1,29 @@
 #!/bin/bash
 #SBATCH -t 4-00:00:00              # time limit: (D-HH:MM:SS) 
-#SBATCH --job-name=step2           # job name, "Qi_run"
+#SBATCH --job-name=step1           # job name, "Qi_run"
 
 #SBATCH --ntasks=1                 # each individual task in the job array will have a single task associated with it
-#SBATCH --array=1-121              # job array id
+#SBATCH --array=1-29               # job array id, !!!! all combination of parameters1-3
+#SBATCH --mem-per-cpu=32G		       # Memory Request (per CPU; can use on GLIC)
 
-#SBATCH --mem-per-cpu=16G		   # Memory Request (per CPU; can use on GLIC)
-
-#SBATCH --output=logs/step2_out_%A_%a_%x.txt  # Standard Output Log File
-#SBATCH --error=logs/step2_err_%A_%a_%x.txt   # Standard Error Log File
+#SBATCH --output=logs/out_%A_%a_%x.txt  # Standard Output Log File
+#SBATCH --error=logs/err_%A_%a_%x.txt   # Standard Error Log File
 
 # create the “log” folder in case it doesn't exist
-mkdir -p logs 
+mkdir -p logs
 
 source /home/qizhou/miniforge3/bin/activate
 conda activate seismic
 
 
 # Define arrays for parameters1, parameters2, and parameters3
-parameters1=(2020)
-parameters2=("EHZ")
-parameters3=($(seq 150 270)) # 121 = 270 - 150 + 1
-parameters4=("ILL18" "ILL12" "ILL13")
-catchment_name="Illgraben"
-seismic_network="9S"
+catchment_name="Montecito"
+seismic_network="CI"
+parameters1=(2018)
+parameters2=("QAD")
+input_component="HNZ"
 input_window_size=60
+parameters3=($(seq 2 30)) # 29 = 30 - 2 + 1
 
 
 # Calculate the indices for the current combination
@@ -38,14 +37,19 @@ current_parameters2=${parameters2[$parameters2_idx - 1]}
 current_parameters3=${parameters3[$parameters3_idx - 1]}
 
 # Print the current combination
-echo "Year: $current_parameters1, Component: $current_parameters2, Julday: $current_parameters3, Station list: ${parameters4[@]}"
-
-# Run your Python script using srun with the parameters
-srun python ../../2cal_TypeB_network.py \
+echo "Year: $current_parameters1, Station: $current_parameters2, Julday $current_parameters3"
+srun python ../../1cal_TypeA_TypeB.py \
     --catchment_name "$catchment_name" \
     --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \
-    --station_list "${parameters4[@]}" \
-    --input_component "$current_parameters2" \
+    --input_station "$current_parameters2" \
+    --input_component "$input_component" \
     --input_window_size "$input_window_size" \
     --id "$current_parameters3"
+
+# delete the empty logout file
+OUT_FILE="logs/out_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}_${SLURM_JOB_NAME}.txt"
+ERR_FILE="logs/err_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}_${SLURM_JOB_NAME}.txt"
+
+[ -e "$OUT_FILE" ] && [ ! -s "$OUT_FILE" ] && rm "$OUT_FILE"
+[ -e "$ERR_FILE" ] && [ ! -s "$ERR_FILE" ] && rm "$ERR_FILE"

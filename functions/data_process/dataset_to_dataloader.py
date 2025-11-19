@@ -12,7 +12,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 
-# public data-60s to dataloader
+# data_process data-60s to dataloader
 def data_to_seq(array, seq_length, classification_or_prediction="classification"):
     '''
 

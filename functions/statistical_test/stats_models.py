@@ -22,7 +22,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.archive_data import dump_evaluate_matrix
+from functions.data_process.archive_data import dump_evaluate_matrix
 
 
 def mcnemar_test(target, model1_predicted, model2_predicted, model1=None, model2=None, print_results=True):

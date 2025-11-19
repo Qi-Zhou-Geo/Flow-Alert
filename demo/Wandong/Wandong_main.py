@@ -25,7 +25,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.df_to_dataloader import prepare_sequences
+from functions.data_process.df_to_dataloader import prepare_sequences
 from functions.model.lstm_model import Ensemble_Trained_LSTM_Classifier
 
 # <editor-fold desc="prepare the input parameters">

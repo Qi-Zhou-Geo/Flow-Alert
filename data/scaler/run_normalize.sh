@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -t 00:20:00              # time limit: (D-HH:MM:SS)
-#SBATCH --job-name=RMS           # job name, "Qi_run"
+#SBATCH --job-name=normalize     # job name, "Qi_run"
 
 #SBATCH --ntasks=1                 # each individual task in the job array will have a single task associated with it
 #SBATCH --array=1-1                # job array id

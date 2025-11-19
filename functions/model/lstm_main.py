@@ -27,12 +27,12 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
-from functions.public.load_data import select_features
-from functions.public.dataset_to_dataloader import *
-from functions.public.min_max_normalize_transformer import min_max_normalize
+from functions.data_process.load_data import select_features
+from functions.data_process.dataset_to_dataloader import *
+from functions.data_process.min_max_normalize_transformer import min_max_normalize
 from functions.model.lstm_model import LSTM_Classifier
 from functions.model.train_test import Train_Test
-from functions.public.undersamp_training_data import *
+from functions.data_process.undersamp_training_data import *
 
 def prepare_dataloader(feature_type, batch_size, seq_length, noise2event_ratio, params, repeat=1):
 

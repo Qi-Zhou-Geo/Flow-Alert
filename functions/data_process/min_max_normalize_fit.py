@@ -23,7 +23,7 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
-from functions.public.load_data import select_features
+from functions.data_process.load_data import select_features
 
 def get_scaler_name(input_station, feature_type):
 

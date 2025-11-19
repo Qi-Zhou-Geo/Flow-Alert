@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 import numpy as np
 
 
-def chunk_data(st_data, sub_window_size, window_overlap, st_startime_array, st_end_time, st_sps, npts):
+def chunk_data(st_data, sub_window_size, window_overlap, st_startime_float, st_endtime_float, st_sps, npts):
     '''
     Chunk the seismic stream to sequence
 
@@ -20,8 +20,8 @@ def chunk_data(st_data, sub_window_size, window_overlap, st_startime_array, st_e
         st_data:
         sub_window_size: int or float, unit by second
         window_overlap: float value in [0, 1], 0 means no overlap
-        st_startime_array:
-        st_end_time:
+        st_startime_float:
+        st_endtime_float:
         st_sps:
         npts:
 
@@ -36,7 +36,7 @@ def chunk_data(st_data, sub_window_size, window_overlap, st_startime_array, st_e
     chunk_x = np.lib.stride_tricks.sliding_window_view(st_data, window_shape=chunk_length)
     chunk_x = chunk_x[::step_size]
 
-    chunk_t = np.linspace(st_startime_array, st_end_time, npts)
+    chunk_t = np.linspace(st_startime_float, st_endtime_float, npts)
     chunk_t = np.lib.stride_tricks.sliding_window_view(chunk_t, window_shape=chunk_length)
     chunk_t = chunk_t[::step_size]
     chunk_t = chunk_t[:, 0].reshape(-1)

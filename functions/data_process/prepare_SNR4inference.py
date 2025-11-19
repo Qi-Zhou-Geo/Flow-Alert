@@ -18,7 +18,7 @@ from scipy.stats import skew
 from obspy import read, Stream, Trace, read_inventory, signal
 
 # import the custom functions
-from functions.public.min_max_normalize_transformer import min_max_normalize
+from functions.data_process.min_max_normalize_transformer import min_max_normalize
 from functions.seismic.remove_outlier import smooth_outliers
 from functions.seismic.chunk_st2seq import chunk_data
 from functions.seismic.welch_spectrum import welch_psd

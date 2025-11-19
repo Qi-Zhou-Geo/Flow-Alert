@@ -12,13 +12,14 @@
   # path_mapping: "European/Illgraben"
   # response_type: "xml" == with xml file,
                  # "simulate" == with poles and zeros,
-                 # "direct" == # without poles and zeros
+                 # "direct" == # without pol es and zeros
   # sensor_type: "do-not-need"
   # normalization_factor: 1) "do-not-need", 2) or use some number when "direct"
 
 # seismic data source in the GFZ-GLIC server
 "glic_sac_dir": "/storage/vast-gfz-hpc-01/project/seismic_data_qi/seismic"
 # seismic feature source on the GFZ-GLIC server
+<<<<<<<< HEAD:config/catchment_code.yaml
 seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature"
 
 
@@ -52,3 +53,8 @@ Illgraben-9S:
   response_type: "xml"
   sensor_type: "do-not-need"
   normalization_factor: "do-not-need"
+========
+seismic_feature_dir: "/storage/vast-gfz-hpc-01/home/qizhou/3paper/0seismic_feature_25"
+# event catalog
+event_catalog_version: "Flow_Bench_Catalog_work_v0dot8-10.txt"
+>>>>>>>> develop:config/data_path.yaml

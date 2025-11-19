@@ -32,7 +32,7 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
-from functions.public.load_data import select_features
+from functions.data_process.load_data import select_features
 
 station_list = ["STA01", "STA02", "STA03", "STA04", "STA05", "STA07", "STA08"]
 

@@ -38,6 +38,7 @@ demo/unknow_landslide
 demo/Yanmen
 demo/global_test
 demo/Wandong
+demo/Jiangjia
 
 # docs
 docs/image/*.cdr
@@ -59,3 +60,7 @@ trained_model/v2-model
 trained_model/v2model
 trained_model/m3model
 trained_model/v4model
+
+
+# pipeline
+peipeline

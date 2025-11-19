@@ -24,10 +24,10 @@ sys.path.append(str(project_root))
 # import the custom functions
 from demo.Yanmen.remove_sensor_response import seismic_data_processing
 
-from functions.public.dataset_to_dataloader import *
-from functions.public.prepare_feature4inference import Stream_to_feature
+from functions.data_process.dataset_to_dataloader import *
+from functions.data_process.prepare_feature4inference import Stream_to_feature
 from functions.model.lstm_model import Ensemble_Trained_LSTM_Classifier
-from functions.public.synthetic_input import synthetic_input4model
+from functions.data_process.synthetic_input import synthetic_input4model
 from functions.warning_strategy.strategy import warning_controller
 
 
