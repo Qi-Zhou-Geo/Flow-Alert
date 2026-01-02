@@ -26,6 +26,7 @@ from obspy.core import UTCDateTime # default is UTC+0 time zone
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent
 # using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+
 project_root = current_dir.parent
 import sys
 sys.path.append(str(project_root))
@@ -48,8 +49,10 @@ def cal_attributes_B(data_array, sps): # the main function is from Clement
 
     return feature_array # 59 features
 
-def cal_attributes_A(data_array, scaling=1e9, ruler=300): # the main function is from Qi
+def cal_attributes_A(data_array, scaling=1e9, ruler=100): # the main function is from Qi
     data_array_nm = data_array * scaling # converty m/s to nm/s
+    # the physical velocity of lower bodunday = 1e-9 m/s and upper boundary as 1e-4
+    data_array_nm = np.clip(data_array_nm, a_min=1, a_max=1e5)
     feature_array = calBL_feature(data_array_nm, ruler)
 
     return feature_array # 17 features
@@ -121,7 +124,7 @@ def loop_time_step(st, input_year, input_station, input_component, input_window_
 
 
 def cal_loop(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size,
-             id1, id2, folder_path_txt, folder_path_npy):
+             id1, id2, folder_path_txt, folder_path_npy, f_min=1, f_max=25):
 
     for julday in range(id1, id2):
 
@@ -129,7 +132,12 @@ def cal_loop(catchment_name, seismic_network, input_year, input_station, input_c
         data_start = UTCDateTime(year=input_year, julday=julday)
         data_end = data_start + 24 * 3600
 
-        st = load_seismic_signal(catchment_name, seismic_network, input_station, input_component, data_start, data_end)
+        st = load_seismic_signal(catchment_name, seismic_network,
+                                 input_station, input_component,
+                                 data_start, data_end,
+                                 f_min=f_min, f_max=f_max,
+                                 remove_sensor_response=True,
+                                 raw_data=False)
 
         # dump the seismic data-60s
         npy_dir = f"{folder_path_npy}/{input_year}_{input_station}_{input_component}_{julday}"
@@ -139,21 +147,6 @@ def cal_loop(catchment_name, seismic_network, input_year, input_station, input_c
         # write the seismic features header
         record_data_header(input_year, input_station, input_component, julday, folder_path_txt)
         loop_time_step(st, input_year, input_station, input_component, input_window_size, julday, folder_path_txt)
-
-def cal_loop_seg(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size,
-                 id1, id2, folder_path_txt, folder_path_npy):
-
-    julday = str(id1).zfill(3)
-    data_start = UTCDateTime(year=input_year, julday=julday)
-    data_end = data_start + 24 * 3600 - 1 # only one day's data-60s available
-
-    st = load_seismic_signal(catchment_name, seismic_network, input_station, input_component, data_start, data_end)
-
-    # write the seismic features header
-    record_data_header(input_year, input_station, input_component, julday, folder_path_txt)
-
-    loop_time_step(st, input_year, input_station, input_component, input_window_size, julday, folder_path_txt)
-
 
 
 def main(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size, id):
@@ -183,16 +176,10 @@ def main(catchment_name, seismic_network, input_year, input_station, input_compo
         print(f"{seismic_network, input_year, input_station, input_component, input_window_size, id}, \n"
               f"Exception {e}")
 
-    #map_start_julday = {2013:147, 2014:91,  2017_1:140, 2018-2019:145, 2019:145, 2020:152}
-    #map_end_julday   = {2013:245, 2014:273, 2017_1:183, 2018-2019:250, 2019:250, 2020:250}
-    #id1, id2 = map_start_julday.get(input_year),  map_end_julday.get(input_year)
+    # start the process
     id1, id2 = id, id + 1
-    if seismic_network in ["CC"]: # data-60s segment
-        cal_loop_seg(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size,
-                     id1, id2, folder_path_txt, folder_path_npy)
-    else:
-        cal_loop(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size,
-                 id1, id2, folder_path_txt, folder_path_npy)
+    cal_loop(catchment_name, seismic_network, input_year, input_station, input_component, input_window_size,
+             id1, id2, folder_path_txt, folder_path_npy)
 
 
     print(f"End Job {job_id}: {input_year}, {input_station}: ", datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))

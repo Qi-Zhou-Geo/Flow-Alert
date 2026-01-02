@@ -19,32 +19,22 @@ import sys
 sys.path.append(str(project_root))
 # </editor-fold>
 
+# import the custom functions
+from functions.seismic.seismic_data_processing import config_snesor_parameter
 
 def check_folder(catchment_name, seismic_network, input_year, input_station, input_component):
 
-    # config the file Input-Output dir
-    current_dir = Path(__file__).resolve().parent
-    project_root = current_dir.parent
-
-    # in-out path
-    config_path = f"{project_root}/config/catchment_code.yaml"
-    with open(config_path, "r") as f:
-        config = yaml.safe_load(f)
-    seismic_feature_dir = config['seismic_feature_dir']
-
     # catchment mapping
-    with open(config_path, "r") as f:
-        config = yaml.safe_load(f)
-    catchment_mapping = config[f"{catchment_name}-{seismic_network}"]["path_mapping"]
+    sac_path, feature_path, response_type, sensor_type = config_snesor_parameter(catchment_name, seismic_network)
 
     # create the folder
-    folder_path_txt = f"{seismic_feature_dir}/{catchment_mapping}/{input_year}/{input_station}/{input_component}"
+    folder_path_txt = f"{feature_path}/{input_year}/{input_station}/{input_component}"
     os.makedirs(folder_path_txt, exist_ok=True)
 
-    folder_path_npy = f"{seismic_feature_dir}/{catchment_mapping}/{input_year}/{input_station}/{input_component}/npy"
+    folder_path_npy = f"{feature_path}/{input_year}/{input_station}/{input_component}/npy"
     os.makedirs(folder_path_npy, exist_ok=True)
 
-    folder_path_net = f"{seismic_feature_dir}/{catchment_mapping}/{input_year}/{input_component}_net"
+    folder_path_net = f"{feature_path}/{input_year}/{input_component}_net"
     os.makedirs(folder_path_net, exist_ok=True)
 
     return folder_path_txt, folder_path_npy, folder_path_net

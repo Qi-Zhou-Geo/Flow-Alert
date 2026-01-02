@@ -3,7 +3,7 @@
 #SBATCH --job-name=step1           # job name, "Qi_run"
 
 #SBATCH --ntasks=1                 # each individual task in the job array will have a single task associated with it
-#SBATCH --array=1-288              # job array id
+#SBATCH --array=1-146              # job array id
 
 #SBATCH --mem-per-cpu=8G		       # Memory Request (per CPU; can use on GLIC)
 
@@ -19,12 +19,12 @@ conda activate seismic
 
 # Define arrays for parameters1, parameters2, and parameters3
 parameters1=(2019)
-parameters2=("ILL18" "ILL12" "ILL13")
-parameters3=($(seq 145 240)) # 96 = 240 - 145 + 1
+parameters2=("ILL12")
+parameters3=($(seq 145 290)) # 146 = 290 - 145 + 1
 catchment_name="Illgraben"
 seismic_network="9S"
 input_component="EHZ"
-input_window_size=60
+input_window_size=30
 
 
 # Calculate the indices for the current combination

@@ -405,8 +405,10 @@ def get_freq_band_stuff(Data, sps):
         FFE = np.array([5, 15, 24, 24, 24])  # higher bounds of the different tested freq. bands
 
     else:
-        FFI = np.array([1, 5,  15, 25, 35]) # lower bounds of the different tested freq. bands
-        FFE = np.array([5, 15, 25, 35, 45])  # higher bounds of the different tested freq. bands
+        # FFI = np.array([1, 5,  15, 25, 35]) # lower bounds of the different tested freq. bands
+        # FFE = np.array([5, 15, 25, 35, 45])  # higher bounds of the different tested freq. bands
+        FFI = np.array([1, 5,  10, 15, 20]) # lower bounds of the different tested freq. bands
+        FFE = np.array([5, 10, 15, 20, 25])  # higher bounds of the different tested freq. bands
 
     nf = len(FFI)
 

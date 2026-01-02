@@ -30,8 +30,8 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from functions.public.archive_data import dump_model_prediction, dump_evaluate_matrix
-from functions.public.undersamp_training_data import under_sample_array
+from functions.data_process.archive_data import dump_model_prediction, dump_evaluate_matrix
+from functions.data_process.undersamp_training_data import under_sample_array
 
 class Ensemble_Tree_Model:
     def __init__(self,
