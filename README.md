@@ -47,9 +47,9 @@ Flow-Alert
 
 ### 🚀 2. How to Use Our Pre-trained Models on Your Data? <br>
 To get started: <br>
-2.1, Check the [To-Do-List](docs/To-Do-List.md) for setup and prerequisites <br>
-2.2, Check the [tutorial](demo/inference_tutorial.ipynb) for the 2016 Bhotekoshi GLOFs. <br>
-
+2.1 Check the [prepare_env.md](docs/prepare_env.md) for setting up the Python environment.  
+2.2 Check the [To-Do-List](docs/To-Do-List.md) for model retraining instructions.  
+2.3 Check the [tutorial](demo/inference_tutorial.ipynb) for using the pre-trained model with the 2016 Bhotekoshi GLOFs dataset.
 
 ### 🐛 3. Found a Bug? <br>
 Feel free to open a **Pull request**, or reach out to us via email.
