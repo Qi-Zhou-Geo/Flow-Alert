@@ -22,7 +22,7 @@ Unzip **3trained_model.zip** and place the **LSTM, Random_Forest, XGBoost** fold
 **trained_model/v1-model** <br>
 
 ### 1.2 Run the Tutorial
-Open and run the [inference tutorial](../demo/inference_tutorial.ipynb)
+Open and run the [inference tutorial](../demo/tutorial.ipynb)
 to get started with the model and explore its functionality. <br>
 You may see errors or bugs, please feel free to contact us.
 

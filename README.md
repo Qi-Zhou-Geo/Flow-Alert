@@ -45,11 +45,13 @@ Flow-Alert
 ├── trained_model        # Pre-trained models
 ```
 
+
 ### 🚀 2. How to Use Our Pre-trained Models on Your Data? <br>
 To get started: <br>
-2.1 Check the [prepare_env.md](docs/prepare_env.md) for setting up the Python environment.  
-2.2 Check the [To-Do-List](docs/To-Do-List.md) for model retraining instructions.  
-2.3 Check the [tutorial](demo/inference_tutorial.ipynb) for using the pre-trained model with the 2016 Bhotekoshi GLOFs dataset.
+2.1 Check the [prepare_env.md](docs/prepare_env.md) for setting up the Python environment in your local PC <br>
+2.2 Check the [tutorial](demo/tutorial.ipynb) for usage <br>
+2.3 Run the [tutorial](demo/tutorial.ipynb) on your local PC or on
+[![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Qi-Zhou-Geo/Flow-Alert/blob/main/demo/tutorial.ipynb)
 
 ### 🐛 3. Found a Bug? <br>
 Feel free to open a **Pull request**, or reach out to us via email.

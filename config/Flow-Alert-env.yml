@@ -12,12 +12,12 @@ dependencies:
   - pip
 
   # --- Numerical / scientific ---
-  - numpy<2.0
-  - scipy=1.14.0
-  - pandas
-  - xarray
+  - numba=0.61.2
+  - numpy=1.26.4
+  - scipy=1.16.3
+  - pandas=2.3.3
+  - xarray=2025.11.0
   - h5py
-  - numba
   - statsmodels
 
   # --- Machine learning ---
@@ -25,13 +25,13 @@ dependencies:
   - xgboost=3.1.3
 
   # --- PyTorch (CPU/GPU auto-select) ---
-  - pytorch=2.0.*
+  - pytorch=2.0.1
   - torchvision
   - torchaudio
 
   # --- Visualization ---
   - matplotlib=3.10.8
-  - seaborn
+  - seaborn=0.13.2
   - colorcet
   - datashader
 
@@ -48,7 +48,7 @@ dependencies:
   - werkzeug
 
   # Seismology
-  - obspy=1.4.1
+  - obspy=1.4.0
 
   # --- YAML ---
   - pyyaml

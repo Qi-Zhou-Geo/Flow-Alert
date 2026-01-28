@@ -215,7 +215,7 @@ ci_range = arr[:, -1].astype(float)
 print_increased_warning(time_window_start, pre_y_pro, DF_threshold=0.5)
 
 
-fig = plt.figure(figsize=(6, 6))
+fig = plt.figure(figsize=(6, 4.5))
 gs = gridspec.GridSpec(4, 2, height_ratios=[1, 1, 1, 0.05])
 
 ax = plt.subplot(gs[0:3, 0])
@@ -223,6 +223,24 @@ ax.set_title(f" (a)", loc="left", weight="bold", fontsize=7)
 
 heatmap = visualize_probability_map(ax, time_window_start, pre_y_pro)
 #ax.text(x=0, y=10, s=f" (a)", weight="bold", color="white", fontsize=7)
+# Add labels
+ax.text(x=0, y=15, s=" Documented debris flow", color="green")
+ax.text(x=0, y=110, s=" Un-documented event", color="white")
+
+# Documented debris flow arrows
+arrow_props_green = dict(facecolor='green', edgecolor='green', width=1, headwidth=5, headlength=5)
+ax.annotate('', xy=(1.5*60, 23), xytext=(1.5*60, 18), arrowprops=arrow_props_green)
+ax.annotate('', xy=(12*60, 115), xytext=(12*60, 110), arrowprops=arrow_props_green)
+ax.annotate('', xy=(21*60, 90), xytext=(21*60, 85), arrowprops=arrow_props_green)
+ax.text(x=20.7*60, y=100, s="(b)", color="white")
+ax.annotate('', xy=(22.5*60, 85), xytext=(22.5*60, 80), arrowprops=arrow_props_green)
+
+# Un-documented event arrows
+arrow_props_white = dict(facecolor='white', edgecolor='white', width=1, headwidth=5, headlength=5)
+ax.annotate('', xy=(2.2*60, 120), xytext=(2.2*60, 115), arrowprops=arrow_props_white)
+ax.text(x=1.9*60, y=127, s="(d)", color="white")
+ax.annotate('', xy=(17*60, 95), xytext=(17*60, 90), arrowprops=arrow_props_white)
+ax.text(x=16.5*60, y=100, s="(c)", color="white")
 
 cbar_ax = plt.subplot(gs[6])
 cbar = fig.colorbar(heatmap.collections[0], cax=cbar_ax, orientation="horizontal")
