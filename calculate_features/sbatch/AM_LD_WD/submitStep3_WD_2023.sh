@@ -20,7 +20,7 @@ conda activate seismic
 parameters1=(2023)
 parameters2=("STA02")
 parameters3=("BHZ")
-catchment_name="Luding"
+catchment_name="Wandong"
 seismic_network="WD"
 id1=157
 id2=307
@@ -40,7 +40,7 @@ current_parameters3=${parameters3[$parameters3_idx - 1]}
 echo "Year: $current_parameters1, Station: $current_parameters2, Component: $current_parameters3"
 
 # Run your Python script using srun with the parameters
-srun python ../../3merge_single_julday.py \
+srun python ../../s3_merge_single_julday.py \
     --catchment_name "$catchment_name" \
     --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \

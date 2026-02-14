@@ -20,7 +20,7 @@ conda activate seismic
 parameters1=(2023)
 parameters2=("STA01")
 parameters3=($(seq 157 264)) # 108 = (264 - 157 + 1)
-catchment_name="Luding"
+catchment_name="Wandong"
 seismic_network="LD"
 input_component="DPZ"
 input_window_size=60
@@ -40,7 +40,7 @@ current_parameters3=${parameters3[$parameters3_idx - 1]}
 echo "Year: $current_parameters1, Station: $current_parameters2, Julday $current_parameters3"
 
 # Run your Python script using srun with the parameters
-srun python ../../1cal_TypeA_TypeB.py \
+srun python ../../s1_cal_TypeA_TypeB.py \
     --catchment_name "$catchment_name" \
     --seismic_network "$seismic_network" \
     --input_year "$current_parameters1" \
