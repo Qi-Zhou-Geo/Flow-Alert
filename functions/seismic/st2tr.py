@@ -13,7 +13,8 @@ from obspy import Stream, Trace
 def stream_to_trace(st):
 
     if isinstance(st, Stream):
-
+        st.merge(method=1, fill_value='latest', interpolation_samples=0)
+        
         if len(st) == 0:
             raise ValueError("Stream is empty, cannot convert to Trace")
         elif len(st) > 1:

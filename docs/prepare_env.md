@@ -7,8 +7,9 @@ Please install the following tools first:
 - **Git**: https://git-scm.com  
 - **Mamba** (recommended) or **Conda**:  
   - Mamba: https://mamba.readthedocs.io  
-  - Conda: https://docs.conda.io
 
+We do not recommend using conda, Miniconda, or Anaconda. <br>
+If possible, please use Mamba instead.
 ---
 
 ### 2. Clone the repository and enter the folder
@@ -23,10 +24,6 @@ Or download the project ZIP file from GitHub and unzip it.
 Using mamba (recommended) that much faster:
 ```sh
 mamba env create -f config/Flow-Alert-env.yml
-```
-Or using conda:
-```sh
-conda env create -f config/Flow-Alert-env.yml
 ```
 ---
 

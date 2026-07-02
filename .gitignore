@@ -1,3 +1,6 @@
+# Last Update: Last modified: 2026-06-28T18:46:27
+# Author: Qi Zhou
+
 ## how to use this?
 # 1, you alway need to add the "rules" first, then add/remove your file,
 #    the git will automatically ingore the "big/untracked"file
@@ -22,7 +25,9 @@ archive
 # Ignore all .mseed files in 'data' and any of its subfolders
 data/seismic_data/*.mseed
 data/seismic_feature/*.mseed
+data/seismic_feature/Asian
 data/seismic_feature/European
+
 data/precipitation_data
 data/scaler
 data/event_catalog
@@ -32,12 +37,18 @@ data/manually_labeled_DF/Flow_Bench_Catalog.xlsx
 # demo
 demo/Yanmen
 demo/Wandong
+demo/ILL2023
+demo/Blatten
+
+deploy/liveshow_cache
+deploy/fa_v1dot3.tar
 
 # docs
 docs/Flow-Alert_structure.drawio
+docs/up_course/data
 
 # functions
-
+functions/download_WSL/meta_sftp.py
 
 # trained model
 trained_model/**/*.pt

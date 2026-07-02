@@ -225,7 +225,9 @@ class FlowAlert:
 
     def __init__(self, model_type, model_version,
                  st, output_path,
-                 sub_window_size=60, window_overlap=0):
+                 sub_window_size=60, window_overlap=0, 
+                 clip_anomaly=True,
+                 num_cpus=6):
 
         # model params
         self.model_type = model_type
@@ -235,11 +237,11 @@ class FlowAlert:
         # seismic data and desired window length
         self.st = stream_to_trace(st) # convert to trace
         st_duration = UTCDateTime(self.st.stats.endtime) - UTCDateTime(self.st.stats.starttime)
-        assert st_duration > 3600 * 3, f"Warning!\n Please input longer (> 3h) seismic stream, now it is {st_duration} seconds long."
+        assert st_duration >= 3600 * 2, f"Warning!\n Please input longer (> 3h) seismic stream, now it is {st_duration} seconds long."
 
         self.sub_window_size = sub_window_size # unit by second
         self.window_overlap = window_overlap # # unit by ratio, 0-> none overlap, 1-> fully overlap
-
+        self.clip_anomaly = clip_anomaly
 
         # FlowAlert data
         self.inference_model_config = None # Dict
@@ -249,6 +251,7 @@ class FlowAlert:
 
         # hardware
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.num_cpus = num_cpus
 
         # I/O path
         self.project_root = project_root
@@ -283,7 +286,7 @@ class FlowAlert:
 
         return model_list
 
-    def prepare_feature(self, sub_window_size=None, window_overlap=None):
+    def prepare_feature(self, sub_window_size=None, window_overlap=None, clip_anomaly=None):
 
         # with these params, you can use the different window length for FlowAlert
         # the default is 60 s without overlap
@@ -296,10 +299,19 @@ class FlowAlert:
             window_overlap = self.window_overlap
         else:
             window_overlap = window_overlap
+            
+        if clip_anomaly is None:
+            clip_anomaly = self.clip_anomaly
+        else:
+            clip_anomaly = clip_anomaly
 
-        feature_type = self.inference_model_config["feature_type"]
-        st2f = Stream_to_feature(sub_window_size, window_overlap, feature_type)
-        output_feature = st2f.prepare_feature_mpi(st=self.st, num_cpus=6) # make sure you have 6 CPUs
+        feature_type = self.inference_model_config["feature_type"] # type: ignore
+        st2f = Stream_to_feature(sub_window_size, window_overlap, feature_type, clip_anomaly)
+        
+        if self.num_cpus > 1:
+            output_feature = st2f.prepare_feature_mpi(st=self.st, num_cpus=self.num_cpus) # make sure you have 6 CPUs
+        else:
+            output_feature = st2f.prepare_feature(st=self.st)
 
         feature_arr = output_feature[:, :-3].astype(float)
         t_str = output_feature[:, -3]

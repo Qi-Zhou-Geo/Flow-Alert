@@ -9,14 +9,18 @@
 import os
 import shutil
 
-# <editor-fold desc="add the sys.path to search for custom modules">
-from pathlib import Path
-current_dir = Path(__file__).resolve().parent
-# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
-project_root = current_dir.parent.parent
+#region ### add the sys.path to search for custom modules ###
 import sys
+from pathlib import Path
+
+current_file = Path(__file__).resolve()
+current_dir = current_file.parent
+# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+project_root = current_dir.parent.parent
+
 sys.path.append(str(project_root))
-# </editor-fold>
+# endregion
+
 
 
 def clean_project(project_root, file_name=".DS_Store", folder_name="__pycache__", size_limit_mb=23):
@@ -63,4 +67,4 @@ def clean_project(project_root, file_name=".DS_Store", folder_name="__pycache__"
                 except Exception as e:
                     print(f"Error deleting directory {dir_path}: {e}")
 
-clean_project(project_root="/Users/qizhou/Downloads/Flow-Alert-v1.1")
+clean_project(project_root=project_root)

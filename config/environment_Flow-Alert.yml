@@ -1,0 +1,64 @@
+# Last Update: Last modified: 2026-07-02T11:40:25
+# Author: Qi Zhou
+
+name: FlowAlert
+
+channels:
+  - conda-forge
+
+
+dependencies:
+  # use "mamba list" to check all installed package
+  # Core
+  - python=3.14.6
+  - pip=26.1.2
+
+
+  # Scientific
+  - numpy=2.4.4
+  - scipy=1.17.1
+  - pandas=3.0.3
+  - xarray=2026.4.0
+
+
+  # Visualization
+  - seaborn=0.13.2
+  - matplotlib=3.10.9
+  - plotly=6.8.0
+
+  # Jupyter
+  - ipython=9.14.1
+  - jupyter_client=8.9.1
+  - jupyter_core=5.9.1
+  - ipykernel=7.3.0
+
+
+  # Utilities
+  - pyyaml=6.0.3
+  - yaml=0.2.5
+  - tqdm=4.68.2
+  - filelock=3.29.4
+  - h5py=3.16.0
+  - h5netcdf=1.8.1
+  - schedule=1.2.2
+
+
+  # Download data
+  - requests=2.34.2
+  - paramiko=5.0.0
+
+
+  # Seismology
+  - obspy=1.5.0
+  - pytz=2026.2
+
+
+  # Machine learning
+  - pytorch=2.10.0
+  - xgboost=3.2.0
+  - scikit-learn=1.8.0
+
+
+  # --- pip-only ---
+  - pip:
+      - torchinfo==1.8.0

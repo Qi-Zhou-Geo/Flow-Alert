@@ -29,7 +29,7 @@ sys.path.append(str(project_root))
 # </editor-fold>
 
 # import the custom functions
-from calculate_features.s1_cal_TypeA_TypeB import cal_attributes_A, cal_attributes_B
+from functions.feature.calculator import cal_attributes_A, cal_attributes_B
 from functions.seismic.chunk_st2seq import chunk_data
 from functions.visualize.visualize_seismic import convert_st2tr
 from functions.data_process.load_data import clip_df_columns
@@ -51,11 +51,12 @@ def _process_worker(args):
 
 
 class Stream_to_feature:
-    def __init__(self, sub_window_size, window_overlap, feature_type):
+    def __init__(self, sub_window_size, window_overlap, feature_type, clip_anomaly):
 
         self.sub_window_size = sub_window_size
         self.window_overlap = window_overlap
         self.feature_type = feature_type
+        self.clip_anomaly = clip_anomaly
         self.cal_attributes_A = cal_attributes_A
         self.cal_attributes_B = cal_attributes_B
         self.chunk_data = chunk_data
@@ -78,7 +79,7 @@ class Stream_to_feature:
 
         return tr  # Trace
 
-    def normalize_feature(self, output_feature, clip_anomaly=False):
+    def normalize_feature(self, output_feature, clip_anomaly):
 
         df = pd.DataFrame(output_feature)
         assert df.shape[1] == 83, f"{df.shape[1]} != 83"
@@ -95,9 +96,11 @@ class Stream_to_feature:
 
         X = df.iloc[:, :-3].to_numpy().astype(float)
         scaled = (X - min_factor) / (max_factor - min_factor)
-        df.iloc[:, :-3] = scaled
+        df[df.columns[:-3]] = scaled
+
 
         output_feature = np.array(df)
+        
         return output_feature
 
     def selected_feature_by_type(self, feature_type, output_feature):
@@ -160,7 +163,7 @@ class Stream_to_feature:
             output_feature[idx, :] = np.concatenate((type_a, type_b, type_b_net, time_array), axis=0) # stack as column
 
         # normalize the features
-        output_feature = self.normalize_feature(output_feature)
+        output_feature = self.normalize_feature(output_feature, self.clip_anomaly)
 
         # select the feature by deseried type
         output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
@@ -212,7 +215,7 @@ class Stream_to_feature:
             output_feature[idx, :] = result
 
         # normalize the features
-        output_feature = self.normalize_feature(output_feature)
+        output_feature = self.normalize_feature(output_feature, self.clip_anomaly)
 
         # select the feature by deseried type
         output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
