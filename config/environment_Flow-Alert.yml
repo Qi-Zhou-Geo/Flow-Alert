@@ -1,4 +1,4 @@
-# Last Update: Last modified: 2026-07-02T11:40:25
+# Last Update: Last modified: 2026-07-03T17:17:24
 # Author: Qi Zhou
 
 name: FlowAlert
@@ -57,6 +57,12 @@ dependencies:
   - pytorch=2.10.0
   - xgboost=3.2.0
   - scikit-learn=1.8.0
+
+  # Gmail service
+  - google-api-python-client=2.198.0
+  - google-auth-httplib2=0.4.0
+  - google-auth-oauthlib=1.4.0
+
 
 
   # --- pip-only ---

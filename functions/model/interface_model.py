@@ -30,15 +30,18 @@ from tqdm import tqdm
 from obspy import UTCDateTime
 
 
-# <editor-fold desc="add the sys.path to search for custom modules">
-from pathlib import Path
-current_dir = Path(__file__).resolve().parent
-
-# using ".parent" on "pathlib.Path" object moves one level up the directory hierarchy
-project_root = current_dir.parent.parent
+# region ### add the sys.path to search for custom modules ###
 import sys
+from pathlib import Path
+
+current_file = Path(__file__).resolve()
+current_dir = current_file.parent
+# using ".parent" on a "pathlib.Path" object moves one level up the directory hierarchy
+project_root = current_dir.parent.parent
+
 sys.path.append(str(project_root))
-# </editor-fold>
+# endregion
+
 
 # import the custom functions
 from functions.model.lstm_model import LSTM_Attention
@@ -53,7 +56,8 @@ from functions.data_process.load_data import clip_df_columns
 def load_pretrained_models(model_type: str = "LSTM",
                            model_version: str = "v1dot3",
                            inference_model_config: dict = None,
-                           device: str = "cpu"):
+                           device: str = "cpu",
+                           print_summary=False):
     '''
     Load pre-trained models in List.
 
@@ -108,8 +112,10 @@ def load_pretrained_models(model_type: str = "LSTM",
                             input_size=[(batch_size, seq_length, feature_size), (batch_size, seq_length)],
                             col_names=("input_size", "output_size", "num_params", "params_percent", "trainable"),
                             device=device)
-                print(f"Load Pre-trained model from:\n <{full_path}>. \n"
-                      f"Model summary:\n {s}.\n")
+                
+                if print_summary is True:
+                    print(f"Load Pre-trained model from:\n <{full_path}>. \n"
+                          f"Model summary:\n {s}.\n")
         else:
             print(f"model_version={model_version} not supported")
 

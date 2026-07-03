@@ -24,16 +24,20 @@ def data_to_seq(array, seq_length, classification_or_prediction="classification"
     Returns:
         list
     '''
-
-    if classification_or_prediction == "classification":
-        picker = 1
-    elif classification_or_prediction == "prediction":
-        picker = 0
-
+    
     arr = np.array(array, dtype='float64')
     sequences = []
+    
+    if classification_or_prediction == "classification":
+        picker = 1
+        n_iter = len(arr) - seq_length + 1   # target index reaches len(arr) - 1
+    elif classification_or_prediction == "prediction":
+        picker = 0
+        n_iter = len(arr) - seq_length
+    else:
+        raise ValueError(f"Got unexcepted value: classification_or_prediction={classification_or_prediction}")
 
-    for i in range(len(arr) - seq_length - 1):
+    for i in range(n_iter):
 
         t_features = arr[i : i + seq_length, 0] # float time stamps of features, t to t_{seq_length}
         features = arr[i : i + seq_length, 1:-1] # denoised waveform, t to t_{seq_length}
