@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-03T20:33:21
+# __modification time__ = Last modified: 2026-07-08T09:37:02
 # __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 # __find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 
@@ -43,9 +43,11 @@ def run_flow_alert(st, output_path=None, sub_window_size=60, model_version="v1do
 
     feature_arr = flow_alert.prepare_feature()
     model_output = flow_alert.make_prediction(tested_model=model_type)
-    
+    model_output[:, 0] = model_output[:, 0].astype(float) # float time stamps
+
+
     # (2) Add seismic feature RMSE
-    feature_ts =  feature_arr[:, 0]
+    feature_ts =  feature_arr[:, 0].astype(float)
     model_ts =  model_output[:, 0].astype(float)
     mask = np.isin(feature_ts, model_ts)
     
@@ -68,6 +70,8 @@ def run_flow_alert(st, output_path=None, sub_window_size=60, model_version="v1do
         # not the first run: append only the last row
         old_df = pd.read_csv(pro_path)
         new_df = pd.DataFrame(model_output, columns=old_df.columns)
+        new_df["time_stamps"] = pd.to_numeric(new_df["time_stamps"])
+        
         df = pd.concat([old_df, new_df], ignore_index=True, axis=0) # as row
 
     df = df.drop_duplicates(subset=["time_stamps"])

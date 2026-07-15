@@ -1,0 +1,34 @@
+# service 1
+services:
+
+  flow-alert:
+
+    # Build Docker image
+    # build:
+      # context: ${PROJECT_ROOT}
+      # dockerfile: ${PROJECT_ROOT}/deploy/Dockerfile
+    
+    # Or use the loaded imgae
+    image: fa-image:v1dot3
+
+    # run as root, it may overwrite host files
+    user: "0:0"
+
+    # Inside the container, use "${WORKING_ROOT}" as the working folder.
+    working_dir: ${WORKING_ROOT}
+
+    # start the work flow in container
+    command: ${WORKING_ROOT}/functions/liveshow/t3_main.py
+
+    # Restart the container automatically if it crashes
+    restart: always
+
+    # Share folders between the real server and the docker container
+    volumes:
+      ## Mount this folder between the "Docker container" and the "server"
+      ## two-way mount: "Docker container" <<-->> "server"
+      - ${CACHE_DIR_HOST}:${CACHE_DIR_CONTAINER}
+
+    # Environment variables passed into the container.
+    environment:
+      - PYTHONUNBUFFERED=1

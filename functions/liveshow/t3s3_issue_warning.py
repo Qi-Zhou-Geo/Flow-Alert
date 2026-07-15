@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-03T19:58:23
+# __modification time__ = Last modified: 2026-07-15T16:51:21
 # __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 # __find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 
@@ -37,9 +37,9 @@ def warning_strategy(pro, attention_window=4, tolerance=0.5):
 
 def recipient_list():
     
-    recipient_address = ["qi.zhou@gfz.de", 
+    recipient_address = ["qi.zhou@gfz.de", "qi.zhou.geo@gmail.com"
                          "kshitij797@gmail.com", "kshitij.kar@gfz.de", 
-                         "hui.tang@gfz.de", "fabian.walter@wsl.ch", "jens.turowski@gfz.de"]
+                         "hui.tang@gfz.de", "fabian.walter@wsl.ch"]
     
     return recipient_address
 

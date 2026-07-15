@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-03T20:32:30
+# __modification time__ = Last modified: 2026-07-08T10:13:20
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this functions without the author's permission
@@ -29,6 +29,7 @@ from functions.toolkit.logger_printer import setup_logger
 
 from functions.liveshow.t3s1_download_seismic import data_stream_pipeline, merge_seismic_data
 from functions.liveshow.t3s2_run_model import run_flow_alert
+from functions.liveshow.t3s4_plot_result import plot_daily
 
 from functions.toolkit.send_email import usage
 
@@ -49,7 +50,7 @@ def run_pipeline(logger, remote_sub_folder, local_sub_folder):
         try:
             run_flow_alert(st, output_path=f"{project_root}/deploy/liveshow_cache/pro")
         except Exception as e:
-            msg = f"<download_new_data> failed:\n {e}"
+            msg = f"<run_flow_alert> failed:\n {e}"
             logger.info(msg)
     else:
         # no new data
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     # test the gmail connection
     usage()
 
-    # setuo logger
+    # setup logger
     logger = setup_logger(args.log_output_dir, args.log_filename, force_reset=False)
     
     # run it immediately
@@ -78,10 +79,12 @@ if __name__ == "__main__":
     
     
     # repeat every 1 minutes
-    schedule.every(1).minutes.do(run_pipeline, logger, args.remote_sub_folder, args.local_sub_folder)
+    schedule.every(2).minutes.do(run_pipeline, logger, args.remote_sub_folder, args.local_sub_folder)
 
     # repeat every 24 hours
     schedule.every().day.at("00:05").do(merge_seismic_data, logger, args.local_sub_folder)
+    schedule.every().day.at("00:05").do(plot_daily)
+    
     
     while True:
         schedule.run_pending()

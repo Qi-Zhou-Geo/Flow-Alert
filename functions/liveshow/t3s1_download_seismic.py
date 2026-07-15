@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-03T12:45:05
+# __modification time__ = Last modified: 2026-07-03T23:28:31
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this functions without the author's permission
@@ -200,7 +200,7 @@ def merge_seismic_data(logger, local_sub_folder):
     return msg
 
 
-def load_st(all_local_data, local_sub_folder, f_min=1.0, f_max=25.0, data_length=3):
+def load_st(all_local_data, local_sub_folder, f_min=1.0, f_max=25.0, data_length=2):
     
     st = Stream()
     for file_name in all_local_data:
