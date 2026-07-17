@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-08T09:37:02
+# __modification time__ = Last modified: 2026-07-17T09:46:37
 # __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 # __find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 
@@ -25,7 +25,7 @@ sys.path.append(str(project_root))
 
 # import the custom functions
 from functions.model.interface_model import FlowAlert
-from functions.liveshow.t3s3_issue_warning import warning_strategy, issue_warning
+from functions.liveshow.t3s3_issue_warning import warning_strategy, issue_warning, set_recipient_level
 
 
 def run_flow_alert(st, output_path=None, sub_window_size=60, model_version="v1dot3model", model_type="LSTM"):
@@ -94,12 +94,18 @@ def run_flow_alert(st, output_path=None, sub_window_size=60, model_version="v1do
     
     if warning_status is True:
         
+        # (6-1) set email recipient
+        recipient_level, recipient_note = set_recipient_level(duration=3600*2, key='Latest Warning [UTC+0]')
+        
+        # (6-2) set email details
         last_60 = model_output[-60:]
         model_output_str = "\t".join(header) + "\n"
         model_output_str = model_output_str + "\n".join(["\t".join(map(str, row)) for row in last_60])
         
         email_body = (f"This email was automatically sent from Flow-Alert v1.3.\n\n"
+                      f"You are <recipient_level>: {recipient_level}.\n{recipient_note}"
                       f"{last_update}\n\n"
                       f"{model_output_str}")
         
-        issue_warning(email_body)
+        # (6-3) set email by Google
+        issue_warning(email_body=email_body, recipient_level=recipient_level)

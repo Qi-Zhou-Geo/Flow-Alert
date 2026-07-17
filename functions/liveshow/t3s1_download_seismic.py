@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-03T23:28:31
+# __modification time__ = Last modified: 2026-07-17T10:48:55
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this functions without the author's permission
@@ -37,8 +37,8 @@ def julday_to_be_checked():
     hour = t_now.hour
     minute = t_now.minute
 
-    # is current time in the mid-night: t_now <= Year-Month-Day2T00:05:00
-    in_range = (hour == 0 and minute <= 5)
+    # is current time in the mid-night: t_now <= Year-Month-Day2T01:15:00
+    in_range = (hour == 0) or (hour == 1 and minute <= 15)
     if in_range is True:
         # check yesterday and today
         j_list = [julday - 1, julday]
