@@ -1,4 +1,4 @@
-# Last Update: Last modified: 2026-06-28T18:46:27
+# Last Update: Last modified: 2026-07-26T12:19:24
 # Author: Qi Zhou
 
 ## how to use this?
@@ -41,7 +41,9 @@ demo/ILL2023
 demo/Blatten
 
 deploy/liveshow_cache
-deploy/fa_v1dot3.tar
+deploy/*.tar
+deploy/*.json
+
 
 # docs
 docs/Flow-Alert_structure.drawio

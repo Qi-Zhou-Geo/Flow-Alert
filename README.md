@@ -7,29 +7,16 @@ including, but not limited to, **debris flows**, **glacial lake outburst floods 
 you've come to the right place! <br>
 Check out our repository to get started.
 
-### 🛠️ 0. Major Changes for v1.3
-Compared with previous versions, including:<br>
-version 1.0 (https://doi.org/10.5281/zenodo.15020368), <br>
-version 1.1 (https://doi.org/10.5281/zenodo.16811121), <br>
-version 1.2 (https://doi.org/10.5281/zenodo.16893616), <br>
-the latest version 1.3 (https://doi.org/10.5281/zenodo.18324322) includes the following major changes: <br>
+### 🛠️ 0. Major Changes for v1.4
+Previous releases:
+- [Version 1.0](https://doi.org/10.5281/zenodo.15020368)
+- [Version 1.1](https://doi.org/10.5281/zenodo.16811121)
+- [Version 1.2](https://doi.org/10.5281/zenodo.16893616)
+- [Version 1.3](https://doi.org/10.5281/zenodo.18324322) — see the [v1.3 major change log](docs/track_changes/v1dot3.md)
 
-**(1) Data**: The debris flow events on 2019-10-09 and 2019-10-15, recorded at the ILL12 station, are now included in the training dataset.  <br>
-These events were not used in previous versions because the ILL18 station was unavailable. <br>
-Earlier versions relied on a network of stations (ILL12, ILL13, and ILL18) for warning,  <br>
-whereas the latest version focuses on single-station detection and classification. <br>
+Latest release **version 1.4**:
+- [Version 1.3.10](https://doi.org/10.5281/zenodo.18324322) — see the [v1.3.10 major change log](docs/track_changes/v1dot3dot10.md)
 
-**(2) Labels**: Previous versions used manually labeled event timestamps, <br>
-while the latest version employs STA/LTA-based event times, <br>
-which are theoretically more objective. <br>
-Please check [here](data/event_catalog/9S-2017-DF.txt) for details.<br>
-
-**(3) Features**: Previous versions used all 70+ available seismic features,<br>
-whereas the latest version selects 12 seismic features to train the model.<br>
-Please check [feature_type_H](config/config_inference.yaml) for details.<br>
-
-**(4) Model Structure**: This version integrates an attention mechanism layer after the LSTM, <br>
-which is expected to better capture temporal dependencies in the seismic signals.<br>
 
 
 ### 📁 1. Repository Structure
@@ -70,12 +57,6 @@ Feel free to open a **Pull request**, or reach out to us via email.
 
 
 If you still have questions, feel free to contact the project contributors.
-
-4.2 Or reach out to our research groups <br>
-[Hazards and Surface Processes Research Group and Digital Earth Lab](https://www.gfz.de/en/section/earth-surface-process-modelling/topics/hazards-and-surface-processes) <br> 
-Led by Dr. Hui [Tang](https://www.gfz.de/en/staff/hui.tang/sec47) <br>
-[Physical Earth Surface Modelling Lab](https://www.gfz.de/en/staff/jens.turowski/sec46) <br>
-Led by Dr. Jens [Turowski](https://www.gfz.de/en/staff/jens.turowski/sec46).
 
 
 ### 💪 5. Contributors <br>

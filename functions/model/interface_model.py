@@ -108,16 +108,18 @@ def load_pretrained_models(model_type: str = "LSTM",
                 seq_length = inference_model_config[model_type]["seq_length"]
                 feature_size = inference_model_config["feature_size"]
 
-                s = summary(model=model,
-                            input_size=[(batch_size, seq_length, feature_size), (batch_size, seq_length)],
-                            col_names=("input_size", "output_size", "num_params", "params_percent", "trainable"),
-                            device=device)
-                
                 if print_summary is True:
+                    temp_summary = summary(
+                        model=model,
+                        input_size=[(batch_size, seq_length, feature_size), (batch_size, seq_length)],
+                        col_names=("input_size", "output_size", "num_params", "params_percent", "trainable"),
+                        device=device,
+                    )
+
                     print(f"Load Pre-trained model from:\n <{full_path}>. \n"
-                          f"Model summary:\n {s}.\n")
+                          f"Model summary:\n {temp_summary}.\n")
         else:
-            print(f"model_version={model_version} not supported")
+            raise ValueError(f"model_version={model_version} not supported")
 
         model_list.append(model)
 

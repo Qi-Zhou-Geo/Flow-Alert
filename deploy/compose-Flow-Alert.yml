@@ -9,7 +9,7 @@ services:
       # dockerfile: ${PROJECT_ROOT}/deploy/Dockerfile
     
     # Or use the loaded imgae
-    image: fa-image:v1dot3
+    image: fa-image:v1dot3dot10
 
     # run as root, it may overwrite host files
     user: "0:0"

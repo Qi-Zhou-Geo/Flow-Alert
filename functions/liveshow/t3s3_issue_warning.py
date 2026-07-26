@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-17T09:45:24
+# __modification time__ = Last modified: 2026-07-26T11:46:29
 # __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 # __find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 
@@ -48,8 +48,7 @@ def recipient_list_level2():
     # f"Recipient Level 2 (Summary): you receive only the first warning for each event.\n"
     # f"A new warning email will be sent only if a new event is detected after {x} hours."
     recipient_address = ["qi.zhou@gfz.de", "chow77@foxmail.com",
-                         "kshitij.kar@gfz.de",
-                         "kshitij797@gmail.com", "kshitij.kar@gfz.de", 
+                         "kshitij.kar@gfz.de", "kshitij797@gmail.com",
                          "hui.tang@gfz.de", "fabian.walter@wsl.ch"]
     
     return recipient_address
@@ -61,10 +60,16 @@ def set_recipient_level(duration=3600*2, key='Latest Warning [UTC+0]'):
     json_path.parent.mkdir(parents=True, exist_ok=True)
     
     # read the last warning time
-    with open(json_path, "r") as f:
-        last_warning = json.load(f)
-        t1 = last_warning[key]
-        t1 = UTCDateTime(t1)
+    if json_path.is_file():
+        # there exists such cache file
+        with open(json_path, "r") as f:
+            last_warning = json.load(f)
+            t1 = last_warning[key]
+            t1 = UTCDateTime(t1)
+    else:
+        # in case the model first runing and there is no such file
+        t1 = UTCDateTime().now()
+    
     
     # check the time difference
     deltea_t = UTCDateTime().now() - t1

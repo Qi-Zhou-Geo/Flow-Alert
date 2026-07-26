@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-07-17T09:46:37
+# __modification time__ = Last modified: 2026-07-26T11:47:13
 # __author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 # __find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 
@@ -106,6 +106,8 @@ def run_flow_alert(st, output_path=None, sub_window_size=60, model_version="v1do
                       f"You are <recipient_level>: {recipient_level}.\n{recipient_note}"
                       f"{last_update}\n\n"
                       f"{model_output_str}")
+        
+        print(email_body)
         
         # (6-3) set email by Google
         issue_warning(email_body=email_body, recipient_level=recipient_level)
