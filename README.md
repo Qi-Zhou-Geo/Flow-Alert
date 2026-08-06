@@ -14,7 +14,7 @@ Previous releases:
 - [Version 1.2](https://doi.org/10.5281/zenodo.16893616)
 - [Version 1.3](https://doi.org/10.5281/zenodo.18324322) — see the [v1.3 major change log](docs/track_changes/v1dot3.md)
 
-Latest release **version 1.4**:
+Latest release **version 1.3.10**:
 - [Version 1.3.10](https://doi.org/10.5281/zenodo.18324322) — see the [v1.3.10 major change log](docs/track_changes/v1dot3dot10.md)
 
 
