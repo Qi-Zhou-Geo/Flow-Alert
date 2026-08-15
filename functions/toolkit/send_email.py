@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-#__modification time__ = Last modified: 2026-07-03T20:19:14
+#__modification time__ = Last modified: 2026-08-15T11:18:09
 #__author__ = Qi Zhou, Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences
 #__find me__ = qi.zhou@gfz-potsdam.de, qi.zhou.geo@gmail.com, https://github.com/Nedasd
 # Please do not distribute this code without the author's permission
@@ -33,28 +33,6 @@ sys.path.append(str(project_root))
 
 # Permission for sending emails
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
-
-
-def get_google_service2():
-    
-    creds = None
-
-    token_path = Path(project_root) / f"deploy/token.json"
-    if os.path.exists(token_path):
-        creds = Credentials.from_authorized_user_file(token_path, SCOPES)
-
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            credentials_path = Path(project_root) / f"deploy/credentials.json"
-            flow = InstalledAppFlow.from_client_secrets_file(credentials_path, SCOPES)
-            creds = flow.run_local_server(port=0)
-
-        with open(token_path, "w") as token:
-            token.write(creds.to_json())
-
-    return build("gmail", "v1", credentials=creds)
 
 
 def get_google_service():
