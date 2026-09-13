@@ -48,6 +48,7 @@ dependencies:
   - sqlalchemy
   - werkzeug
   - sympy
+  - openpyxl
 
   # Seismology
   - obspy=1.4.0

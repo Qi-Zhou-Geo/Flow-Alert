@@ -7,7 +7,6 @@
 # Please do not distribute this code without the author's permission
 
 import os
-import argparse
 
 import yaml
 
@@ -17,7 +16,7 @@ import pandas as pd
 
 from tqdm import tqdm
 
-from obspy import read, UTCDateTime
+from obspy import UTCDateTime
 
 # <editor-fold desc="add the sys.path to search for custom modules">
 from pathlib import Path
@@ -35,7 +34,7 @@ sys.path.append(str(project_root))
 from functions.data_process.load_data import select_features
 from functions.model.lstm_model import Ensemble_Trained_LSTM_Classifier
 from functions.data_process.dataset_to_dataloader import data_to_seq, seq_to_dataset, dataset_to_dataloader
-from functions.data_process.df_to_dataloader import prepare_sequences
+
 # for st
 from functions.seismic.seismic_data_processing import load_seismic_signal, load_seismic_pieces
 from functions.data_process.prepare_feature4inference import Stream_to_feature
@@ -45,9 +44,11 @@ from functions.seismic.plot_obspy_st import rewrite_x_ticks
 
 
 def _dump_results(sta_s, sta_e, benchmark_time, array_temp, models, output_format, output_path):
-    column_name = ([f"t_target={sta_s}", f"t_str={sta_e}", f"label={benchmark_time}"] +
-                   [f"pro{i}" for i in range(len(models))] +
-                   ["pro_mean", "ci_range"])
+    column_name = (
+        [f"t_target={sta_s}", f"t_str={sta_e}", f"label={benchmark_time}"]
+        + [f"pro{i}" for i in range(len(models))]
+        + ["pro_mean", "ci_range"]
+    )
     df = pd.DataFrame(array_temp, columns=column_name)
 
     os.makedirs(output_path, exist_ok=True)
@@ -59,22 +60,17 @@ def _dump_results(sta_s, sta_e, benchmark_time, array_temp, models, output_forma
 def load_model(model_version, feature_type, batch_size, seq_length, num_repeat):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
-    ensemble_pre_trained_LSTM = Ensemble_Trained_LSTM_Classifier(model_version,
-                                                                 feature_type,
-                                                                 batch_size, seq_length,
-                                                                 device,
-                                                                 ML_name="LSTM",
-                                                                 station="ILL02")
+    ensemble_pre_trained_LSTM = Ensemble_Trained_LSTM_Classifier(
+        model_version, feature_type, batch_size, seq_length, device, ML_name="LSTM", station="ILL02"
+    )
 
-    models = ensemble_pre_trained_LSTM.ensemble_models(num_repeat=num_repeat,
-                                                       attention=True,
-                                                       print_model_summary=True)
+    models = ensemble_pre_trained_LSTM.ensemble_models(num_repeat=num_repeat, attention=True, print_model_summary=True)
 
     return ensemble_pre_trained_LSTM, models
 
 
 def load_st(idx, buffer=24, f_min=1, f_max=25):
-    '''
+    """
     Load the st
 
     Args:
@@ -85,13 +81,13 @@ def load_st(idx, buffer=24, f_min=1, f_max=25):
 
     Returns:
 
-    '''
+    """
     # <editor-fold desc="prepare data">
     default_data_path = f"{project_root}/config/data_path.yaml"
     with open(default_data_path, "r") as f:
         config = yaml.safe_load(f)
-        sac_path = config[f"glic_sac_dir"]
-        event_catalog_version = config[f"event_catalog_version"]
+        sac_path = config["glic_sac_dir"]
+        event_catalog_version = config["event_catalog_version"]
         print(f"event_catalog_version: {event_catalog_version}")
 
     file_path = f"{project_root}/data/event_catalog/{event_catalog_version}"
@@ -126,20 +122,32 @@ def load_st(idx, buffer=24, f_min=1, f_max=25):
     dt1_iso_str, dt2_iso_str = clean_time(time_str1=data_start, time_str2=data_end, buffer=buffer)
 
     try:
-        st = load_seismic_signal(catchment, seismic_network,
-                                 station, component,
-                                 dt1_iso_str, dt2_iso_str,
-                                 f_min=f_min, f_max=f_max,
-                                 remove_sensor_response=True,
-                                 raw_data=False)
-    except (FileNotFoundError, OSError, IOError) as e:
+        st = load_seismic_signal(
+            catchment,
+            seismic_network,
+            station,
+            component,
+            dt1_iso_str,
+            dt2_iso_str,
+            f_min=f_min,
+            f_max=f_max,
+            remove_sensor_response=True,
+            raw_data=False,
+        )
+    except (FileNotFoundError, OSError) as e:
         print(f"Error 1!\n {e}")
-        st = load_seismic_pieces(catchment, seismic_network,
-                                 station, component,
-                                 dt1_iso_str, dt2_iso_str,
-                                 f_min=f_min, f_max=f_max,
-                                 remove_sensor_response=True,
-                                 raw_data=False)
+        st = load_seismic_pieces(
+            catchment,
+            seismic_network,
+            station,
+            component,
+            dt1_iso_str,
+            dt2_iso_str,
+            f_min=f_min,
+            f_max=f_max,
+            remove_sensor_response=True,
+            raw_data=False,
+        )
     except Exception as e:
         print(f"Error 2\n {e}")
 
@@ -156,7 +164,7 @@ def find_max_amp_time(st, sta_s, sta_e):
 
     index = np.argmax(data)
     benchmark_time = UTCDateTime(tr.stats.starttime) + index * tr.stats.delta
-    benchmark_time = benchmark_time.strftime(f"%Y-%m-%dT%H:%M:%S")
+    benchmark_time = benchmark_time.strftime("%Y-%m-%dT%H:%M:%S")
 
     return benchmark_time
 
@@ -184,20 +192,30 @@ def synthetic_input4model(data_array, sub_window_size, seq_length, synthetic_len
 
 
 def load_feature_as_dataLoadter(params, batch_size, sub_window_size, seq_length, synthetic=True):
-    catchment_name, seismic_network, input_year, input_station, input_component, \
-        feature_type, dataloader_type, with_label = params.split("-")
+    (
+        catchment_name,
+        seismic_network,
+        input_year,
+        input_station,
+        input_component,
+        feature_type,
+        dataloader_type,
+        with_label,
+    ) = params.split("-")
 
     if with_label == "True":
         with_label = True
 
-    input_features_name, data_array = select_features(catchment_name,
-                                                      seismic_network,
-                                                      input_year,
-                                                      input_station,
-                                                      input_component,
-                                                      feature_type,
-                                                      with_label,
-                                                      normalize=True)
+    input_features_name, data_array = select_features(
+        catchment_name,
+        seismic_network,
+        input_year,
+        input_station,
+        input_component,
+        feature_type,
+        with_label,
+        normalize=True,
+    )
     print(data_array.shape)
     if synthetic is True:
         synthetic_length = 3  # hour
@@ -206,9 +224,7 @@ def load_feature_as_dataLoadter(params, batch_size, sub_window_size, seq_length,
     sequences = data_to_seq(array=data_array, seq_length=seq_length)
     print(len(sequences))
     dataset = seq_to_dataset(sequences=sequences, data_type="feature")
-    dataloader = dataset_to_dataloader(dataset=dataset,
-                                       batch_size=batch_size,
-                                       training_or_testing="testing")
+    dataloader = dataset_to_dataloader(dataset=dataset, batch_size=batch_size, training_or_testing="testing")
     dataLoader = dataloader.dataLoader()
 
     # return dataLoader, synthetic_length
@@ -244,16 +260,14 @@ def make_prediction_from_dataLoader(ensemble_pre_trained_LSTM, models, dataLoade
 def make_prediction_from_sequences(ensemble_pre_trained_LSTM, models, sequences):
     array_temp = []
 
-    for seq in tqdm(sequences,
-                    total=len(sequences),
-                    desc="Progress of <predictor_from_sequence>",
-                    file=sys.stdout):
+    for seq in tqdm(sequences, total=len(sequences), desc="Progress of <predictor_from_sequence>", file=sys.stdout):
         t_features, features, t_target, target = seq
         t_str = UTCDateTime(t_target).strftime("%Y-%m-%dT%H:%M:%S")
 
         # predicted_pro is list
-        predicted_pro, pro_mean, ci_range = ensemble_pre_trained_LSTM.predictor_from_sequence(features, t_features,
-                                                                                              models)
+        predicted_pro, pro_mean, ci_range = ensemble_pre_trained_LSTM.predictor_from_sequence(
+            features, t_features, models
+        )
 
         record = [float(f"{pro_mean:.3f}"), float(f"{ci_range:.3}")]
         record = [t_target, t_str, target] + predicted_pro + record  # merge the two lists
@@ -266,13 +280,9 @@ def make_prediction_from_sequences(ensemble_pre_trained_LSTM, models, sequences)
 
 def plot_predicted_pro(benchmark_time, first_detection_str, st, array_temp, output_path, output_format, note):
     import matplotlib.pyplot as plt
-    import matplotlib.ticker as ticker
-    import matplotlib.gridspec as gridspec
-    from matplotlib.ticker import MultipleLocator
+    from matplotlib import gridspec
 
-    plt.rcParams.update({'font.size': 7,
-                         'axes.formatter.limits': (-4, 6),
-                         'axes.formatter.use_mathtext': True})
+    plt.rcParams.update({"font.size": 7, "axes.formatter.limits": (-4, 6), "axes.formatter.use_mathtext": True})
 
     tr = st.copy()
     tr = stream_to_trace(st=tr)
@@ -282,12 +292,14 @@ def plot_predicted_pro(benchmark_time, first_detection_str, st, array_temp, outp
 
     tr = st.copy()
     tr = stream_to_trace(st=tr)
-    t1 = UTCDateTime(year=tr.stats.starttime.year,
-                     julday=tr.stats.starttime.julday,
-                     hour=tr.stats.starttime.hour) + (tr.stats.starttime.minute + 1) * 60
-    t2 = UTCDateTime(year=tr.stats.endtime.year,
-                     julday=tr.stats.endtime.julday,
-                     hour=tr.stats.endtime.hour) + (tr.stats.endtime.minute - 1) * 60
+    t1 = (
+        UTCDateTime(year=tr.stats.starttime.year, julday=tr.stats.starttime.julday, hour=tr.stats.starttime.hour)
+        + (tr.stats.starttime.minute + 1) * 60
+    )
+    t2 = (
+        UTCDateTime(year=tr.stats.endtime.year, julday=tr.stats.endtime.julday, hour=tr.stats.endtime.hour)
+        + (tr.stats.endtime.minute - 1) * 60
+    )
     tr.trim(UTCDateTime(t1), UTCDateTime(t2))
 
     # find the cloest time period
@@ -322,9 +334,8 @@ def plot_predicted_pro(benchmark_time, first_detection_str, st, array_temp, outp
     # ax.xaxis.set_major_locator(MultipleLocator(x_interval * sps))
     # ax.xaxis.set_minor_locator(MultipleLocator(x_interval * sps / 6))
     rewrite_x_ticks(ax, data_start=array_temp[0, 1], data_end=array_temp[-1, 1], data_sps=sps, x_interval=x_interval)
-    ax.set_xlabel(f"Time from {array_temp[0, 1]} [1/{sps}]", fontweight='bold')
-    ax.set_ylabel("Amplitude [m/s]", fontweight='bold')
-
+    ax.set_xlabel(f"Time from {array_temp[0, 1]} [1/{sps}]", fontweight="bold")
+    ax.set_ylabel("Amplitude [m/s]", fontweight="bold")
 
     ax = plt.subplot(gs[1])
     sps = 1 / (UTCDateTime(array_temp[1, 1]) - UTCDateTime(array_temp[0, 1]))
@@ -352,8 +363,8 @@ def plot_predicted_pro(benchmark_time, first_detection_str, st, array_temp, outp
     # ax.xaxis.set_minor_locator(MultipleLocator(x_interval * sps / 6))
     rewrite_x_ticks(ax, data_start=array_temp[0, 1], data_end=array_temp[-1, 1], data_sps=sps, x_interval=x_interval)
 
-    ax.set_xlabel(f"Time  from {array_temp[0, 1]} [minute]", fontweight='bold')
-    ax.set_ylabel("Probability", fontweight='bold')
+    ax.set_xlabel(f"UTC+0 Time from {array_temp[0, 1]}", fontweight="bold")
+    ax.set_ylabel("Probability", fontweight="bold")
     ax.legend(fontsize=6)
 
     plt.tight_layout()
