@@ -1,30 +1,24 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = 2026-01-14
+# __modification time__ = Last modified: 2026-09-14T16:49:27
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
 
-
 import os
-
 import yaml
-
 import joblib
+
 import torch
 
 # print("PyTorch version:", torch.__version__) = PyTorch version: 1.12.1
 from torchinfo import summary
 # print("Torchinfo version:", torchinfo.__version__) = Torchinfo version: 1.8.0
 
-
 import numpy as np
-
 from tqdm import tqdm
-
 from obspy import UTCDateTime
-
 
 # region ### add the sys.path to search for custom modules ###
 import sys
@@ -41,12 +35,13 @@ sys.path.append(str(project_root))
 
 # import the custom functions
 from functions.model.lstm_model import LSTM_Attention
-from functions.data_process.prepare_feature4inference import Stream_to_feature
+from functions.data_process.prepare_feature4inference_self import Stream_to_feature_self
 from functions.seismic.st2tr import stream_to_trace
 from functions.data_process.dataset_to_dataloader import data_to_seq
 from functions.statistical_test.confidence_level_test import student_t_testing
 from functions.data_process.cross_catchments_inference import find_max_amp_time
 from functions.warning_strategy.calculate_inference_matrix import inference_matrix
+from functions.seismic.plot_obspy_st import plot_amp_psd_pro  # type: ignore
 
 
 def load_pretrained_models(
@@ -227,7 +222,6 @@ class FlowAlert:
         output_path,
         sub_window_size=60,
         window_overlap=0,
-        clip_anomaly=True,
         num_cpus=1,
     ):
 
@@ -237,14 +231,15 @@ class FlowAlert:
 
         # seismic data and desired window length
         self.st = stream_to_trace(st)  # convert to trace
-        st_duration = UTCDateTime(self.st.stats.endtime) - UTCDateTime(self.st.stats.starttime)
-        assert st_duration >= 3600 * 2, (
-            f"Warning!\n Please input longer (> 3h) seismic stream, now it is {st_duration} seconds long."
-        )
+        self.stats = self.st.stats  # type: ignore
+        st_duration = UTCDateTime(self.stats.endtime) - UTCDateTime(self.stats.starttime)
+        msg = f"Please input longer (> 3h) seismic stream, now it is {st_duration} seconds long."
+        assert st_duration >= 3600 * 2, f"Warning!\n{msg}"
+        self.f_min = 1  # Hz
+        self.f_max = 25  # Hz
 
         self.sub_window_size = sub_window_size  # unit by second
         self.window_overlap = window_overlap  # # unit by ratio, 0-> none overlap, 1-> fully overlap
-        self.clip_anomaly = clip_anomaly
 
         # FlowAlert data
         self.inference_model_config = None  # Dict
@@ -260,23 +255,20 @@ class FlowAlert:
         self.project_root = project_root
         self.output_path = output_path
         self.output_format = (
-            f"{self.st.stats.network}-{self.st.stats.station}-{self.st.stats.channel}-"
+            f"{self.stats.network}-{self.stats.station}-{self.stats.channel}-"
             f"{self.model_type}-{self.model_version}-{self.sub_window_size}-{self.window_overlap}"
         )
 
-        # Auto-initialize
-        # self.model_config()
-        # self.model()
-        # self.feature()
-        # self.prediction()
-
     def model_config(self):
+
         if self.model_version in ["v1dot3", "v1.3", "v1dot3model"]:
             config_path = f"{self.project_root}/config/config_v1dot3model.yaml"
             with open(config_path, "r") as f:
                 inference_model_config = yaml.safe_load(f)
 
             self.inference_model_config = inference_model_config
+        else:
+            raise ValueError(f"Please input the right version. self.model_version: {self.model_version}")
 
         return inference_model_config
 
@@ -285,35 +277,30 @@ class FlowAlert:
         model_list = load_pretrained_models(
             model_type=self.model_type,
             model_version=self.model_version,
-            inference_model_config=self.inference_model_config,
-            device=self.device,
+            inference_model_config=self.inference_model_config,  # type: ignore
+            device=self.device,  # type: ignore
         )
         # List[models]
         self.model_list = model_list
 
         return model_list
 
-    def prepare_feature(self, sub_window_size=None, window_overlap=None, clip_anomaly=None):
+    def prepare_feature(
+        self,
+        sub_window_size=None,
+        window_overlap=None,
+    ):
 
         # with these params, you can use the different window length for FlowAlert
         # the default is 60 s without overlap
         if sub_window_size is None:
             sub_window_size = self.sub_window_size
-        else:
-            sub_window_size = sub_window_size
 
         if window_overlap is None:
             window_overlap = self.window_overlap
-        else:
-            window_overlap = window_overlap
-
-        if clip_anomaly is None:
-            clip_anomaly = self.clip_anomaly
-        else:
-            clip_anomaly = clip_anomaly
 
         feature_type = self.inference_model_config["feature_type"]  # type: ignore
-        st2f = Stream_to_feature(sub_window_size, window_overlap, feature_type, clip_anomaly)
+        st2f = Stream_to_feature_self(sub_window_size, window_overlap, feature_type)
 
         if self.num_cpus > 1:
             output_feature = st2f.prepare_feature_mpi(st=self.st, num_cpus=self.num_cpus)  # make sure you have 6 CPUs
@@ -338,15 +325,13 @@ class FlowAlert:
         # with this param, you can use the same FlowAlert class to test multiple models
         if tested_model is None:
             tested_model = self.model_type
-        else:
-            tested_model = tested_model
 
         # pass the data to model
         if tested_model in ["RF", "Random_Forest", "XGB", "XGBoost"]:
             data = self.model_input
             model_output = self.by_tree_model(data=data)
         else:
-            seq_length = self.inference_model_config[self.model_type]["seq_length"]
+            seq_length = self.inference_model_config[self.model_type]["seq_length"]  # type: ignore
             # convert numpy as data sequence for LSTM model
             data = data_to_seq(array=self.model_input, seq_length=seq_length)
             model_output = self.by_dl_model(data=data)
@@ -361,7 +346,7 @@ class FlowAlert:
         target = data[:, -1]  # do not need now (2026-01-19)
 
         temp_pro = []
-        for model in self.model_list:
+        for model in self.model_list:  # type: ignore
             predicted_pro = model.predict_proba(feature_arr)[:, 1]  # only select the DF pro
             pre_y_pro = np.round(predicted_pro, decimals=3).astype(float)
             # model predicted train_data label
@@ -388,8 +373,8 @@ class FlowAlert:
     def by_dl_model(self, data):
 
         batch_size = 1  # do not use large batch
-        seq_length = self.inference_model_config[self.model_type]["seq_length"]
-        feature_size = self.inference_model_config["feature_size"]
+        seq_length = self.inference_model_config[self.model_type]["seq_length"]  # type: ignore
+        feature_size = self.inference_model_config["feature_size"]  # type: ignore
 
         temp_pro = []  # store all time stamps
 
@@ -404,7 +389,7 @@ class FlowAlert:
 
             # 2nd loop all the same seq in model doamin
             predicted_pro = []
-            for model in self.model_list:
+            for model in self.model_list:  # type: ignore
                 # make sure does not change the model parameters
                 model = model.to(self.device)
                 model.eval()
@@ -445,13 +430,13 @@ class FlowAlert:
 
         # define the time stamps (isoformat)
         if event_start is None:
-            event_start = self.st.stats.starttime.isoformat()
+            event_start = self.stats.starttime.isoformat()
         else:
             event_start = UTCDateTime(event_start).isoformat()
 
         if event_end is None:
             # use the data end as envent end time
-            event_end = self.st.stats.endtime.isoformat()
+            event_end = self.stats.endtime.isoformat()
         else:
             event_end = UTCDateTime(event_end).isoformat()
 
@@ -464,9 +449,6 @@ class FlowAlert:
         # the array_temp should shape by [float timestamps, str timestamps, pro1-N, pro_mean, pro_CI]
         array_temp = self.model_output
 
-        temp = inference_matrix(
-            array_temp, benchmark_time, event_start, event_end, pro_epsilon=0.5, buffer1=3, buffer2=3
-        )
         (
             detection_type,
             first_detection,
@@ -474,18 +456,34 @@ class FlowAlert:
             increased_warning_time,
             false_detection,
             false_detection_ratio,
-        ) = temp
-        note = (
-            f"params: {self.output_format},\n"
-            f"detection type: {detection_type},\n"
-            f"first detection time: {first_detection_str},\n"
-            f"benchmark time: {benchmark_time},\n"
-            f"increased warning time: {increased_warning_time} [seconds],\n"
-            f"false detection ratio: {false_detection_ratio:.3f}"
+        ) = inference_matrix(
+            array_temp,
+            benchmark_time,
+            event_start,
+            event_end,
+            pro_epsilon=0.5,
+            buffer1=1,
+            buffer2=3,
         )
 
-        plot_predicted_pro(
-            benchmark_time, first_detection_str, self.st, array_temp, self.output_path, self.output_format, note
+        # plot
+        note = (
+            f"Detection Type: {detection_type},\n"
+            f"Benchmark time (max amp. time) t1: {benchmark_time},\n"
+            f"First Detection Time (pro >= 0.5) t2: {first_detection_str}, \n"
+            f"Increased Warning Time (t1 - t2): {increased_warning_time} [seconds], \n"
+            f"False Detection Ratio: {false_detection_ratio}, \n"
+        )
+        plot_amp_psd_pro(
+            benchmark_time=benchmark_time,
+            first_detection_str=first_detection_str,
+            st=self.st.copy(),
+            array_temp=array_temp,
+            output_path=self.output_path,
+            output_format=self.output_format,
+            note=note,
+            f_min=self.f_min,
+            f_max=self.f_max,
         )
 
         time_now = UTCDateTime.now().isoformat()

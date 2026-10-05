@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-08-29T12:11:08
+# __modification time__ = Last modified: 2026-09-14T09:41:40
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this functions without the author's permission
@@ -113,6 +113,3 @@ def usage():
     st_new = synthetic_stream(st_raw=st)
     st_new.plot()
     print(st_new[0].stats)  # type: ignore
-
-
-usage()

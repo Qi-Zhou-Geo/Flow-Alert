@@ -244,6 +244,9 @@ def plot_amp_psd_pro(
     note,
     f_min,
     f_max,
+    st_amp=None,
+    time_markers=None,
+    time_markers_label=None,
 ):
 
     tr = stream_to_trace(st=st.copy())
@@ -278,7 +281,14 @@ def plot_amp_psd_pro(
 
     # 1. Waveform
     ax_wave.set_title(output_format, fontsize=7, fontweight="bold")
-    ax_wave.plot(np.arange(stats.npts) / stats.sampling_rate, tr.data, color="black", linewidth=0.6, label=note)
+    if st_amp is not None:
+        st_amp = st_amp.trim(t1, t2, nearest_sample=False)
+        x = np.arange(st_amp[0].stats.npts) / st_amp[0].stats.sampling_rate
+        amp_data = st_amp[0].data
+    else:
+        x = np.arange(stats.npts) / stats.sampling_rate
+        amp_data = tr.data  # type: ignore
+    ax_wave.plot(x, amp_data, color="black", linewidth=0.6, label=note)  # type: ignore
     ax_wave.set_ylabel("Amplitude [m/s]", fontweight="bold")
     ax_wave.legend(fontsize=5)
 
@@ -311,13 +321,11 @@ def plot_amp_psd_pro(
         alpha=0.5,
         zorder=2,
     )
-    if np.max(probability) >= 0.6:
-        ax_pro.set_ylim(0, 1)
-    else:
-        ax_pro.set_ylim(0, np.max(probability))
+
+    ax_pro.set_ylim(0, min(1, np.max(probability) * 1.5))
     ax_pro.set_ylabel("Probability", fontweight="bold")
 
-    # Solid red underneath; dashed green on top.
+    # Solid red underneath; dashed green on top
     for ax in (ax_wave, ax_psd, ax_pro):
         for time, label, color, linestyle, zorder in (
             (first_detection_str, "First Detection", "red", "-", 4),
@@ -331,6 +339,21 @@ def plot_amp_psd_pro(
                 linewidth=0.8,
                 zorder=zorder,
             )
+
+    # plot time markers
+
+    if time_markers is not None and time_markers_label is not None and len(time_markers) == len(time_markers_label):
+        colors = [f"C{i}" for i in range(len(time_markers))]
+        for idx, ts in enumerate(time_markers):
+            for ax in (ax_wave, ax_psd, ax_pro):
+                ax.axvline(
+                    UTCDateTime(ts) - origin,
+                    color=colors[idx],
+                    label=time_markers_label[idx],
+                    linestyle="-",
+                    linewidth=2,
+                    zorder=1,
+                )
 
     rewrite_x_ticks(
         ax_pro,

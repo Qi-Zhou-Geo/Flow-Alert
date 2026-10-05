@@ -1,4 +1,4 @@
-# Last Update: Last modified: 2026-07-03T17:17:24
+# Last Update: Last modified: 2026-09-14T11:08:15
 # Author: Qi Zhou
 
 name: FlowAlert
@@ -41,6 +41,7 @@ dependencies:
   - h5py=3.16.0
   - h5netcdf=1.8.1
   - schedule=1.2.2
+  - openpyxl
 
 
   # Download data

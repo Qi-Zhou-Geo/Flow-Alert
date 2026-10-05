@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 from tqdm import tqdm
-
+from scipy.ndimage import median_filter
 from obspy import UTCDateTime
 
 # <editor-fold desc="add the sys.path to search for custom modules">
@@ -156,14 +156,24 @@ def load_st(idx, buffer=24, f_min=1, f_max=25):
     return st, output_format, sta_s, sta_e
 
 
-def find_max_amp_time(st, sta_s, sta_e):
+def find_max_amp_time(st, sta_s, sta_e, least_time=10):
+
     tr = st.copy()
     tr.trim(UTCDateTime(sta_s), UTCDateTime(sta_e))
     tr = stream_to_trace(st=tr)
-    data = tr.data
+    data = np.abs(tr.data)  # type: ignore
 
-    index = np.argmax(data)
-    benchmark_time = UTCDateTime(tr.stats.starttime) + index * tr.stats.delta
+    # 3-second window based on the sampling rate
+    sps = tr.stats.sampling_rate  # type: ignore
+    # rely on the data/amp at least 5 second
+    window = int(round(least_time * sps))  # type: ignore
+    if window % 2 == 0:
+        window = window + 1
+
+    smooth_amp = median_filter(data, size=window, mode="reflect")
+
+    index = np.argmax(smooth_amp)
+    benchmark_time = tr.stats.starttime + index * tr.stats.delta  # type: ignore
     benchmark_time = benchmark_time.strftime("%Y-%m-%dT%H:%M:%S")
 
     return benchmark_time

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# __modification time__ = Last modified: 2026-09-14T12:15:17
+# __modification time__ = Last modified: 2026-09-14T17:03:30
 # __author__ = Qi Zhou, GFZ Helmholtz Centre for Geosciences
 # __find me__ = qi.zhou@gfz.de, qi.zhou.geo@gmail.com, https://github.com/Qi-Zhou-Geo
 # Please do not distribute this code without the author's permission
@@ -30,10 +30,11 @@ sys.path.append(str(project_root))
 
 
 # import the custom functions
+from functions.feature.feature_name import load_feature_name
 from functions.feature.calculator import cal_attributes_A, cal_attributes_B
 from functions.seismic.chunk_st2seq import chunk_data
 from functions.visualize.visualize_seismic import convert_st2tr
-from functions.data_process.load_data import clip_df_columns
+from functions.data_process.dynamic_normalize import dynamic_norm
 
 
 # for multiple process
@@ -52,16 +53,20 @@ def _process_worker(args):
     return idx, result
 
 
-class Stream_to_feature:
-    def __init__(self, sub_window_size, window_overlap, feature_type, clip_anomaly):
+class Stream_to_feature_self:
+    def __init__(self, sub_window_size, window_overlap, feature_type):
 
         self.sub_window_size = sub_window_size
         self.window_overlap = window_overlap
         self.feature_type = feature_type
-        self.clip_anomaly = clip_anomaly
+        self.normalize = False
+
+        # feature
         self.cal_attributes_A = cal_attributes_A
         self.cal_attributes_B = cal_attributes_B
         self.chunk_data = chunk_data
+
+        # time format
         self.fmt = "%Y-%m-%dT%H:%M:%S"
 
     def trim_st(self, st):
@@ -81,20 +86,28 @@ class Stream_to_feature:
 
         return tr  # Trace
 
-    def normalize_feature(self, output_feature, clip_anomaly):
+    def normalize_feature(self, output_feature):
+        feature_Name_A, feature_Name_B = load_feature_name(print_log=False)
 
-        df = pd.DataFrame(output_feature)
+        selected_id = self.select_type_A()
+        columns_name = (
+            np.array(feature_Name_A[4:])[selected_id].tolist()
+            + feature_Name_B[4:]
+            + [f"useless{i}" for i in range(10)]
+            + ["time_float", "time_str", "label"]
+        )
+        df = pd.DataFrame(output_feature, columns=columns_name)
+
         assert df.shape[1] == 83, f"{df.shape[1]} != 83"
 
-        if clip_anomaly is True:
-            # Clip anomalous values based on Illgraben 2013-2019 observations
-            df = clip_df_columns(df)
-
-        # this is based on training and testing
-        # if you can not find this ".npz" file, pelase run "data/scaler/run_normalize.sh"
-        with np.load(f"{project_root}/data/scaler/normalize_factor4C.npz", "r") as f:
-            min_factor = f["min_factor"]
-            max_factor = f["max_factor"]
+        max_factor, min_factor = dynamic_norm(
+            df=df,
+            Illgraben_rms_min=1e-6,
+            Illgraben_rms_max=5e-4,
+            theory_min=1e-8,
+            theory_max=1e-3,
+            window_size=60,
+        )
 
         X = df.iloc[:, :-3].to_numpy().astype(float)
         scaled = (X - min_factor) / (max_factor - min_factor)
@@ -111,10 +124,10 @@ class Stream_to_feature:
             config = yaml.safe_load(f)
 
         selected = config[f"feature_type_{feature_type}"]
-        selected = selected + [80, 81, 82]
-        temp = output_feature[:, selected]
+        selected_id = selected + [80, 81, 82]
+        selected_df = output_feature[:, selected_id]
 
-        return temp
+        return selected_id, selected_df
 
     def select_type_A(self):
         # shape A features is 17
@@ -168,10 +181,12 @@ class Stream_to_feature:
             output_feature[idx, :] = np.concatenate((type_a, type_b, type_b_net, time_array), axis=0)  # stack as column
 
         # normalize the features
-        output_feature = self.normalize_feature(output_feature, self.clip_anomaly)
+        # input as 2D array ([float time stamps, all 80 features, labels])
+        output_feature = self.normalize_feature(output_feature)
 
-        # select the feature by deseried type
-        output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
+        # select the feature by deseried type,
+        # output as 2D array ([float time stamps, selected features, labels])
+        selected_id, output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
 
         return output_feature
 
@@ -220,9 +235,11 @@ class Stream_to_feature:
             output_feature[idx, :] = result
 
         # normalize the features
-        output_feature = self.normalize_feature(output_feature, self.clip_anomaly)
+        # input as 2D array ([float time stamps, all 80 features, labels])
+        output_feature = self.normalize_feature(output_feature)
 
-        # select the feature by deseried type
-        output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
+        # select the feature by deseried type,
+        # output as 2D array ([float time stamps, selected features, labels])
+        selected_id, output_feature = self.selected_feature_by_type(self.feature_type, output_feature)
 
         return output_feature
